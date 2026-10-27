@@ -825,6 +825,105 @@
     color: var(--text-faint);
     text-align: center;
   }
+  .draft-cap {
+    background: transparent;
+    color: var(--text-faint);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    width: 28px;
+    height: 28px;
+    font-size: 15px;
+    line-height: 1;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .draft-cap.on { color: var(--yellow); border-color: var(--yellow); background: var(--yellow-bg); }
+  .draft-lock, .draft-guest-row select {
+    background: var(--bg);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 4px 6px;
+    font-size: 12px;
+    max-width: 150px;
+  }
+  .draft-error { color: var(--red); font-size: 13px; min-height: 18px; margin: 0 0 10px; }
+  .draft-warn {
+    margin-top: 12px;
+    background: var(--yellow-bg);
+    border: 1px solid var(--yellow);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+  .draft-warn ul { margin: 8px 0 0; padding-left: 18px; }
+  .draft-teams.multi { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+  .draft-team li.locked { color: var(--yellow); }
+  .launch-box {
+    margin-top: 18px;
+    border-top: 1px solid var(--border);
+    padding-top: 14px;
+  }
+  .launch-box h4 { margin: 0 0 6px; font-size: 14px; }
+  .draft-order-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 4px 0;
+    font-size: 13px;
+  }
+  .draft-order-row span { flex: 1; }
+  .draft-order-row .draft-clear-btn { padding: 2px 10px; }
+  .launch-text {
+    width: 100%;
+    margin: 8px 0;
+    background: var(--bg);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px;
+    font-family: ui-monospace, Consolas, monospace;
+    font-size: 12px;
+  }
+  .tn h4 { margin: 18px 0 8px; font-size: 14px; }
+  .tn-head { margin-bottom: 8px; font-size: 13px; color: var(--text-dim); }
+  .tn-teams { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; }
+  .tn-rounds { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+  .tn-playoff { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+  .tn-ttl { font-size: 11px; color: var(--text-faint); text-transform: uppercase; letter-spacing: .04em; margin-bottom: 6px; }
+  .tn-match {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 8px;
+    align-items: center;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 10px;
+    margin-bottom: 6px;
+    font-size: 13px;
+  }
+  .tn-match span:last-child { text-align: right; }
+  .tn-match .tn-win { color: var(--green); font-weight: 600; }
+  .tn-match.tn-todo { color: var(--text-faint); }
+  .tn-score { color: var(--text-dim); font-variant-numeric: tabular-nums; text-align: center; min-width: 54px; }
+  .tn-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .tn-table th { text-align: left; color: var(--text-faint); font-weight: 500; padding: 6px 8px; border-bottom: 1px solid var(--border); }
+  .tn-table td { padding: 7px 8px; border-bottom: 1px solid var(--border); font-variant-numeric: tabular-nums; }
+  .tn-table th, .tn-table td { text-align: left; }
+  .tn-table th:nth-child(n+3), .tn-table td:nth-child(n+3) { text-align: right; }
+  .tn-select {
+    background: var(--bg);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 5px 8px;
+    font-size: 13px;
+  }
+  .tn-places { background: var(--green-bg); border-radius: 8px; padding: 10px 14px; margin: 8px 0; }
+  .tn-places h4 { margin: 0 0 6px; }
+  .tn-unattributed { margin-top: 16px; font-size: 12px; color: var(--text-dim); }
+  .tn-unattributed h4 { margin: 0 0 6px; }
   .hist-section {
     background: var(--bg-panel);
     border: 1px solid var(--border);
@@ -955,6 +1054,7 @@
       <div class="tab" data-tab="maps">Карты</div>
       <div class="tab" data-tab="draft">Выбор составов</div>
       <div class="tab" data-tab="records">Рекорды</div>
+      <div class="tab" data-tab="tournament">Турнир</div>
     </div>
     <a class="rating-info-link" href="rating-info.html" target="_blank" rel="noopener">Информация о рейтинге →</a>
   </div>
@@ -968,6 +1068,7 @@
   <div id="wheelSection"></div>
   <div id="excuseSection"></div>
   <div id="draftSection"></div>
+  <div id="tournamentSection"></div>
 
   <footer id="footer"></footer>
 
@@ -1021,7 +1122,7 @@
   function ratingDeltaClass(v) { return v > 0 ? "rating-delta-up" : v < 0 ? "rating-delta-down" : "rating-delta-flat"; }
 
   var TAB_STORAGE_KEY = "llstat:selectedTab";
-  var VALID_TABS = ["allTime", "lastSession", "draft", "maps", "records"];
+  var VALID_TABS = ["allTime", "lastSession", "draft", "maps", "records", "tournament"];
   function loadSavedTab() {
     try { return localStorage.getItem(TAB_STORAGE_KEY); } catch (err) { return null; }
   }
@@ -1125,6 +1226,7 @@
     renderWheelSection();
     renderExcuseSection();
     renderDraftSection();
+    renderTournamentSection();
   }
 
   function renderMapChips() {
@@ -1334,7 +1436,7 @@
   }
 
   // Вкладки, на которых нет общей таблицы игроков (у них свой блок).
-  function noTableTab() { return state.tab === "draft" || state.tab === "records"; }
+  function noTableTab() { return state.tab === "draft" || state.tab === "records" || state.tab === "tournament"; }
 
   function getRows() {
     if (noTableTab()) return [];
@@ -2581,358 +2683,35 @@
     drawRecapCard(canvas, s);
   }
 
-  // Гости (игроки со стороны): минимум DRAFT_MIN_POOL человек из пула, остальные
-  // до десяти — гости с именем и "рейтингом на глаз". У гостей нет K/D и K-D,
-  // поэтому их оцениваем линейной регрессией по рейтингу на всех игроках
-  // "за всё время" (draftEstimator); сами оценённые числа на экран не выводим.
-  //
-  // "Выбор составов": делит ровно 10 человек на два состава 5×5,
-  // минимизируя разницу между командами сразу по трём сигналам — рейтингу
-  // "за всё время" (вес 0.3), суммарной K-D разнице (вес 0.3) и K/D (вес 0.4),
-  // каждый нормирован к своему разбросу среди выбранной десятки (иначе
-  // рейтинг, у которого диапазон в сотни, забил бы K/D с диапазоном порядка
-  // 1-2 — та же ошибка, что мы уже правили в весах рейтинга сессии). С 10
-  // игроками всего 126 уникальных разбиений 5/5 (C(10,5)/2) — перебираем все,
-  // без всякой эвристики, и берём точный оптимум.
-  var DRAFT_MAX = 10;
-  var DRAFT_GEN_PREFIX = "llstat:draftGen:";
-  var DRAFT_MIN_POOL = 4;
-  var DRAFT_GUEST_NAME_MAX = 40;
-  var DRAFT_RATING_MIN = 1;
-  var DRAFT_RATING_MAX = 1500;
-  var DRAFT_GUEST_DEFAULT_RATING = 500;
-  var draftState = { selected: new Set(), guests: [], nextGuestId: 1, lastKey: null, lastSplits: null, currentView: 0 };
-
-  function draftGuestRatingValid(g) {
-    return g.rating !== "" && isFinite(Number(g.rating)) &&
-      Number(g.rating) >= DRAFT_RATING_MIN && Number(g.rating) <= DRAFT_RATING_MAX;
-  }
-
-  function draftGuestWord(n) {
-    return pluralRu(n, "гость", "гостя", "гостей");
-  }
-
-  function draftKeyFor(ids, guests) {
-    var guestPart = guests.map(function (g) { return "g:" + g.name + "=" + g.rating; }).sort();
-    return DRAFT_GEN_PREFIX + ids.slice().sort().concat(guestPart).join(",");
-  }
-
-  // y ≈ a + b·x по методу наименьших квадратов; при нулевом разбросе x — среднее y.
-  function linFit(xs, ys) {
-    var n = xs.length;
-    var mx = xs.reduce(function (s, v) { return s + v; }, 0) / n;
-    var my = ys.reduce(function (s, v) { return s + v; }, 0) / n;
-    var sxx = 0, sxy = 0;
-    for (var i = 0; i < n; i++) {
-      sxx += (xs[i] - mx) * (xs[i] - mx);
-      sxy += (xs[i] - mx) * (ys[i] - my);
-    }
-    var b = sxx > 0 ? sxy / sxx : 0;
-    return { a: my - b * mx, b: b };
-  }
-
-  function draftEstimator(allPlayers) {
-    var pool = allPlayers.filter(function (p) {
-      return p.rating != null && p.kd != null && p.k != null && p.d != null;
+  // Вкладка "Турнир" целиком в docs/lib/tournamentUi.mjs; поле tournaments может
+  // отсутствовать в старом закешированном stats.json — тогда показываем пустое состояние.
+  var tournamentModule = null;
+  function renderTournamentSection() {
+    var el = document.getElementById("tournamentSection");
+    el.style.display = state.tab === "tournament" ? "" : "none";
+    if (state.tab !== "tournament") return;
+    if (!tournamentModule) tournamentModule = import("./lib/tournamentUi.mjs");
+    tournamentModule.then(function (m) {
+      m.renderTournaments(el, state.data.tournaments || []);
+    }).catch(function (err) {
+      tournamentModule = null;
+      el.textContent = "Не удалось загрузить вкладку: " + err.message;
     });
-    var ratings = pool.map(function (p) { return p.rating; });
-    var kdFit = linFit(ratings, pool.map(function (p) { return p.kd; }));
-    var diffFit = linFit(ratings, pool.map(function (p) { return p.k - p.d; }));
-    return function (rating) {
-      return {
-        kd: Math.max(0, kdFit.a + kdFit.b * rating),
-        kdDiff: diffFit.a + diffFit.b * rating,
-      };
-    };
-  }
-  function loadDraftGenCount(key) {
-    try { return parseInt(localStorage.getItem(key), 10) || 0; } catch (err) { return 0; }
-  }
-  function saveDraftGenCount(key, n) {
-    try { localStorage.setItem(key, String(n)); } catch (err) {}
   }
 
+  // "Выбор составов": капитаны, закрепление игроков, автоподбор и запуск турнира
+  // целиком в docs/lib/draftUi.mjs (подгружается при первом открытии вкладки).
   function renderDraftSection() {
     var el = document.getElementById("draftSection");
-    if (el.dataset.built !== "1") {
-      buildDraft(el);
-      el.dataset.built = "1";
-    }
     el.style.display = state.tab === "draft" ? "" : "none";
-  }
-
-  function buildDraft(el) {
-    var players = state.data.allTime.players.slice().sort(function (a, b) {
-      return a.name.localeCompare(b.name, "ru");
-    });
-
-    var rowsHtml = players.map(function (p) {
-      var avatarHtml = p.avatarUrl
-        ? '<img class="avatar" src="' + escapeHtml(p.avatarUrl) + '" alt="" loading="lazy">'
-        : '<div class="avatar"></div>';
-      return '<label class="draft-row">' +
-        '<input type="checkbox" data-steamid="' + escapeHtml(p.steamid64) + '">' +
-        avatarHtml +
-        '<span class="draft-name">' + escapeHtml(p.name) + "</span>" +
-        '<span class="draft-meta">рейтинг ' + fmtRating(p.rating) + " · K/D " + fmt2(p.kd) + "</span>" +
-        "</label>";
-    }).join("");
-
-    el.innerHTML =
-      '<div class="draft-section">' +
-        '<p class="draft-hint">Выбери 10 игроков: минимум ' + DRAFT_MIN_POOL + " из нашего списка, остальных добавь " +
-        "гостями с именем и примерным рейтингом. Поделим на два состава 5×5 максимально балансово " +
-        "по рейтингу, K-D и K/D (у гостей K-D и K/D оцениваются по рейтингу).</p>" +
-        '<div class="draft-list" id="draftList">' + rowsHtml + "</div>" +
-        '<div class="draft-guests">' +
-          '<button type="button" class="draft-guest-add" id="draftGuestAddBtn">+ Добавить гостя</button>' +
-          '<div id="draftGuestList"></div>' +
-        "</div>" +
-        '<div class="draft-toolbar">' +
-          '<div class="draft-counter" id="draftCounter">Выбрано: 0 / ' + DRAFT_MAX + "</div>" +
-          '<button type="button" class="draft-clear-btn" id="draftClearBtn">Очистить всё</button>' +
-        "</div>" +
-        '<button type="button" class="wheel-spin-btn" id="draftFormBtn" disabled>Сформировать состав</button>' +
-        '<div id="draftResult"></div>' +
-      "</div>";
-
-    el.querySelectorAll('#draftList input[type="checkbox"]').forEach(function (cb) {
-      cb.addEventListener("change", onDraftCheckboxChange);
-    });
-    document.getElementById("draftFormBtn").addEventListener("click", function () {
-      runDraft(false);
-    });
-    document.getElementById("draftClearBtn").addEventListener("click", clearDraftSelection);
-    document.getElementById("draftGuestAddBtn").addEventListener("click", addDraftGuest);
-    document.getElementById("draftGuestList").addEventListener("input", onDraftGuestInput);
-    document.getElementById("draftGuestList").addEventListener("click", onDraftGuestClick);
-    updateDraftCounter();
-  }
-
-  function addDraftGuest() {
-    var total = draftState.selected.size + draftState.guests.length;
-    if (total >= DRAFT_MAX || draftState.guests.length >= DRAFT_MAX - DRAFT_MIN_POOL) return;
-    draftState.guests.push({ id: draftState.nextGuestId++, name: "", rating: String(DRAFT_GUEST_DEFAULT_RATING) });
-    renderDraftGuests();
-    updateDraftCounter();
-    document.getElementById("draftResult").innerHTML = "";
-    var inputs = document.querySelectorAll("#draftGuestList .draft-guest-name");
-    inputs[inputs.length - 1].focus();
-  }
-
-  function renderDraftGuests() {
-    document.getElementById("draftGuestList").innerHTML = draftState.guests.map(function (g, i) {
-      return '<div class="draft-guest-row" data-gid="' + g.id + '">' +
-        '<input type="text" class="draft-guest-name" maxlength="' + DRAFT_GUEST_NAME_MAX + '"' +
-          ' placeholder="Гость ' + (i + 1) + ': имя / плюс от…" value="' + escapeHtml(g.name) + '">' +
-        '<input type="number" class="draft-guest-rating' + (draftGuestRatingValid(g) ? "" : " invalid") + '"' +
-          ' min="' + DRAFT_RATING_MIN + '" max="' + DRAFT_RATING_MAX + '" step="1" value="' + escapeHtml(g.rating) + '">' +
-        '<button type="button" class="draft-guest-remove" aria-label="Удалить гостя">×</button>' +
-        '<div class="draft-guest-label">Рейтинг на глаз, ' + DRAFT_RATING_MIN + "–" + DRAFT_RATING_MAX +
-          " (" + DRAFT_GUEST_DEFAULT_RATING + " — средний игрок)</div>" +
-      "</div>";
-    }).join("");
-  }
-
-  function findDraftGuest(target) {
-    var row = target.closest(".draft-guest-row");
-    var id = row ? Number(row.dataset.gid) : null;
-    return draftState.guests.find(function (g) { return g.id === id; });
-  }
-
-  function onDraftGuestInput(e) {
-    var g = findDraftGuest(e.target);
-    if (!g) return;
-    if (e.target.classList.contains("draft-guest-name")) {
-      g.name = e.target.value;
-    } else {
-      g.rating = e.target.value;
-      e.target.classList.toggle("invalid", !draftGuestRatingValid(g));
-    }
-    updateDraftCounter();
-    document.getElementById("draftResult").innerHTML = "";
-  }
-
-  function onDraftGuestClick(e) {
-    if (!e.target.classList.contains("draft-guest-remove")) return;
-    var g = findDraftGuest(e.target);
-    draftState.guests = draftState.guests.filter(function (x) { return x !== g; });
-    renderDraftGuests();
-    updateDraftCounter();
-    document.getElementById("draftResult").innerHTML = "";
-  }
-
-  function clearDraftSelection() {
-    draftState.selected.clear();
-    draftState.guests = [];
-    renderDraftGuests();
-    document.querySelectorAll('#draftList input[type="checkbox"]').forEach(function (cb) {
-      cb.checked = false;
-      cb.disabled = false;
-    });
-    updateDraftCounter();
-    document.getElementById("draftResult").innerHTML = "";
-  }
-
-  function onDraftCheckboxChange(e) {
-    var id = e.target.dataset.steamid;
-    if (e.target.checked) {
-      if (draftState.selected.size + draftState.guests.length >= DRAFT_MAX) {
-        e.target.checked = false;
-        return;
-      }
-      draftState.selected.add(id);
-    } else {
-      draftState.selected.delete(id);
-    }
-    updateDraftCounter();
-    document.getElementById("draftResult").innerHTML = "";
-  }
-
-  function updateDraftCounter() {
-    var pool = draftState.selected.size;
-    var guests = draftState.guests.length;
-    var n = pool + guests;
-    var counter = document.getElementById("draftCounter");
-    counter.textContent = guests
-      ? "Выбрано: " + pool + " из списка + " + guests + " " + draftGuestWord(guests) + " = " + n + " / " + DRAFT_MAX
-      : "Выбрано: " + n + " / " + DRAFT_MAX;
-    counter.classList.toggle("full", n === DRAFT_MAX);
-    document.getElementById("draftFormBtn").disabled = !draftReady();
-
-    var atMax = n >= DRAFT_MAX;
-    document.querySelectorAll('#draftList input[type="checkbox"]').forEach(function (cb) {
-      if (!cb.checked) cb.disabled = atMax;
-    });
-    document.getElementById("draftGuestAddBtn").disabled = atMax || guests >= DRAFT_MAX - DRAFT_MIN_POOL;
-  }
-
-  function draftReady() {
-    return draftState.selected.size >= DRAFT_MIN_POOL &&
-      draftState.selected.size + draftState.guests.length === DRAFT_MAX &&
-      draftState.guests.every(draftGuestRatingValid);
-  }
-
-  function draftAvgOf(list, accessor) {
-    var get = typeof accessor === "function" ? accessor : function (p) { return p[accessor]; };
-    return list.reduce(function (sum, p) { return sum + get(p); }, 0) / list.length;
-  }
-
-  function computeDraftSplits(players) {
-    var ratings = players.map(function (p) { return p.rating; });
-    var kdDiffs = players.map(function (p) { return p.k - p.d; });
-    var kds = players.map(function (p) { return p.kd; });
-    var ratingRange = Math.max.apply(null, ratings) - Math.min.apply(null, ratings);
-    var kdDiffRange = Math.max.apply(null, kdDiffs) - Math.min.apply(null, kdDiffs);
-    var kdRange = Math.max.apply(null, kds) - Math.min.apply(null, kds);
-
-    var splits = [];
-    for (var mask = 1; mask < 1024; mask += 2) { // нечётные маски: players[0] всегда в teamA
-      var bits = 0;
-      for (var b = 0; b < 10; b++) if (mask & (1 << b)) bits++;
-      if (bits !== 5) continue;
-
-      var teamA = [], teamB = [];
-      for (var i = 0; i < 10; i++) (mask & (1 << i) ? teamA : teamB).push(players[i]);
-
-      var avgA = draftAvgOf(teamA, "rating"), avgB = draftAvgOf(teamB, "rating");
-      var kdA = draftAvgOf(teamA, "kd"), kdB = draftAvgOf(teamB, "kd");
-      var diffA = draftAvgOf(teamA, function (p) { return p.k - p.d; }), diffB = draftAvgOf(teamB, function (p) { return p.k - p.d; });
-      var ratingDiff = Math.abs(avgA - avgB);
-      var kdDiff = Math.abs(kdA - kdB);
-      var kdDiffDiff = Math.abs(diffA - diffB);
-      var score = 0.3 * (ratingRange > 0 ? ratingDiff / ratingRange : 0) +
-                  0.3 * (kdDiffRange > 0 ? kdDiffDiff / kdDiffRange : 0) +
-                  0.4 * (kdRange > 0 ? kdDiff / kdRange : 0);
-
-      splits.push({
-        teamA: teamA, teamB: teamB, avgA: avgA, avgB: avgB, kdA: kdA, kdB: kdB,
-        diffA: diffA, diffB: diffB, ratingDiff: ratingDiff, kdDiff: kdDiff, kdDiffDiff: kdDiffDiff, score: score,
-      });
-    }
-    splits.sort(function (a, b) { return a.score - b.score; });
-    return splits;
-  }
-
-  // Оба варианта (лучший и второй по качеству) считаются один раз и кэшируются
-  // в draftState — переключение между ними после этого бесплатное и не тратит
-  // лимит генераций, лимит защищает только от появления третьего варианта.
-  function runDraft(isAgain) {
-    if (!draftReady()) return;
-    var ids = Array.from(draftState.selected);
-    var guests = draftState.guests.map(function (g, i) {
-      return { name: g.name.trim() || "Гость " + (i + 1), rating: Number(g.rating) };
-    });
-    var key = draftKeyFor(ids, guests);
-    var used = loadDraftGenCount(key);
-
-    if (isAgain) {
-      if (used < 2) saveDraftGenCount(key, 2);
-      showDraftVariant(1);
-      return;
-    }
-
-    if (draftState.lastKey !== key) {
-      var allPlayers = state.data.allTime.players;
-      var players = ids.map(function (id) {
-        return allPlayers.find(function (p) { return p.steamid64 === id; });
-      });
-      if (guests.length) {
-        var estimate = draftEstimator(allPlayers);
-        guests.forEach(function (g) {
-          var est = estimate(g.rating);
-          // computeDraftSplits берёт K-D как k - d, так что кладём оценку в k.
-          players.push({ name: g.name, rating: g.rating, kd: est.kd, k: est.kdDiff, d: 0, guest: true });
-        });
-      }
-      draftState.lastKey = key;
-      draftState.lastSplits = computeDraftSplits(players);
-    }
-    saveDraftGenCount(key, Math.max(used, 1));
-    showDraftVariant(0);
-  }
-
-  function showDraftVariant(index) {
-    draftState.currentView = index;
-    renderDraftResult(draftState.lastSplits[index], draftState.lastKey, index);
-  }
-
-  function renderDraftResult(split, key, variantIndex) {
-    var resultEl = document.getElementById("draftResult");
-
-    function teamHtml(title, team, avgRating, avgKdDiff, avgKd) {
-      var itemsHtml = team.map(function (p) {
-        var tag = p.guest ? '<span class="draft-guest-tag">гость</span>' : "";
-        return "<li><span>" + escapeHtml(p.name) + tag + "</span><span>" + fmtRating(p.rating) + "</span></li>";
-      }).join("");
-      return '<div class="draft-team"><h4>' + title + "</h4><ul>" + itemsHtml + "</ul>" +
-        '<div class="team-stats">Средний рейтинг: ' + Math.round(avgRating) +
-        " · средний K-D: " + fmtDiff(Math.round(avgKdDiff)) +
-        " · средний K/D: " + avgKd.toFixed(2) + "</div></div>";
-    }
-
-    var used = loadDraftGenCount(key);
-    var switchButtonHtml = variantIndex === 0
-      ? '<button type="button" class="wheel-spin-btn" id="draftSwitchBtn">' +
-        (used < 2 ? "🔁 Сгенерировать ещё раз" : "➡️ Показать 2-й вариант") + "</button>"
-      : '<button type="button" class="wheel-spin-btn" id="draftSwitchBtn">⬅️ Показать 1-й вариант</button>';
-
-    resultEl.innerHTML =
-      '<div class="draft-teams">' +
-        teamHtml("Состав A", split.teamA, split.avgA, split.diffA, split.kdA) +
-        teamHtml("Состав B", split.teamB, split.avgB, split.diffB, split.kdB) +
-      "</div>" +
-      '<div class="draft-summary">Разница в среднем рейтинге — <strong>' + Math.round(split.ratingDiff) +
-      "</strong>, в среднем K-D — <strong>" + split.kdDiffDiff.toFixed(1) +
-      "</strong>, в среднем K/D — <strong>" + split.kdDiff.toFixed(2) + "</strong>.</div>" +
-      (split.teamA.concat(split.teamB).some(function (p) { return p.guest; })
-        ? '<div class="draft-variant-note">У гостей K-D и K/D оценены по рейтингу, поэтому средние по составам приблизительные.</div>'
-        : "") +
-      '<div class="draft-again-wrap">' + switchButtonHtml + "</div>" +
-      '<div class="draft-variant-note">Вариант ' + (variantIndex + 1) + " из 2 — больше вариантов для этой десятки не будет.</div>";
-
-    document.getElementById("draftSwitchBtn").addEventListener("click", function () {
-      runDraft(variantIndex === 0);
+    if (state.tab !== "draft" || el.dataset.built === "1") return;
+    el.dataset.built = "1";
+    el.textContent = "Загрузка…";
+    import("./lib/draftUi.mjs").then(function (m) {
+      m.mountDraft(el, { getPlayers: function () { return state.data.allTime.players; } });
+    }).catch(function (err) {
+      el.dataset.built = "";
+      el.textContent = "Не удалось загрузить вкладку: " + err.message;
     });
   }
 

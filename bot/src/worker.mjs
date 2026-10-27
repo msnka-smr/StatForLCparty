@@ -69,13 +69,19 @@ async function queueIsFull(env, fetchFn) {
   }
 }
 
-async function dispatchWorkflow(env, links, fetchFn) {
+// Сообщение с составами турнира: начинается с /турнир (кириллица, поэтому Telegram
+// не считает это командой — смотрим просто на начало текста).
+export function isTournamentMessage(text) {
+  return /^\s*\/турнир(?=\s|$)/i.test(String(text ?? ""));
+}
+
+async function dispatchWorkflow(env, inputs, fetchFn) {
   const res = await fetchFn(
     `https://api.github.com/repos/${env.GITHUB_REPO}/actions/workflows/${env.WORKFLOW_FILE}/dispatches`,
     {
       method: "POST",
       headers: githubHeaders(env),
-      body: JSON.stringify({ ref: env.GITHUB_REF, inputs: { links: links.join(" ") } }),
+      body: JSON.stringify({ ref: env.GITHUB_REF, inputs }),
     }
   );
   if (res.status === 204) return { ok: true };
@@ -105,6 +111,22 @@ export async function handleRequest(request, env, fetchFn = defaultFetch) {
   if (typeof text !== "string") return new Response("ok");
 
   const chatId = message.chat.id;
+
+  // Турнир обрабатывается раньше ссылок и исключает их: текст целиком идёт в workflow.
+  if (isTournamentMessage(text)) {
+    if (await queueIsFull(env, fetchFn)) {
+      await sendMessage(env, chatId, BUSY, fetchFn);
+      return new Response("ok");
+    }
+    const result = await dispatchWorkflow(env, { tournament: text }, fetchFn);
+    if (result.ok) {
+      await sendMessage(env, chatId, "Принял турнир, создаю. Напишу, когда закончу.", fetchFn);
+    } else {
+      await sendMessage(env, chatId, `Не удалось запустить создание турнира: GitHub ответил ${result.status}. ${result.body}`, fetchFn);
+    }
+    return new Response("ok");
+  }
+
   const links = extractMatchLinks(text);
 
   if (links.length === 0) {
@@ -121,7 +143,7 @@ export async function handleRequest(request, env, fetchFn = defaultFetch) {
     return new Response("ok");
   }
 
-  const result = await dispatchWorkflow(env, links, fetchFn);
+  const result = await dispatchWorkflow(env, { links: links.join(" ") }, fetchFn);
   if (result.ok) {
     await sendMessage(env, chatId, `Принял ${links.length} ${matchesWord(links.length)}, обновляю. Напишу, когда закончу.`, fetchFn);
   } else {

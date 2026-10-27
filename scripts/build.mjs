@@ -15,12 +15,14 @@ import { computeRatingHistory } from "./lib/ratingHistory.mjs";
 import { computeRecords } from "./lib/records.mjs";
 import { computeRecap } from "./lib/recap.mjs";
 import { computeAllTimeRating, computeRatingDelta } from "./lib/allTimeRating.mjs";
+import { buildTournamentsOutput } from "./lib/tournamentsOutput.mjs";
 import { summarizeMapFrequency, mapIconUrl, mapBannerUrl } from "./lib/mapCatalog.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const MATCHES_DIR = path.join(ROOT, "data", "matches");
 const CONFIG_PATH = path.join(ROOT, "data", "config.json");
 const PLAYERS_PATH = path.join(ROOT, "data", "players.json");
+const TOURNAMENTS_DIR = path.join(ROOT, "data", "tournaments");
 const THRESHOLD_STATE_PATH = path.join(ROOT, "data", "threshold-state.json");
 const OUTPUT_PATH = path.join(ROOT, "docs", "data", "stats.json");
 
@@ -45,6 +47,21 @@ async function readJson(filePath, fallback) {
 async function writeJson(filePath, value) {
   await mkdir(path.dirname(filePath), { recursive: true });
   await writeFile(filePath, JSON.stringify(value, null, 2) + "\n");
+}
+
+async function loadTournaments() {
+  let files;
+  try {
+    files = await readdir(TOURNAMENTS_DIR);
+  } catch (err) {
+    if (err.code === "ENOENT") return [];
+    throw err;
+  }
+  const tournaments = [];
+  for (const file of files.filter((f) => f.endsWith(".json")).sort()) {
+    tournaments.push(await readJson(path.join(TOURNAMENTS_DIR, file), null));
+  }
+  return tournaments.filter(Boolean);
 }
 
 async function loadAllMaps() {
@@ -242,6 +259,7 @@ async function main() {
     ratingHistory: ratingHistoryOut,
     records: computeRecords(sortedMaps, sessions),
     maps: mapsOutput,
+    tournaments: buildTournamentsOutput(await loadTournaments(), sortedMaps),
   };
 
   await writeJson(OUTPUT_PATH, output);

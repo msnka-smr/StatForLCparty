@@ -192,3 +192,59 @@ test("список запусков недоступен — всё равно �
   await handleRequest(LINK_MSG(), ENV, f);
   assert.ok(dispatchCall(f));
 });
+
+// --- турниры: сообщение, начинающееся с /турнир ---
+
+const TOURNAMENT_TEXT = "/турнир 2026-10-27T18:30:00.000Z\n1|*A=76561198000000001";
+
+test("турнир: /турнир запускает workflow с входом tournament и без links", async () => {
+  const f = fakeFetch([{ status: 204 }]);
+  await handleRequest(req({ body: message(TOURNAMENT_TEXT) }), ENV, f);
+  const body = JSON.parse(dispatchCall(f).init.body);
+  assert.deepEqual(body.inputs, { tournament: TOURNAMENT_TEXT });
+  assert.deepEqual(telegramTexts(f), ["Принял турнир, создаю. Напишу, когда закончу."]);
+});
+
+test("турнир: префикс в верхнем регистре тоже принимается", async () => {
+  const f = fakeFetch([{ status: 204 }]);
+  await handleRequest(req({ body: message(TOURNAMENT_TEXT.replace("/турнир", "/ТУРНИР")) }), ENV, f);
+  assert.ok(dispatchCall(f));
+});
+
+test("турнир: ссылка в том же сообщении не уходит в workflow", async () => {
+  const f = fakeFetch([{ status: 204 }]);
+  await handleRequest(
+    req({ body: message(TOURNAMENT_TEXT + "\nhttps://cybershoke.net/match/12747159") }),
+    ENV,
+    f
+  );
+  const body = JSON.parse(dispatchCall(f).init.body);
+  assert.equal(body.inputs.links, undefined);
+});
+
+test("турнир: при двух активных запусках — просьба подождать", async () => {
+  const f = fakeFetch([], { runs: [run("in_progress"), run("queued")] });
+  await handleRequest(req({ body: message(TOURNAMENT_TEXT) }), ENV, f);
+  assert.equal(dispatchCall(f), undefined);
+  assert.match(telegramTexts(f)[0], /Обновление уже идёт/);
+});
+
+test("турнир: из чужого чата — тишина", async () => {
+  const f = fakeFetch();
+  await handleRequest(req({ body: message(TOURNAMENT_TEXT, 999) }), ENV, f);
+  assert.equal(f.calls.length, 0);
+});
+
+test("турнир: слово /турнирный в начале — не команда", async () => {
+  const f = fakeFetch();
+  await handleRequest(req({ body: message("/турнирный план") }), ENV, f);
+  assert.equal(dispatchCall(f), undefined);
+});
+
+test("ссылки по-прежнему уходят как inputs.links", async () => {
+  const f = fakeFetch([{ status: 204 }]);
+  await handleRequest(req({ body: message("https://cybershoke.net/match/12747159") }), ENV, f);
+  assert.deepEqual(JSON.parse(dispatchCall(f).init.body).inputs, {
+    links: "https://cybershoke.net/match/12747159",
+  });
+});

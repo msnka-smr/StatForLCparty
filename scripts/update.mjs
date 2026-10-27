@@ -1,7 +1,8 @@
 // Полный цикл обновления: collect → build → commit → push.
 // npm run update            — свои матчи (нужна CYBERSHOKE_COOKIE в .env)
 // npm run add -- <id/ссылки> — ручная дозагрузка, дальше то же самое
-import { execFileSync } from "node:child_process";
+// --tournament-file <путь> — создать турнир из текста бота (см. tournament-add.mjs)
+import { execFileSync, spawnSync } from "node:child_process";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -22,9 +23,17 @@ function main() {
   // матчи могут добавляться и с кнопки в GitHub Actions — без этого
   // локальный push после такого коммита отклонялся бы как non-fast-forward
   run("git", ["pull", "--rebase", "--autostash"]);
-  run("node", ["scripts/collect.mjs", ...args]);
-  // до проверки изменений в data/: смена аватарки в Steam сама по себе повод пересобрать
-  run("node", ["scripts/refresh-avatars.mjs"]);
+  const tournamentFlag = args.indexOf("--tournament-file");
+  if (tournamentFlag !== -1) {
+    // новый турнир из текста бота: матчи не качаем, только записываем файл турнира
+    // без стека: причину отказа уже напечатал и записал сам tournament-add
+    const added = spawnSync("node", ["scripts/tournament-add.mjs", args[tournamentFlag + 1]], { cwd: ROOT, stdio: "inherit" });
+    if (added.status !== 0) process.exit(added.status ?? 1);
+  } else {
+    run("node", ["scripts/collect.mjs", ...args]);
+    // до проверки изменений в data/: смена аватарки в Steam сама по себе повод пересобрать
+    run("node", ["scripts/refresh-avatars.mjs"]);
+  }
 
   // build каждый раз пишет новый generatedAt, поэтому без этой проверки
   // коммит и пуш случались бы даже когда новых матчей нет
