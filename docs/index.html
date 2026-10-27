@@ -885,6 +885,45 @@
     font-family: ui-monospace, Consolas, monospace;
     font-size: 12px;
   }
+  .tn h4 { margin: 18px 0 8px; font-size: 14px; }
+  .tn-head { margin-bottom: 8px; font-size: 13px; color: var(--text-dim); }
+  .tn-teams { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; }
+  .tn-rounds { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+  .tn-playoff { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+  .tn-ttl { font-size: 11px; color: var(--text-faint); text-transform: uppercase; letter-spacing: .04em; margin-bottom: 6px; }
+  .tn-match {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 8px;
+    align-items: center;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 10px;
+    margin-bottom: 6px;
+    font-size: 13px;
+  }
+  .tn-match span:last-child { text-align: right; }
+  .tn-match .tn-win { color: var(--green); font-weight: 600; }
+  .tn-match.tn-todo { color: var(--text-faint); }
+  .tn-score { color: var(--text-dim); font-variant-numeric: tabular-nums; text-align: center; min-width: 54px; }
+  .tn-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .tn-table th { text-align: left; color: var(--text-faint); font-weight: 500; padding: 6px 8px; border-bottom: 1px solid var(--border); }
+  .tn-table td { padding: 7px 8px; border-bottom: 1px solid var(--border); font-variant-numeric: tabular-nums; }
+  .tn-table th, .tn-table td { text-align: left; }
+  .tn-table th:nth-child(n+3), .tn-table td:nth-child(n+3) { text-align: right; }
+  .tn-select {
+    background: var(--bg);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 5px 8px;
+    font-size: 13px;
+  }
+  .tn-places { background: var(--green-bg); border-radius: 8px; padding: 10px 14px; margin: 8px 0; }
+  .tn-places h4 { margin: 0 0 6px; }
+  .tn-unattributed { margin-top: 16px; font-size: 12px; color: var(--text-dim); }
+  .tn-unattributed h4 { margin: 0 0 6px; }
   .hist-section {
     background: var(--bg-panel);
     border: 1px solid var(--border);
@@ -1015,6 +1054,7 @@
       <div class="tab" data-tab="maps">Карты</div>
       <div class="tab" data-tab="draft">Выбор составов</div>
       <div class="tab" data-tab="records">Рекорды</div>
+      <div class="tab" data-tab="tournament">Турнир</div>
     </div>
     <a class="rating-info-link" href="rating-info.html" target="_blank" rel="noopener">Информация о рейтинге →</a>
   </div>
@@ -1028,6 +1068,7 @@
   <div id="wheelSection"></div>
   <div id="excuseSection"></div>
   <div id="draftSection"></div>
+  <div id="tournamentSection"></div>
 
   <footer id="footer"></footer>
 
@@ -1081,7 +1122,7 @@
   function ratingDeltaClass(v) { return v > 0 ? "rating-delta-up" : v < 0 ? "rating-delta-down" : "rating-delta-flat"; }
 
   var TAB_STORAGE_KEY = "llstat:selectedTab";
-  var VALID_TABS = ["allTime", "lastSession", "draft", "maps", "records"];
+  var VALID_TABS = ["allTime", "lastSession", "draft", "maps", "records", "tournament"];
   function loadSavedTab() {
     try { return localStorage.getItem(TAB_STORAGE_KEY); } catch (err) { return null; }
   }
@@ -1185,6 +1226,7 @@
     renderWheelSection();
     renderExcuseSection();
     renderDraftSection();
+    renderTournamentSection();
   }
 
   function renderMapChips() {
@@ -1394,7 +1436,7 @@
   }
 
   // Вкладки, на которых нет общей таблицы игроков (у них свой блок).
-  function noTableTab() { return state.tab === "draft" || state.tab === "records"; }
+  function noTableTab() { return state.tab === "draft" || state.tab === "records" || state.tab === "tournament"; }
 
   function getRows() {
     if (noTableTab()) return [];
@@ -2639,6 +2681,22 @@
     host.appendChild(canvas);
     host.appendChild(bar);
     drawRecapCard(canvas, s);
+  }
+
+  // Вкладка "Турнир" целиком в docs/lib/tournamentUi.mjs; поле tournaments может
+  // отсутствовать в старом закешированном stats.json — тогда показываем пустое состояние.
+  var tournamentModule = null;
+  function renderTournamentSection() {
+    var el = document.getElementById("tournamentSection");
+    el.style.display = state.tab === "tournament" ? "" : "none";
+    if (state.tab !== "tournament") return;
+    if (!tournamentModule) tournamentModule = import("./lib/tournamentUi.mjs");
+    tournamentModule.then(function (m) {
+      m.renderTournaments(el, state.data.tournaments || []);
+    }).catch(function (err) {
+      tournamentModule = null;
+      el.textContent = "Не удалось загрузить вкладку: " + err.message;
+    });
   }
 
   // "Выбор составов": капитаны, закрепление игроков, автоподбор и запуск турнира
