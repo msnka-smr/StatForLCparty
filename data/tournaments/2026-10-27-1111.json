@@ -7,27 +7,27 @@
       "players": [
         {
           "name": "миша",
-          "steamid64": null,
+          "steamid64": "76561198990000001",
           "captain": true
         },
         {
           "name": "Гость 10",
-          "steamid64": null,
+          "steamid64": "76561198990000002",
           "captain": false
         },
         {
           "name": "Гость 17",
-          "steamid64": null,
+          "steamid64": "76561198990000003",
           "captain": false
         },
         {
           "name": "Гость 11",
-          "steamid64": null,
+          "steamid64": "76561198990000004",
           "captain": false
         },
         {
           "name": "Гость 6",
-          "steamid64": null,
+          "steamid64": "76561198990000005",
           "captain": false
         }
       ]
@@ -37,27 +37,27 @@
       "players": [
         {
           "name": "дима",
-          "steamid64": null,
+          "steamid64": "76561198990000006",
           "captain": true
         },
         {
           "name": "Гость 7",
-          "steamid64": null,
+          "steamid64": "76561198990000007",
           "captain": false
         },
         {
           "name": "Гость 19",
-          "steamid64": null,
+          "steamid64": "76561198990000008",
           "captain": false
         },
         {
           "name": "Гость 14",
-          "steamid64": null,
+          "steamid64": "76561198990000009",
           "captain": false
         },
         {
           "name": "Гость 18",
-          "steamid64": null,
+          "steamid64": "76561198990000010",
           "captain": false
         }
       ]
@@ -67,27 +67,27 @@
       "players": [
         {
           "name": "саша",
-          "steamid64": null,
+          "steamid64": "76561198990000011",
           "captain": true
         },
         {
           "name": "Гость 12",
-          "steamid64": null,
+          "steamid64": "76561198990000012",
           "captain": false
         },
         {
           "name": "Гость 9",
-          "steamid64": null,
+          "steamid64": "76561198990000013",
           "captain": false
         },
         {
           "name": "Гость 16",
-          "steamid64": null,
+          "steamid64": "76561198990000014",
           "captain": false
         },
         {
           "name": "Гость 8",
-          "steamid64": null,
+          "steamid64": "76561198990000015",
           "captain": false
         }
       ]
@@ -97,27 +97,27 @@
       "players": [
         {
           "name": "влад",
-          "steamid64": null,
+          "steamid64": "76561198990000016",
           "captain": true
         },
         {
           "name": "Гость 13",
-          "steamid64": null,
+          "steamid64": "76561198990000017",
           "captain": false
         },
         {
           "name": "Гость 15",
-          "steamid64": null,
+          "steamid64": "76561198990000018",
           "captain": false
         },
         {
           "name": "Гость 20",
-          "steamid64": null,
+          "steamid64": "76561198990000019",
           "captain": false
         },
         {
           "name": "Гость 5",
-          "steamid64": null,
+          "steamid64": "76561198990000020",
           "captain": false
         }
       ]

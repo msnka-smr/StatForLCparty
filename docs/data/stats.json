@@ -1,13 +1,876 @@
 {
-  "generatedAt": "2026-10-27T12:07:35.015Z",
-  "totalMapsCollected": 0,
+  "generatedAt": "2026-10-27T12:42:00.243Z",
+  "totalMapsCollected": 6,
   "allTime": {
-    "players": []
+    "players": [
+      {
+        "steamid64": "76561198990000003",
+        "name": "Гость 17",
+        "avatarUrl": null,
+        "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000003",
+        "totalRounds": 63,
+        "mapsPlayed": 3,
+        "wins": 2,
+        "losses": 1,
+        "winRate": 0.6666666666666666,
+        "k": 60,
+        "d": 44,
+        "kd": 1.3636363636363635,
+        "kdDiff": 16,
+        "rating": 510,
+        "ratingDelta": 10
+      },
+      {
+        "steamid64": "76561198990000002",
+        "name": "Гость 10",
+        "avatarUrl": null,
+        "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000002",
+        "totalRounds": 63,
+        "mapsPlayed": 3,
+        "wins": 2,
+        "losses": 1,
+        "winRate": 0.6666666666666666,
+        "k": 54,
+        "d": 42,
+        "kd": 1.2857142857142858,
+        "kdDiff": 12,
+        "rating": 508,
+        "ratingDelta": 8
+      },
+      {
+        "steamid64": "76561198990000010",
+        "name": "Гость 18",
+        "avatarUrl": null,
+        "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000010",
+        "totalRounds": 64,
+        "mapsPlayed": 3,
+        "wins": 2,
+        "losses": 1,
+        "winRate": 0.6666666666666666,
+        "k": 57,
+        "d": 44,
+        "kd": 1.2954545454545454,
+        "kdDiff": 13,
+        "rating": 508,
+        "ratingDelta": 8
+      },
+      {
+        "steamid64": "76561198990000001",
+        "name": "миша",
+        "avatarUrl": null,
+        "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000001",
+        "totalRounds": 63,
+        "mapsPlayed": 3,
+        "wins": 2,
+        "losses": 1,
+        "winRate": 0.6666666666666666,
+        "k": 57,
+        "d": 47,
+        "kd": 1.2127659574468086,
+        "kdDiff": 10,
+        "rating": 507,
+        "ratingDelta": 7
+      },
+      {
+        "steamid64": "76561198990000004",
+        "name": "Гость 11",
+        "avatarUrl": null,
+        "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000004",
+        "totalRounds": 63,
+        "mapsPlayed": 3,
+        "wins": 2,
+        "losses": 1,
+        "winRate": 0.6666666666666666,
+        "k": 57,
+        "d": 46,
+        "kd": 1.2391304347826086,
+        "kdDiff": 11,
+        "rating": 506,
+        "ratingDelta": 6
+      },
+      {
+        "steamid64": "76561198990000006",
+        "name": "дима",
+        "avatarUrl": null,
+        "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000006",
+        "totalRounds": 64,
+        "mapsPlayed": 3,
+        "wins": 2,
+        "losses": 1,
+        "winRate": 0.6666666666666666,
+        "k": 60,
+        "d": 50,
+        "kd": 1.2,
+        "kdDiff": 10,
+        "rating": 506,
+        "ratingDelta": 6
+      },
+      {
+        "steamid64": "76561198990000008",
+        "name": "Гость 19",
+        "avatarUrl": null,
+        "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000008",
+        "totalRounds": 64,
+        "mapsPlayed": 3,
+        "wins": 2,
+        "losses": 1,
+        "winRate": 0.6666666666666666,
+        "k": 54,
+        "d": 47,
+        "kd": 1.148936170212766,
+        "kdDiff": 7,
+        "rating": 505,
+        "ratingDelta": 5
+      },
+      {
+        "steamid64": "76561198990000015",
+        "name": "Гость 8",
+        "avatarUrl": null,
+        "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000015",
+        "totalRounds": 63,
+        "mapsPlayed": 3,
+        "wins": 1,
+        "losses": 2,
+        "winRate": 0.3333333333333333,
+        "k": 54,
+        "d": 44,
+        "kd": 1.2272727272727273,
+        "kdDiff": 10,
+        "rating": 504,
+        "ratingDelta": 4
+      },
+      {
+        "steamid64": "76561198990000009",
+        "name": "Гость 14",
+        "avatarUrl": null,
+        "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000009",
+        "totalRounds": 64,
+        "mapsPlayed": 3,
+        "wins": 2,
+        "losses": 1,
+        "winRate": 0.6666666666666666,
+        "k": 51,
+        "d": 49,
+        "kd": 1.0408163265306123,
+        "kdDiff": 2,
+        "rating": 504,
+        "ratingDelta": 4
+      },
+      {
+        "steamid64": "76561198990000007",
+        "name": "Гость 7",
+        "avatarUrl": null,
+        "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000007",
+        "totalRounds": 64,
+        "mapsPlayed": 3,
+        "wins": 2,
+        "losses": 1,
+        "winRate": 0.6666666666666666,
+        "k": 48,
+        "d": 45,
+        "kd": 1.0666666666666667,
+        "kdDiff": 3,
+        "rating": 503,
+        "ratingDelta": 3
+      },
+      {
+        "steamid64": "76561198990000005",
+        "name": "Гость 6",
+        "avatarUrl": null,
+        "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000005",
+        "totalRounds": 63,
+        "mapsPlayed": 3,
+        "wins": 2,
+        "losses": 1,
+        "winRate": 0.6666666666666666,
+        "k": 45,
+        "d": 48,
+        "kd": 0.9375,
+        "kdDiff": -3,
+        "rating": 501,
+        "ratingDelta": 1
+      },
+      {
+        "steamid64": "76561198990000013",
+        "name": "Гость 9",
+        "avatarUrl": null,
+        "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000013",
+        "totalRounds": 63,
+        "mapsPlayed": 3,
+        "wins": 1,
+        "losses": 2,
+        "winRate": 0.3333333333333333,
+        "k": 51,
+        "d": 47,
+        "kd": 1.0851063829787233,
+        "kdDiff": 4,
+        "rating": 501,
+        "ratingDelta": 1
+      },
+      {
+        "steamid64": "76561198990000019",
+        "name": "Гость 20",
+        "avatarUrl": null,
+        "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000019",
+        "totalRounds": 68,
+        "mapsPlayed": 3,
+        "wins": 1,
+        "losses": 2,
+        "winRate": 0.3333333333333333,
+        "k": 48,
+        "d": 49,
+        "kd": 0.9795918367346939,
+        "kdDiff": -1,
+        "rating": 500,
+        "ratingDelta": 0
+      },
+      {
+        "steamid64": "76561198990000011",
+        "name": "саша",
+        "avatarUrl": null,
+        "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000011",
+        "totalRounds": 63,
+        "mapsPlayed": 3,
+        "wins": 1,
+        "losses": 2,
+        "winRate": 0.3333333333333333,
+        "k": 48,
+        "d": 50,
+        "kd": 0.96,
+        "kdDiff": -2,
+        "rating": 499,
+        "ratingDelta": -1
+      },
+      {
+        "steamid64": "76561198990000012",
+        "name": "Гость 12",
+        "avatarUrl": null,
+        "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000012",
+        "totalRounds": 63,
+        "mapsPlayed": 3,
+        "wins": 1,
+        "losses": 2,
+        "winRate": 0.3333333333333333,
+        "k": 54,
+        "d": 52,
+        "kd": 1.0384615384615385,
+        "kdDiff": 2,
+        "rating": 499,
+        "ratingDelta": -1
+      },
+      {
+        "steamid64": "76561198990000016",
+        "name": "влад",
+        "avatarUrl": null,
+        "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000016",
+        "totalRounds": 68,
+        "mapsPlayed": 3,
+        "wins": 1,
+        "losses": 2,
+        "winRate": 0.3333333333333333,
+        "k": 48,
+        "d": 50,
+        "kd": 0.96,
+        "kdDiff": -2,
+        "rating": 498,
+        "ratingDelta": -2
+      },
+      {
+        "steamid64": "76561198990000018",
+        "name": "Гость 15",
+        "avatarUrl": null,
+        "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000018",
+        "totalRounds": 68,
+        "mapsPlayed": 3,
+        "wins": 1,
+        "losses": 2,
+        "winRate": 0.3333333333333333,
+        "k": 51,
+        "d": 54,
+        "kd": 0.9444444444444444,
+        "kdDiff": -3,
+        "rating": 498,
+        "ratingDelta": -2
+      },
+      {
+        "steamid64": "76561198990000017",
+        "name": "Гость 13",
+        "avatarUrl": null,
+        "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000017",
+        "totalRounds": 68,
+        "mapsPlayed": 3,
+        "wins": 1,
+        "losses": 2,
+        "winRate": 0.3333333333333333,
+        "k": 45,
+        "d": 52,
+        "kd": 0.8653846153846154,
+        "kdDiff": -7,
+        "rating": 497,
+        "ratingDelta": -3
+      },
+      {
+        "steamid64": "76561198990000020",
+        "name": "Гость 5",
+        "avatarUrl": null,
+        "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000020",
+        "totalRounds": 68,
+        "mapsPlayed": 3,
+        "wins": 1,
+        "losses": 2,
+        "winRate": 0.3333333333333333,
+        "k": 45,
+        "d": 51,
+        "kd": 0.8823529411764706,
+        "kdDiff": -6,
+        "rating": 497,
+        "ratingDelta": -3
+      },
+      {
+        "steamid64": "76561198990000014",
+        "name": "Гость 16",
+        "avatarUrl": null,
+        "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000014",
+        "totalRounds": 63,
+        "mapsPlayed": 3,
+        "wins": 1,
+        "losses": 2,
+        "winRate": 0.3333333333333333,
+        "k": 39,
+        "d": 56,
+        "kd": 0.6964285714285714,
+        "kdDiff": -17,
+        "rating": 493,
+        "ratingDelta": -7
+      }
+    ]
   },
-  "sessions": [],
+  "sessions": [
+    {
+      "id": "2026-10-27",
+      "firstPlayedAt": 1793099777,
+      "lastPlayedAt": 1793101277,
+      "maps": [
+        {
+          "mapId": "99000001:1",
+          "lobbyId": 99000001,
+          "map": "de_mirage",
+          "statsTier": "basic",
+          "teams": [
+            {
+              "key": "team_2",
+              "name": null,
+              "score": 13,
+              "isWinner": true
+            },
+            {
+              "key": "team_3",
+              "name": null,
+              "score": 7,
+              "isWinner": false
+            }
+          ],
+          "url": "https://cybershoke.net/match/99000001"
+        },
+        {
+          "mapId": "99000002:1",
+          "lobbyId": 99000002,
+          "map": "de_inferno",
+          "statsTier": "basic",
+          "teams": [
+            {
+              "key": "team_2",
+              "name": null,
+              "score": 10,
+              "isWinner": false
+            },
+            {
+              "key": "team_3",
+              "name": null,
+              "score": 13,
+              "isWinner": true
+            }
+          ],
+          "url": "https://cybershoke.net/match/99000002"
+        },
+        {
+          "mapId": "99000003:1",
+          "lobbyId": 99000003,
+          "map": "de_dust2",
+          "statsTier": "basic",
+          "teams": [
+            {
+              "key": "team_2",
+              "name": null,
+              "score": 13,
+              "isWinner": true
+            },
+            {
+              "key": "team_3",
+              "name": null,
+              "score": 9,
+              "isWinner": false
+            }
+          ],
+          "url": "https://cybershoke.net/match/99000003"
+        },
+        {
+          "mapId": "99000004:1",
+          "lobbyId": 99000004,
+          "map": "de_nuke",
+          "statsTier": "basic",
+          "teams": [
+            {
+              "key": "team_2",
+              "name": null,
+              "score": 13,
+              "isWinner": true
+            },
+            {
+              "key": "team_3",
+              "name": null,
+              "score": 11,
+              "isWinner": false
+            }
+          ],
+          "url": "https://cybershoke.net/match/99000004"
+        },
+        {
+          "mapId": "99000005:1",
+          "lobbyId": 99000005,
+          "map": "de_ancient",
+          "statsTier": "basic",
+          "teams": [
+            {
+              "key": "team_2",
+              "name": null,
+              "score": 13,
+              "isWinner": true
+            },
+            {
+              "key": "team_3",
+              "name": null,
+              "score": 6,
+              "isWinner": false
+            }
+          ],
+          "url": "https://cybershoke.net/match/99000005"
+        },
+        {
+          "mapId": "99000006:1",
+          "lobbyId": 99000006,
+          "map": "de_anubis",
+          "statsTier": "basic",
+          "teams": [
+            {
+              "key": "team_2",
+              "name": null,
+              "score": 8,
+              "isWinner": false
+            },
+            {
+              "key": "team_3",
+              "name": null,
+              "score": 13,
+              "isWinner": true
+            }
+          ],
+          "url": "https://cybershoke.net/match/99000006"
+        }
+      ],
+      "players": [
+        {
+          "steamid64": "76561198990000003",
+          "name": "Гость 17",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000003",
+          "totalRounds": 63,
+          "mapsPlayed": 3,
+          "wins": 2,
+          "losses": 1,
+          "winRate": 0.6666666666666666,
+          "k": 60,
+          "d": 44,
+          "kd": 1.3636363636363635,
+          "kdDiff": 16,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000010",
+          "name": "Гость 18",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000010",
+          "totalRounds": 64,
+          "mapsPlayed": 3,
+          "wins": 2,
+          "losses": 1,
+          "winRate": 0.6666666666666666,
+          "k": 57,
+          "d": 44,
+          "kd": 1.2954545454545454,
+          "kdDiff": 13,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000002",
+          "name": "Гость 10",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000002",
+          "totalRounds": 63,
+          "mapsPlayed": 3,
+          "wins": 2,
+          "losses": 1,
+          "winRate": 0.6666666666666666,
+          "k": 54,
+          "d": 42,
+          "kd": 1.2857142857142858,
+          "kdDiff": 12,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000004",
+          "name": "Гость 11",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000004",
+          "totalRounds": 63,
+          "mapsPlayed": 3,
+          "wins": 2,
+          "losses": 1,
+          "winRate": 0.6666666666666666,
+          "k": 57,
+          "d": 46,
+          "kd": 1.2391304347826086,
+          "kdDiff": 11,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000001",
+          "name": "миша",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000001",
+          "totalRounds": 63,
+          "mapsPlayed": 3,
+          "wins": 2,
+          "losses": 1,
+          "winRate": 0.6666666666666666,
+          "k": 57,
+          "d": 47,
+          "kd": 1.2127659574468086,
+          "kdDiff": 10,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000015",
+          "name": "Гость 8",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000015",
+          "totalRounds": 63,
+          "mapsPlayed": 3,
+          "wins": 1,
+          "losses": 2,
+          "winRate": 0.3333333333333333,
+          "k": 54,
+          "d": 44,
+          "kd": 1.2272727272727273,
+          "kdDiff": 10,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000006",
+          "name": "дима",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000006",
+          "totalRounds": 64,
+          "mapsPlayed": 3,
+          "wins": 2,
+          "losses": 1,
+          "winRate": 0.6666666666666666,
+          "k": 60,
+          "d": 50,
+          "kd": 1.2,
+          "kdDiff": 10,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000008",
+          "name": "Гость 19",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000008",
+          "totalRounds": 64,
+          "mapsPlayed": 3,
+          "wins": 2,
+          "losses": 1,
+          "winRate": 0.6666666666666666,
+          "k": 54,
+          "d": 47,
+          "kd": 1.148936170212766,
+          "kdDiff": 7,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000013",
+          "name": "Гость 9",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000013",
+          "totalRounds": 63,
+          "mapsPlayed": 3,
+          "wins": 1,
+          "losses": 2,
+          "winRate": 0.3333333333333333,
+          "k": 51,
+          "d": 47,
+          "kd": 1.0851063829787233,
+          "kdDiff": 4,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000007",
+          "name": "Гость 7",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000007",
+          "totalRounds": 64,
+          "mapsPlayed": 3,
+          "wins": 2,
+          "losses": 1,
+          "winRate": 0.6666666666666666,
+          "k": 48,
+          "d": 45,
+          "kd": 1.0666666666666667,
+          "kdDiff": 3,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000012",
+          "name": "Гость 12",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000012",
+          "totalRounds": 63,
+          "mapsPlayed": 3,
+          "wins": 1,
+          "losses": 2,
+          "winRate": 0.3333333333333333,
+          "k": 54,
+          "d": 52,
+          "kd": 1.0384615384615385,
+          "kdDiff": 2,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000009",
+          "name": "Гость 14",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000009",
+          "totalRounds": 64,
+          "mapsPlayed": 3,
+          "wins": 2,
+          "losses": 1,
+          "winRate": 0.6666666666666666,
+          "k": 51,
+          "d": 49,
+          "kd": 1.0408163265306123,
+          "kdDiff": 2,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000019",
+          "name": "Гость 20",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000019",
+          "totalRounds": 68,
+          "mapsPlayed": 3,
+          "wins": 1,
+          "losses": 2,
+          "winRate": 0.3333333333333333,
+          "k": 48,
+          "d": 49,
+          "kd": 0.9795918367346939,
+          "kdDiff": -1,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000011",
+          "name": "саша",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000011",
+          "totalRounds": 63,
+          "mapsPlayed": 3,
+          "wins": 1,
+          "losses": 2,
+          "winRate": 0.3333333333333333,
+          "k": 48,
+          "d": 50,
+          "kd": 0.96,
+          "kdDiff": -2,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000016",
+          "name": "влад",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000016",
+          "totalRounds": 68,
+          "mapsPlayed": 3,
+          "wins": 1,
+          "losses": 2,
+          "winRate": 0.3333333333333333,
+          "k": 48,
+          "d": 50,
+          "kd": 0.96,
+          "kdDiff": -2,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000005",
+          "name": "Гость 6",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000005",
+          "totalRounds": 63,
+          "mapsPlayed": 3,
+          "wins": 2,
+          "losses": 1,
+          "winRate": 0.6666666666666666,
+          "k": 45,
+          "d": 48,
+          "kd": 0.9375,
+          "kdDiff": -3,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000018",
+          "name": "Гость 15",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000018",
+          "totalRounds": 68,
+          "mapsPlayed": 3,
+          "wins": 1,
+          "losses": 2,
+          "winRate": 0.3333333333333333,
+          "k": 51,
+          "d": 54,
+          "kd": 0.9444444444444444,
+          "kdDiff": -3,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000020",
+          "name": "Гость 5",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000020",
+          "totalRounds": 68,
+          "mapsPlayed": 3,
+          "wins": 1,
+          "losses": 2,
+          "winRate": 0.3333333333333333,
+          "k": 45,
+          "d": 51,
+          "kd": 0.8823529411764706,
+          "kdDiff": -6,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000017",
+          "name": "Гость 13",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000017",
+          "totalRounds": 68,
+          "mapsPlayed": 3,
+          "wins": 1,
+          "losses": 2,
+          "winRate": 0.3333333333333333,
+          "k": 45,
+          "d": 52,
+          "kd": 0.8653846153846154,
+          "kdDiff": -7,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000014",
+          "name": "Гость 16",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000014",
+          "totalRounds": 63,
+          "mapsPlayed": 3,
+          "wins": 1,
+          "losses": 2,
+          "winRate": 0.3333333333333333,
+          "k": 39,
+          "d": 56,
+          "kd": 0.6964285714285714,
+          "kdDiff": -17,
+          "rating": null
+        }
+      ]
+    }
+  ],
   "ratingHistory": {
-    "sessions": [],
-    "players": {}
+    "sessions": [
+      {
+        "id": "2026-10-27",
+        "firstPlayedAt": 1793099777
+      }
+    ],
+    "players": {
+      "76561198990000001": [
+        507
+      ],
+      "76561198990000002": [
+        508
+      ],
+      "76561198990000003": [
+        510
+      ],
+      "76561198990000004": [
+        506
+      ],
+      "76561198990000005": [
+        501
+      ],
+      "76561198990000011": [
+        499
+      ],
+      "76561198990000012": [
+        499
+      ],
+      "76561198990000013": [
+        501
+      ],
+      "76561198990000014": [
+        493
+      ],
+      "76561198990000015": [
+        504
+      ],
+      "76561198990000006": [
+        506
+      ],
+      "76561198990000007": [
+        503
+      ],
+      "76561198990000008": [
+        505
+      ],
+      "76561198990000009": [
+        504
+      ],
+      "76561198990000010": [
+        508
+      ],
+      "76561198990000016": [
+        498
+      ],
+      "76561198990000017": [
+        497
+      ],
+      "76561198990000018": [
+        498
+      ],
+      "76561198990000019": [
+        500
+      ],
+      "76561198990000020": [
+        497
+      ]
+    }
   },
   "records": [
     {
@@ -15,15 +878,77 @@
       "group": "personal",
       "title": "Больше всего убийств за карту",
       "hint": "личный максимум за одну карту",
-      "top": [],
-      "more": 0
+      "top": [
+        {
+          "steamid64": "76561198990000018",
+          "value": 24,
+          "k": 24,
+          "d": 16,
+          "map": "de_inferno",
+          "playedAt": 1793100077,
+          "url": "https://cybershoke.net/match/99000002",
+          "place": 1
+        },
+        {
+          "steamid64": "76561198990000006",
+          "value": 24,
+          "k": 24,
+          "d": 17,
+          "map": "de_dust2",
+          "playedAt": 1793100377,
+          "url": "https://cybershoke.net/match/99000003",
+          "place": 1
+        },
+        {
+          "steamid64": "76561198990000012",
+          "value": 24,
+          "k": 24,
+          "d": 16,
+          "map": "de_nuke",
+          "playedAt": 1793100677,
+          "url": "https://cybershoke.net/match/99000004",
+          "place": 1
+        }
+      ],
+      "more": 1
     },
     {
       "id": "best-kd-diff",
       "group": "personal",
       "title": "Лучшая разница K-D за карту",
       "hint": "убийства минус смерти за одну карту",
-      "top": [],
+      "top": [
+        {
+          "steamid64": "76561198990000010",
+          "value": 11,
+          "k": 23,
+          "d": 12,
+          "map": "de_ancient",
+          "playedAt": 1793100977,
+          "url": "https://cybershoke.net/match/99000005",
+          "place": 1
+        },
+        {
+          "steamid64": "76561198990000015",
+          "value": 10,
+          "k": 21,
+          "d": 11,
+          "map": "de_nuke",
+          "playedAt": 1793100677,
+          "url": "https://cybershoke.net/match/99000004",
+          "place": 2
+        },
+        {
+          "steamid64": "76561198990000003",
+          "value": 10,
+          "k": 24,
+          "d": 14,
+          "map": "de_anubis",
+          "playedAt": 1793101277,
+          "url": "https://cybershoke.net/match/99000006",
+          "place": 2
+        }
+      ],
       "more": 0
     },
     {
@@ -31,7 +956,38 @@
       "group": "personal",
       "title": "Лучший K/D за карту",
       "hint": "минимум 15 убийств на карте",
-      "top": [],
+      "top": [
+        {
+          "steamid64": "76561198990000010",
+          "value": 1.92,
+          "k": 23,
+          "d": 12,
+          "map": "de_ancient",
+          "playedAt": 1793100977,
+          "url": "https://cybershoke.net/match/99000005",
+          "place": 1
+        },
+        {
+          "steamid64": "76561198990000015",
+          "value": 1.91,
+          "k": 21,
+          "d": 11,
+          "map": "de_nuke",
+          "playedAt": 1793100677,
+          "url": "https://cybershoke.net/match/99000004",
+          "place": 2
+        },
+        {
+          "steamid64": "76561198990000009",
+          "value": 1.75,
+          "k": 21,
+          "d": 12,
+          "map": "de_dust2",
+          "playedAt": 1793100377,
+          "url": "https://cybershoke.net/match/99000003",
+          "place": 3
+        }
+      ],
       "more": 0
     },
     {
@@ -39,7 +995,18 @@
       "group": "personal",
       "title": "Тащил в проигрыше",
       "hint": "лучшая разница K-D на проигранной карте",
-      "top": [],
+      "top": [
+        {
+          "steamid64": "76561198990000015",
+          "value": 1,
+          "k": 18,
+          "d": 17,
+          "map": "de_ancient",
+          "playedAt": 1793100977,
+          "url": "https://cybershoke.net/match/99000005",
+          "place": 1
+        }
+      ],
       "more": 0
     },
     {
@@ -47,16 +1014,60 @@
       "group": "streaks",
       "title": "Серия побед подряд",
       "hint": "карт подряд; пропущенные игроком карты серию не рвут",
-      "top": [],
-      "more": 0
+      "top": [
+        {
+          "steamid64": "76561198990000006",
+          "value": 2,
+          "from": 1793100377,
+          "to": 1793100977,
+          "place": 1
+        },
+        {
+          "steamid64": "76561198990000007",
+          "value": 2,
+          "from": 1793100377,
+          "to": 1793100977,
+          "place": 1
+        },
+        {
+          "steamid64": "76561198990000008",
+          "value": 2,
+          "from": 1793100377,
+          "to": 1793100977,
+          "place": 1
+        }
+      ],
+      "more": 2
     },
     {
       "id": "kd-streak",
       "group": "streaks",
       "title": "Серия карт с K/D не ниже 1.0",
       "hint": "карт подряд",
-      "top": [],
-      "more": 0
+      "top": [
+        {
+          "steamid64": "76561198990000010",
+          "value": 3,
+          "from": 1793100077,
+          "to": 1793100977,
+          "place": 1
+        },
+        {
+          "steamid64": "76561198990000020",
+          "value": 2,
+          "from": 1793100077,
+          "to": 1793100677,
+          "place": 2
+        },
+        {
+          "steamid64": "76561198990000006",
+          "value": 2,
+          "from": 1793100377,
+          "to": 1793100977,
+          "place": 2
+        }
+      ],
+      "more": 4
     },
     {
       "id": "attendance-streak",
@@ -71,7 +1082,41 @@
       "group": "matches",
       "title": "Самый крупный разгром",
       "hint": "наибольшая разница в счёте",
-      "top": [],
+      "top": [
+        {
+          "map": "de_ancient",
+          "score": [
+            13,
+            6
+          ],
+          "rounds": 19,
+          "playedAt": 1793100977,
+          "url": "https://cybershoke.net/match/99000005",
+          "place": 1
+        },
+        {
+          "map": "de_mirage",
+          "score": [
+            13,
+            7
+          ],
+          "rounds": 20,
+          "playedAt": 1793099777,
+          "url": "https://cybershoke.net/match/99000001",
+          "place": 2
+        },
+        {
+          "map": "de_anubis",
+          "score": [
+            13,
+            8
+          ],
+          "rounds": 21,
+          "playedAt": 1793101277,
+          "url": "https://cybershoke.net/match/99000006",
+          "place": 3
+        }
+      ],
       "more": 0
     },
     {
@@ -79,7 +1124,41 @@
       "group": "matches",
       "title": "Самый упорный матч",
       "hint": "наименьшая разница в счёте",
-      "top": [],
+      "top": [
+        {
+          "map": "de_nuke",
+          "score": [
+            13,
+            11
+          ],
+          "rounds": 24,
+          "playedAt": 1793100677,
+          "url": "https://cybershoke.net/match/99000004",
+          "place": 1
+        },
+        {
+          "map": "de_inferno",
+          "score": [
+            13,
+            10
+          ],
+          "rounds": 23,
+          "playedAt": 1793100077,
+          "url": "https://cybershoke.net/match/99000002",
+          "place": 2
+        },
+        {
+          "map": "de_dust2",
+          "score": [
+            13,
+            9
+          ],
+          "rounds": 22,
+          "playedAt": 1793100377,
+          "url": "https://cybershoke.net/match/99000003",
+          "place": 3
+        }
+      ],
       "more": 0
     },
     {
@@ -87,7 +1166,41 @@
       "group": "matches",
       "title": "Самая долгая карта",
       "hint": "больше всего раундов",
-      "top": [],
+      "top": [
+        {
+          "map": "de_nuke",
+          "score": [
+            13,
+            11
+          ],
+          "rounds": 24,
+          "playedAt": 1793100677,
+          "url": "https://cybershoke.net/match/99000004",
+          "place": 1
+        },
+        {
+          "map": "de_inferno",
+          "score": [
+            13,
+            10
+          ],
+          "rounds": 23,
+          "playedAt": 1793100077,
+          "url": "https://cybershoke.net/match/99000002",
+          "place": 2
+        },
+        {
+          "map": "de_dust2",
+          "score": [
+            13,
+            9
+          ],
+          "rounds": 22,
+          "playedAt": 1793100377,
+          "url": "https://cybershoke.net/match/99000003",
+          "place": 3
+        }
+      ],
       "more": 0
     },
     {
@@ -95,7 +1208,41 @@
       "group": "matches",
       "title": "Самая короткая карта",
       "hint": "меньше всего раундов",
-      "top": [],
+      "top": [
+        {
+          "map": "de_ancient",
+          "score": [
+            13,
+            6
+          ],
+          "rounds": 19,
+          "playedAt": 1793100977,
+          "url": "https://cybershoke.net/match/99000005",
+          "place": 1
+        },
+        {
+          "map": "de_mirage",
+          "score": [
+            13,
+            7
+          ],
+          "rounds": 20,
+          "playedAt": 1793099777,
+          "url": "https://cybershoke.net/match/99000001",
+          "place": 2
+        },
+        {
+          "map": "de_anubis",
+          "score": [
+            13,
+            8
+          ],
+          "rounds": 21,
+          "playedAt": 1793101277,
+          "url": "https://cybershoke.net/match/99000006",
+          "place": 3
+        }
+      ],
       "more": 0
     },
     {
@@ -103,15 +1250,77 @@
       "group": "oops",
       "title": "Позорный минус",
       "hint": "убийства минус смерти за одну карту: глубже всех в минус",
-      "top": [],
-      "more": 0
+      "top": [
+        {
+          "steamid64": "76561198990000017",
+          "value": -11,
+          "k": 10,
+          "d": 21,
+          "map": "de_nuke",
+          "playedAt": 1793100677,
+          "url": "https://cybershoke.net/match/99000004",
+          "place": 1
+        },
+        {
+          "steamid64": "76561198990000014",
+          "value": -10,
+          "k": 10,
+          "d": 20,
+          "map": "de_mirage",
+          "playedAt": 1793099777,
+          "url": "https://cybershoke.net/match/99000001",
+          "place": 2
+        },
+        {
+          "steamid64": "76561198990000009",
+          "value": -9,
+          "k": 12,
+          "d": 21,
+          "map": "de_inferno",
+          "playedAt": 1793100077,
+          "url": "https://cybershoke.net/match/99000002",
+          "place": 3
+        }
+      ],
+      "more": 2
     },
     {
       "id": "worst-kd",
       "group": "oops",
       "title": "Самый жалкий K/D",
       "hint": "минимум 10 смертей на карте, иначе не считается",
-      "top": [],
+      "top": [
+        {
+          "steamid64": "76561198990000017",
+          "value": 0.48,
+          "k": 10,
+          "d": 21,
+          "map": "de_nuke",
+          "playedAt": 1793100677,
+          "url": "https://cybershoke.net/match/99000004",
+          "place": 1
+        },
+        {
+          "steamid64": "76561198990000014",
+          "value": 0.5,
+          "k": 10,
+          "d": 20,
+          "map": "de_mirage",
+          "playedAt": 1793099777,
+          "url": "https://cybershoke.net/match/99000001",
+          "place": 2
+        },
+        {
+          "steamid64": "76561198990000019",
+          "value": 0.55,
+          "k": 11,
+          "d": 20,
+          "map": "de_nuke",
+          "playedAt": 1793100677,
+          "url": "https://cybershoke.net/match/99000004",
+          "place": 3
+        }
+      ],
       "more": 0
     },
     {
@@ -119,24 +1328,1092 @@
       "group": "oops",
       "title": "Мясо для врагов",
       "hint": "больше всего смертей за одну карту: кого только не фармили",
-      "top": [],
-      "more": 0
+      "top": [
+        {
+          "steamid64": "76561198990000012",
+          "value": 21,
+          "k": 18,
+          "d": 21,
+          "map": "de_mirage",
+          "playedAt": 1793099777,
+          "url": "https://cybershoke.net/match/99000001",
+          "place": 1
+        },
+        {
+          "steamid64": "76561198990000009",
+          "value": 21,
+          "k": 12,
+          "d": 21,
+          "map": "de_inferno",
+          "playedAt": 1793100077,
+          "url": "https://cybershoke.net/match/99000002",
+          "place": 1
+        },
+        {
+          "steamid64": "76561198990000017",
+          "value": 21,
+          "k": 10,
+          "d": 21,
+          "map": "de_nuke",
+          "playedAt": 1793100677,
+          "url": "https://cybershoke.net/match/99000004",
+          "place": 1
+        }
+      ],
+      "more": 2
     },
     {
       "id": "loss-streak",
       "group": "oops",
       "title": "Позорная серия поражений",
       "hint": "карт подряд, и все проиграны",
-      "top": [],
-      "more": 0
+      "top": [
+        {
+          "steamid64": "76561198990000016",
+          "value": 2,
+          "from": 1793100677,
+          "to": 1793101277,
+          "place": 1
+        },
+        {
+          "steamid64": "76561198990000017",
+          "value": 2,
+          "from": 1793100677,
+          "to": 1793101277,
+          "place": 1
+        },
+        {
+          "steamid64": "76561198990000018",
+          "value": 2,
+          "from": 1793100677,
+          "to": 1793101277,
+          "place": 1
+        }
+      ],
+      "more": 2
     }
   ],
-  "maps": [],
+  "maps": [
+    {
+      "mapKey": "de_ancient",
+      "displayName": "Ancient",
+      "iconUrl": "https://raw.githubusercontent.com/vgalisson/csgo-map-icons/master/256x256/map_icon_de_ancient.png",
+      "bannerUrl": "img/maps/de_ancient.webp",
+      "timesPlayed": 1,
+      "players": [
+        {
+          "steamid64": "76561198990000010",
+          "name": "Гость 18",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000010",
+          "totalRounds": 19,
+          "mapsPlayed": 1,
+          "wins": 1,
+          "losses": 0,
+          "winRate": 1,
+          "k": 23,
+          "d": 12,
+          "kd": 1.9166666666666667,
+          "kdDiff": 11,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000008",
+          "name": "Гость 19",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000008",
+          "totalRounds": 19,
+          "mapsPlayed": 1,
+          "wins": 1,
+          "losses": 0,
+          "winRate": 1,
+          "k": 22,
+          "d": 13,
+          "kd": 1.6923076923076923,
+          "kdDiff": 9,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000006",
+          "name": "дима",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000006",
+          "totalRounds": 19,
+          "mapsPlayed": 1,
+          "wins": 1,
+          "losses": 0,
+          "winRate": 1,
+          "k": 21,
+          "d": 14,
+          "kd": 1.5,
+          "kdDiff": 7,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000009",
+          "name": "Гость 14",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000009",
+          "totalRounds": 19,
+          "mapsPlayed": 1,
+          "wins": 1,
+          "losses": 0,
+          "winRate": 1,
+          "k": 18,
+          "d": 16,
+          "kd": 1.125,
+          "kdDiff": 2,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000015",
+          "name": "Гость 8",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000015",
+          "totalRounds": 19,
+          "mapsPlayed": 1,
+          "wins": 0,
+          "losses": 1,
+          "winRate": 0,
+          "k": 18,
+          "d": 17,
+          "kd": 1.0588235294117647,
+          "kdDiff": 1,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000007",
+          "name": "Гость 7",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000007",
+          "totalRounds": 19,
+          "mapsPlayed": 1,
+          "wins": 1,
+          "losses": 0,
+          "winRate": 1,
+          "k": 17,
+          "d": 17,
+          "kd": 1,
+          "kdDiff": 0,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000013",
+          "name": "Гость 9",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000013",
+          "totalRounds": 19,
+          "mapsPlayed": 1,
+          "wins": 0,
+          "losses": 1,
+          "winRate": 0,
+          "k": 17,
+          "d": 18,
+          "kd": 0.9444444444444444,
+          "kdDiff": -1,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000011",
+          "name": "саша",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000011",
+          "totalRounds": 19,
+          "mapsPlayed": 1,
+          "wins": 0,
+          "losses": 1,
+          "winRate": 0,
+          "k": 16,
+          "d": 19,
+          "kd": 0.8421052631578947,
+          "kdDiff": -3,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000012",
+          "name": "Гость 12",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000012",
+          "totalRounds": 19,
+          "mapsPlayed": 1,
+          "wins": 0,
+          "losses": 1,
+          "winRate": 0,
+          "k": 12,
+          "d": 15,
+          "kd": 0.8,
+          "kdDiff": -3,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000014",
+          "name": "Гость 16",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000014",
+          "totalRounds": 19,
+          "mapsPlayed": 1,
+          "wins": 0,
+          "losses": 1,
+          "winRate": 0,
+          "k": 13,
+          "d": 21,
+          "kd": 0.6190476190476191,
+          "kdDiff": -8,
+          "rating": null
+        }
+      ]
+    },
+    {
+      "mapKey": "de_anubis",
+      "displayName": "Anubis",
+      "iconUrl": "https://raw.githubusercontent.com/vgalisson/csgo-map-icons/master/256x256/map_icon_de_anubis.png",
+      "bannerUrl": "img/maps/de_anubis.webp",
+      "timesPlayed": 1,
+      "players": [
+        {
+          "steamid64": "76561198990000002",
+          "name": "Гость 10",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000002",
+          "totalRounds": 21,
+          "mapsPlayed": 1,
+          "wins": 1,
+          "losses": 0,
+          "winRate": 1,
+          "k": 19,
+          "d": 11,
+          "kd": 1.7272727272727273,
+          "kdDiff": 8,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000003",
+          "name": "Гость 17",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000003",
+          "totalRounds": 21,
+          "mapsPlayed": 1,
+          "wins": 1,
+          "losses": 0,
+          "winRate": 1,
+          "k": 24,
+          "d": 14,
+          "kd": 1.7142857142857142,
+          "kdDiff": 10,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000001",
+          "name": "миша",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000001",
+          "totalRounds": 21,
+          "mapsPlayed": 1,
+          "wins": 1,
+          "losses": 0,
+          "winRate": 1,
+          "k": 23,
+          "d": 15,
+          "kd": 1.5333333333333334,
+          "kdDiff": 8,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000005",
+          "name": "Гость 6",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000005",
+          "totalRounds": 21,
+          "mapsPlayed": 1,
+          "wins": 1,
+          "losses": 0,
+          "winRate": 1,
+          "k": 16,
+          "d": 13,
+          "kd": 1.2307692307692308,
+          "kdDiff": 3,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000004",
+          "name": "Гость 11",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000004",
+          "totalRounds": 21,
+          "mapsPlayed": 1,
+          "wins": 1,
+          "losses": 0,
+          "winRate": 1,
+          "k": 20,
+          "d": 17,
+          "kd": 1.1764705882352942,
+          "kdDiff": 3,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000019",
+          "name": "Гость 20",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000019",
+          "totalRounds": 21,
+          "mapsPlayed": 1,
+          "wins": 0,
+          "losses": 1,
+          "winRate": 0,
+          "k": 17,
+          "d": 17,
+          "kd": 1,
+          "kdDiff": 0,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000017",
+          "name": "Гость 13",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000017",
+          "totalRounds": 21,
+          "mapsPlayed": 1,
+          "wins": 0,
+          "losses": 1,
+          "winRate": 0,
+          "k": 16,
+          "d": 18,
+          "kd": 0.8888888888888888,
+          "kdDiff": -2,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000016",
+          "name": "влад",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000016",
+          "totalRounds": 21,
+          "mapsPlayed": 1,
+          "wins": 0,
+          "losses": 1,
+          "winRate": 0,
+          "k": 11,
+          "d": 15,
+          "kd": 0.7333333333333333,
+          "kdDiff": -4,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000020",
+          "name": "Гость 5",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000020",
+          "totalRounds": 21,
+          "mapsPlayed": 1,
+          "wins": 0,
+          "losses": 1,
+          "winRate": 0,
+          "k": 13,
+          "d": 20,
+          "kd": 0.65,
+          "kdDiff": -7,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000018",
+          "name": "Гость 15",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000018",
+          "totalRounds": 21,
+          "mapsPlayed": 1,
+          "wins": 0,
+          "losses": 1,
+          "winRate": 0,
+          "k": 12,
+          "d": 21,
+          "kd": 0.5714285714285714,
+          "kdDiff": -9,
+          "rating": null
+        }
+      ]
+    },
+    {
+      "mapKey": "de_dust2",
+      "displayName": "Dust II",
+      "iconUrl": "https://raw.githubusercontent.com/vgalisson/csgo-map-icons/master/256x256/map_icon_de_dust2.png",
+      "bannerUrl": "img/maps/de_dust2.webp",
+      "timesPlayed": 1,
+      "players": [
+        {
+          "steamid64": "76561198990000009",
+          "name": "Гость 14",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000009",
+          "totalRounds": 22,
+          "mapsPlayed": 1,
+          "wins": 1,
+          "losses": 0,
+          "winRate": 1,
+          "k": 21,
+          "d": 12,
+          "kd": 1.75,
+          "kdDiff": 9,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000007",
+          "name": "Гость 7",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000007",
+          "totalRounds": 22,
+          "mapsPlayed": 1,
+          "wins": 1,
+          "losses": 0,
+          "winRate": 1,
+          "k": 20,
+          "d": 13,
+          "kd": 1.5384615384615385,
+          "kdDiff": 7,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000006",
+          "name": "дима",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000006",
+          "totalRounds": 22,
+          "mapsPlayed": 1,
+          "wins": 1,
+          "losses": 0,
+          "winRate": 1,
+          "k": 24,
+          "d": 17,
+          "kd": 1.411764705882353,
+          "kdDiff": 7,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000010",
+          "name": "Гость 18",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000010",
+          "totalRounds": 22,
+          "mapsPlayed": 1,
+          "wins": 1,
+          "losses": 0,
+          "winRate": 1,
+          "k": 17,
+          "d": 15,
+          "kd": 1.1333333333333333,
+          "kdDiff": 2,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000008",
+          "name": "Гость 19",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000008",
+          "totalRounds": 22,
+          "mapsPlayed": 1,
+          "wins": 1,
+          "losses": 0,
+          "winRate": 1,
+          "k": 16,
+          "d": 16,
+          "kd": 1,
+          "kdDiff": 0,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000003",
+          "name": "Гость 17",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000003",
+          "totalRounds": 22,
+          "mapsPlayed": 1,
+          "wins": 0,
+          "losses": 1,
+          "winRate": 0,
+          "k": 18,
+          "d": 19,
+          "kd": 0.9473684210526315,
+          "kdDiff": -1,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000004",
+          "name": "Гость 11",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000004",
+          "totalRounds": 22,
+          "mapsPlayed": 1,
+          "wins": 0,
+          "losses": 1,
+          "winRate": 0,
+          "k": 14,
+          "d": 15,
+          "kd": 0.9333333333333333,
+          "kdDiff": -1,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000001",
+          "name": "миша",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000001",
+          "totalRounds": 22,
+          "mapsPlayed": 1,
+          "wins": 0,
+          "losses": 1,
+          "winRate": 0,
+          "k": 17,
+          "d": 20,
+          "kd": 0.85,
+          "kdDiff": -3,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000002",
+          "name": "Гость 10",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000002",
+          "totalRounds": 22,
+          "mapsPlayed": 1,
+          "wins": 0,
+          "losses": 1,
+          "winRate": 0,
+          "k": 13,
+          "d": 16,
+          "kd": 0.8125,
+          "kdDiff": -3,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000005",
+          "name": "Гость 6",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000005",
+          "totalRounds": 22,
+          "mapsPlayed": 1,
+          "wins": 0,
+          "losses": 1,
+          "winRate": 0,
+          "k": 10,
+          "d": 18,
+          "kd": 0.5555555555555556,
+          "kdDiff": -8,
+          "rating": null
+        }
+      ]
+    },
+    {
+      "mapKey": "de_inferno",
+      "displayName": "Inferno",
+      "iconUrl": "https://raw.githubusercontent.com/vgalisson/csgo-map-icons/master/256x256/map_icon_de_inferno.png",
+      "bannerUrl": "img/maps/de_inferno.webp",
+      "timesPlayed": 1,
+      "players": [
+        {
+          "steamid64": "76561198990000019",
+          "name": "Гость 20",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000019",
+          "totalRounds": 23,
+          "mapsPlayed": 1,
+          "wins": 1,
+          "losses": 0,
+          "winRate": 1,
+          "k": 20,
+          "d": 12,
+          "kd": 1.6666666666666667,
+          "kdDiff": 8,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000018",
+          "name": "Гость 15",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000018",
+          "totalRounds": 23,
+          "mapsPlayed": 1,
+          "wins": 1,
+          "losses": 0,
+          "winRate": 1,
+          "k": 24,
+          "d": 16,
+          "kd": 1.5,
+          "kdDiff": 8,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000017",
+          "name": "Гость 13",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000017",
+          "totalRounds": 23,
+          "mapsPlayed": 1,
+          "wins": 1,
+          "losses": 0,
+          "winRate": 1,
+          "k": 19,
+          "d": 13,
+          "kd": 1.4615384615384615,
+          "kdDiff": 6,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000016",
+          "name": "влад",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000016",
+          "totalRounds": 23,
+          "mapsPlayed": 1,
+          "wins": 1,
+          "losses": 0,
+          "winRate": 1,
+          "k": 23,
+          "d": 17,
+          "kd": 1.3529411764705883,
+          "kdDiff": 6,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000020",
+          "name": "Гость 5",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000020",
+          "totalRounds": 23,
+          "mapsPlayed": 1,
+          "wins": 1,
+          "losses": 0,
+          "winRate": 1,
+          "k": 16,
+          "d": 15,
+          "kd": 1.0666666666666667,
+          "kdDiff": 1,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000010",
+          "name": "Гость 18",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000010",
+          "totalRounds": 23,
+          "mapsPlayed": 1,
+          "wins": 0,
+          "losses": 1,
+          "winRate": 0,
+          "k": 17,
+          "d": 17,
+          "kd": 1,
+          "kdDiff": 0,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000008",
+          "name": "Гость 19",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000008",
+          "totalRounds": 23,
+          "mapsPlayed": 1,
+          "wins": 0,
+          "losses": 1,
+          "winRate": 0,
+          "k": 16,
+          "d": 18,
+          "kd": 0.8888888888888888,
+          "kdDiff": -2,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000006",
+          "name": "дима",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000006",
+          "totalRounds": 23,
+          "mapsPlayed": 1,
+          "wins": 0,
+          "losses": 1,
+          "winRate": 0,
+          "k": 15,
+          "d": 19,
+          "kd": 0.7894736842105263,
+          "kdDiff": -4,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000007",
+          "name": "Гость 7",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000007",
+          "totalRounds": 23,
+          "mapsPlayed": 1,
+          "wins": 0,
+          "losses": 1,
+          "winRate": 0,
+          "k": 11,
+          "d": 15,
+          "kd": 0.7333333333333333,
+          "kdDiff": -4,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000009",
+          "name": "Гость 14",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000009",
+          "totalRounds": 23,
+          "mapsPlayed": 1,
+          "wins": 0,
+          "losses": 1,
+          "winRate": 0,
+          "k": 12,
+          "d": 21,
+          "kd": 0.5714285714285714,
+          "kdDiff": -9,
+          "rating": null
+        }
+      ]
+    },
+    {
+      "mapKey": "de_mirage",
+      "displayName": "Mirage",
+      "iconUrl": "https://raw.githubusercontent.com/vgalisson/csgo-map-icons/master/256x256/map_icon_de_mirage.png",
+      "bannerUrl": "img/maps/de_mirage.webp",
+      "timesPlayed": 1,
+      "players": [
+        {
+          "steamid64": "76561198990000004",
+          "name": "Гость 11",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000004",
+          "totalRounds": 20,
+          "mapsPlayed": 1,
+          "wins": 1,
+          "losses": 0,
+          "winRate": 1,
+          "k": 23,
+          "d": 14,
+          "kd": 1.6428571428571428,
+          "kdDiff": 9,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000003",
+          "name": "Гость 17",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000003",
+          "totalRounds": 20,
+          "mapsPlayed": 1,
+          "wins": 1,
+          "losses": 0,
+          "winRate": 1,
+          "k": 18,
+          "d": 11,
+          "kd": 1.6363636363636365,
+          "kdDiff": 7,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000002",
+          "name": "Гость 10",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000002",
+          "totalRounds": 20,
+          "mapsPlayed": 1,
+          "wins": 1,
+          "losses": 0,
+          "winRate": 1,
+          "k": 22,
+          "d": 15,
+          "kd": 1.4666666666666666,
+          "kdDiff": 7,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000001",
+          "name": "миша",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000001",
+          "totalRounds": 20,
+          "mapsPlayed": 1,
+          "wins": 1,
+          "losses": 0,
+          "winRate": 1,
+          "k": 17,
+          "d": 12,
+          "kd": 1.4166666666666667,
+          "kdDiff": 5,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000005",
+          "name": "Гость 6",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000005",
+          "totalRounds": 20,
+          "mapsPlayed": 1,
+          "wins": 1,
+          "losses": 0,
+          "winRate": 1,
+          "k": 19,
+          "d": 17,
+          "kd": 1.1176470588235294,
+          "kdDiff": 2,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000015",
+          "name": "Гость 8",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000015",
+          "totalRounds": 20,
+          "mapsPlayed": 1,
+          "wins": 0,
+          "losses": 1,
+          "winRate": 0,
+          "k": 15,
+          "d": 16,
+          "kd": 0.9375,
+          "kdDiff": -1,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000012",
+          "name": "Гость 12",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000012",
+          "totalRounds": 20,
+          "mapsPlayed": 1,
+          "wins": 0,
+          "losses": 1,
+          "winRate": 0,
+          "k": 18,
+          "d": 21,
+          "kd": 0.8571428571428571,
+          "kdDiff": -3,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000013",
+          "name": "Гость 9",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000013",
+          "totalRounds": 20,
+          "mapsPlayed": 1,
+          "wins": 0,
+          "losses": 1,
+          "winRate": 0,
+          "k": 14,
+          "d": 17,
+          "kd": 0.8235294117647058,
+          "kdDiff": -3,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000011",
+          "name": "саша",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000011",
+          "totalRounds": 20,
+          "mapsPlayed": 1,
+          "wins": 0,
+          "losses": 1,
+          "winRate": 0,
+          "k": 13,
+          "d": 18,
+          "kd": 0.7222222222222222,
+          "kdDiff": -5,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000014",
+          "name": "Гость 16",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000014",
+          "totalRounds": 20,
+          "mapsPlayed": 1,
+          "wins": 0,
+          "losses": 1,
+          "winRate": 0,
+          "k": 10,
+          "d": 20,
+          "kd": 0.5,
+          "kdDiff": -10,
+          "rating": null
+        }
+      ]
+    },
+    {
+      "mapKey": "de_nuke",
+      "displayName": "Nuke",
+      "iconUrl": "https://raw.githubusercontent.com/vgalisson/csgo-map-icons/master/256x256/map_icon_de_nuke.png",
+      "bannerUrl": "img/maps/de_nuke.webp",
+      "timesPlayed": 1,
+      "players": [
+        {
+          "steamid64": "76561198990000015",
+          "name": "Гость 8",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000015",
+          "totalRounds": 24,
+          "mapsPlayed": 1,
+          "wins": 1,
+          "losses": 0,
+          "winRate": 1,
+          "k": 21,
+          "d": 11,
+          "kd": 1.9090909090909092,
+          "kdDiff": 10,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000013",
+          "name": "Гость 9",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000013",
+          "totalRounds": 24,
+          "mapsPlayed": 1,
+          "wins": 1,
+          "losses": 0,
+          "winRate": 1,
+          "k": 20,
+          "d": 12,
+          "kd": 1.6666666666666667,
+          "kdDiff": 8,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000012",
+          "name": "Гость 12",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000012",
+          "totalRounds": 24,
+          "mapsPlayed": 1,
+          "wins": 1,
+          "losses": 0,
+          "winRate": 1,
+          "k": 24,
+          "d": 16,
+          "kd": 1.5,
+          "kdDiff": 8,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000011",
+          "name": "саша",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000011",
+          "totalRounds": 24,
+          "mapsPlayed": 1,
+          "wins": 1,
+          "losses": 0,
+          "winRate": 1,
+          "k": 19,
+          "d": 13,
+          "kd": 1.4615384615384615,
+          "kdDiff": 6,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000014",
+          "name": "Гость 16",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000014",
+          "totalRounds": 24,
+          "mapsPlayed": 1,
+          "wins": 1,
+          "losses": 0,
+          "winRate": 1,
+          "k": 16,
+          "d": 15,
+          "kd": 1.0666666666666667,
+          "kdDiff": 1,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000020",
+          "name": "Гость 5",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000020",
+          "totalRounds": 24,
+          "mapsPlayed": 1,
+          "wins": 0,
+          "losses": 1,
+          "winRate": 0,
+          "k": 16,
+          "d": 16,
+          "kd": 1,
+          "kdDiff": 0,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000018",
+          "name": "Гость 15",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000018",
+          "totalRounds": 24,
+          "mapsPlayed": 1,
+          "wins": 0,
+          "losses": 1,
+          "winRate": 0,
+          "k": 15,
+          "d": 17,
+          "kd": 0.8823529411764706,
+          "kdDiff": -2,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000016",
+          "name": "влад",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000016",
+          "totalRounds": 24,
+          "mapsPlayed": 1,
+          "wins": 0,
+          "losses": 1,
+          "winRate": 0,
+          "k": 14,
+          "d": 18,
+          "kd": 0.7777777777777778,
+          "kdDiff": -4,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000019",
+          "name": "Гость 20",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000019",
+          "totalRounds": 24,
+          "mapsPlayed": 1,
+          "wins": 0,
+          "losses": 1,
+          "winRate": 0,
+          "k": 11,
+          "d": 20,
+          "kd": 0.55,
+          "kdDiff": -9,
+          "rating": null
+        },
+        {
+          "steamid64": "76561198990000017",
+          "name": "Гость 13",
+          "avatarUrl": null,
+          "steamProfileUrl": "https://steamcommunity.com/profiles/76561198990000017",
+          "totalRounds": 24,
+          "mapsPlayed": 1,
+          "wins": 0,
+          "losses": 1,
+          "winRate": 0,
+          "k": 10,
+          "d": 21,
+          "kd": 0.47619047619047616,
+          "kdDiff": -11,
+          "rating": null
+        }
+      ]
+    }
+  ],
   "tournaments": [
     {
       "id": "2026-10-27-1111",
       "createdAt": "2026-10-27T11:11:16.980Z",
-      "status": "circle",
+      "status": "playoff",
       "teams": [
         {
           "number": 1,
@@ -144,34 +2421,34 @@
           "players": [
             {
               "name": "миша",
-              "steamid64": null,
+              "steamid64": "76561198990000001",
               "captain": true
             },
             {
               "name": "Гость 10",
-              "steamid64": null,
+              "steamid64": "76561198990000002",
               "captain": false
             },
             {
               "name": "Гость 17",
-              "steamid64": null,
+              "steamid64": "76561198990000003",
               "captain": false
             },
             {
               "name": "Гость 11",
-              "steamid64": null,
+              "steamid64": "76561198990000004",
               "captain": false
             },
             {
               "name": "Гость 6",
-              "steamid64": null,
+              "steamid64": "76561198990000005",
               "captain": false
             }
           ],
-          "played": 0,
-          "wins": 0,
-          "roundDiff": 0,
-          "kd": null,
+          "played": 3,
+          "wins": 2,
+          "roundDiff": 7,
+          "kd": 1.2026431718061674,
           "rank": null
         },
         {
@@ -180,34 +2457,34 @@
           "players": [
             {
               "name": "дима",
-              "steamid64": null,
+              "steamid64": "76561198990000006",
               "captain": true
             },
             {
               "name": "Гость 7",
-              "steamid64": null,
+              "steamid64": "76561198990000007",
               "captain": false
             },
             {
               "name": "Гость 19",
-              "steamid64": null,
+              "steamid64": "76561198990000008",
               "captain": false
             },
             {
               "name": "Гость 14",
-              "steamid64": null,
+              "steamid64": "76561198990000009",
               "captain": false
             },
             {
               "name": "Гость 18",
-              "steamid64": null,
+              "steamid64": "76561198990000010",
               "captain": false
             }
           ],
-          "played": 0,
-          "wins": 0,
-          "roundDiff": 0,
-          "kd": null,
+          "played": 3,
+          "wins": 2,
+          "roundDiff": 8,
+          "kd": 1.148936170212766,
           "rank": null
         },
         {
@@ -216,34 +2493,34 @@
           "players": [
             {
               "name": "саша",
-              "steamid64": null,
+              "steamid64": "76561198990000011",
               "captain": true
             },
             {
               "name": "Гость 12",
-              "steamid64": null,
+              "steamid64": "76561198990000012",
               "captain": false
             },
             {
               "name": "Гость 9",
-              "steamid64": null,
+              "steamid64": "76561198990000013",
               "captain": false
             },
             {
               "name": "Гость 16",
-              "steamid64": null,
+              "steamid64": "76561198990000014",
               "captain": false
             },
             {
               "name": "Гость 8",
-              "steamid64": null,
+              "steamid64": "76561198990000015",
               "captain": false
             }
           ],
-          "played": 0,
-          "wins": 0,
-          "roundDiff": 0,
-          "kd": null,
+          "played": 3,
+          "wins": 1,
+          "roundDiff": -11,
+          "kd": 0.9879518072289156,
           "rank": null
         },
         {
@@ -252,34 +2529,34 @@
           "players": [
             {
               "name": "влад",
-              "steamid64": null,
+              "steamid64": "76561198990000016",
               "captain": true
             },
             {
               "name": "Гость 13",
-              "steamid64": null,
+              "steamid64": "76561198990000017",
               "captain": false
             },
             {
               "name": "Гость 15",
-              "steamid64": null,
+              "steamid64": "76561198990000018",
               "captain": false
             },
             {
               "name": "Гость 20",
-              "steamid64": null,
+              "steamid64": "76561198990000019",
               "captain": false
             },
             {
               "name": "Гость 5",
-              "steamid64": null,
+              "steamid64": "76561198990000020",
               "captain": false
             }
           ],
-          "played": 0,
-          "wins": 0,
-          "roundDiff": 0,
-          "kd": null,
+          "played": 3,
+          "wins": 1,
+          "roundDiff": -4,
+          "kd": 0.92578125,
           "rank": null
         }
       ],
@@ -290,20 +2567,20 @@
             {
               "a": 1,
               "b": 3,
-              "lobbyId": null,
-              "scoreA": null,
-              "scoreB": null,
-              "winner": null,
-              "url": null
+              "lobbyId": 99000001,
+              "scoreA": 13,
+              "scoreB": 7,
+              "winner": 1,
+              "url": "https://cybershoke.net/match/99000001"
             },
             {
               "a": 2,
               "b": 4,
-              "lobbyId": null,
-              "scoreA": null,
-              "scoreB": null,
-              "winner": null,
-              "url": null
+              "lobbyId": 99000002,
+              "scoreA": 10,
+              "scoreB": 13,
+              "winner": 4,
+              "url": "https://cybershoke.net/match/99000002"
             }
           ]
         },
@@ -313,20 +2590,20 @@
             {
               "a": 1,
               "b": 2,
-              "lobbyId": null,
-              "scoreA": null,
-              "scoreB": null,
-              "winner": null,
-              "url": null
+              "lobbyId": 99000003,
+              "scoreA": 9,
+              "scoreB": 13,
+              "winner": 2,
+              "url": "https://cybershoke.net/match/99000003"
             },
             {
               "a": 3,
               "b": 4,
-              "lobbyId": null,
-              "scoreA": null,
-              "scoreB": null,
-              "winner": null,
-              "url": null
+              "lobbyId": 99000004,
+              "scoreA": 13,
+              "scoreB": 11,
+              "winner": 3,
+              "url": "https://cybershoke.net/match/99000004"
             }
           ]
         },
@@ -336,32 +2613,48 @@
             {
               "a": 2,
               "b": 3,
-              "lobbyId": null,
-              "scoreA": null,
-              "scoreB": null,
-              "winner": null,
-              "url": null
+              "lobbyId": 99000005,
+              "scoreA": 13,
+              "scoreB": 6,
+              "winner": 2,
+              "url": "https://cybershoke.net/match/99000005"
             },
             {
               "a": 1,
               "b": 4,
-              "lobbyId": null,
-              "scoreA": null,
-              "scoreB": null,
-              "winner": null,
-              "url": null
+              "lobbyId": 99000006,
+              "scoreA": 13,
+              "scoreB": 8,
+              "winner": 1,
+              "url": "https://cybershoke.net/match/99000006"
             }
           ]
         }
       ],
       "order": [
-        1,
         2,
+        1,
         3,
         4
       ],
-      "final": null,
-      "third": null,
+      "final": {
+        "a": 1,
+        "b": 2,
+        "lobbyId": null,
+        "scoreA": null,
+        "scoreB": null,
+        "winner": null,
+        "url": null
+      },
+      "third": {
+        "a": 3,
+        "b": 4,
+        "lobbyId": null,
+        "scoreA": null,
+        "scoreB": null,
+        "winner": null,
+        "url": null
+      },
       "unattributed": []
     }
   ]
