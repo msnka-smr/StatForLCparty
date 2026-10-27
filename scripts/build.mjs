@@ -12,7 +12,6 @@ import { sortRows } from "./lib/sort.mjs";
 import { buildSessionsOutput } from "./lib/sessionsOutput.mjs";
 import { computeRatingHistory } from "./lib/ratingHistory.mjs";
 import { computeRecords } from "./lib/records.mjs";
-import { computeRecap } from "./lib/recap.mjs";
 import { computeAllTimeRating, computeRatingDelta } from "./lib/allTimeRating.mjs";
 import { buildTournamentsOutput } from "./lib/tournamentsOutput.mjs";
 import { summarizeMapFrequency, mapIconUrl, mapBannerUrl } from "./lib/mapCatalog.mjs";
@@ -207,9 +206,7 @@ async function main() {
     buildRow(steamid64, registry, mapsForPlayer, rating)
   );
 
-  // "Итоги вечера": считаем после sessionsOutput и истории рейтинга, обоим нужен один и тот же набор сессий.
   const ratingHistoryOut = computeRatingHistory(sessions, ratingHistoryInput);
-  for (const s of sessionsOutput) s.recap = computeRecap(s, ratingHistoryOut);
 
   const output = {
     generatedAt: new Date().toISOString(),
