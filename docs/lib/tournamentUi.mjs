@@ -91,12 +91,22 @@ function standingsHtml(t) {
       const team = t.teams.find((x) => x.number === n);
       const place = team.rank ?? i + 1;
       const kd = team.kd === null ? "—" : team.kd.toFixed(2);
-      return `<tr class="${team.rank === 1 ? "tn-first" : ""}"><td>${placeBadge(place, true)}</td><td>★ ${esc(team.captain)}</td><td>${team.played}</td><td>${team.wins}</td><td>${fmtDiff(team.roundDiff)}</td><td>${kd}</td></tr>`;
+      return `<tr class="${team.rank === 1 ? "tn-first" : ""}"><td>${placeBadge(place, true)}</td><td>★ ${esc(team.captain)}${team.tie ? `<sup class="tn-sup">${team.tie}</sup>` : ""}</td><td>${team.played}</td><td>${team.wins}</td><td>${fmtDiff(team.roundDiff)}</td><td>${kd}</td></tr>`;
     })
     .join("");
   return (
     '<table class="tn-table"><thead><tr><th>#</th><th>Команда</th><th>И</th><th>В</th><th>Раунды</th><th>K/D</th></tr></thead>' +
     `<tbody>${rows}</tbody></table>`
+  );
+}
+
+// Сноски к равенству побед: у каждой группы равных команд своя цифра в таблице.
+function tiesHtml(t) {
+  if (!t.ties || !t.ties.length) return "";
+  return (
+    '<div class="tn-ties">' +
+    t.ties.map((x) => `<div class="tn-tie"><sup class="tn-sup">${x.number}</sup> ${esc(x.text)}</div>`).join("") +
+    "</div>"
   );
 }
 
@@ -139,7 +149,8 @@ function bodyHtml(t) {
     "<h4>Составы</h4>" + teamsHtml(t) +
     '<h4>Круг</h4><div class="tn-rounds">' + rounds + "</div>" +
     "<h4>Таблица</h4>" + standingsHtml(t) +
-    '<div class="draft-hint">Порядок в круге: победы; при равенстве — разница раундов за весь круг, затем средний K/D. ' +
+    tiesHtml(t) +
+    '<div class="draft-hint">Порядок в круге: победы; при равенстве — личные встречи между равными командами, затем разница раундов в этих играх, затем средний K/D. ' +
     "Две лучшие команды играют финал, две остальные — матч за 3 место; места внутри пары решает сам матч.</div>" +
     "<h4>Плей-офф</h4>" + playoff +
     unattributed

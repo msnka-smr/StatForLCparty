@@ -33,19 +33,19 @@ test("rankTeams with no matches keeps the team order", () => {
   assert.deepEqual(rankTeams([1, 2, 3, 4], []), [1, 2, 3, 4]);
 });
 
-test("rankTeams: equal wins are decided by round difference over the whole circle, not by the head-to-head", () => {
-  // победы: 1→2 (над 3 и 4), 2→2 (над 1 и 3), 3→1, 4→1; команда 2 выиграла личную встречу с 1,
-  // но у 1 общая разница раундов больше (матч 1–3 выигран 13:0)
+test("rankTeams: more wins first, equal wins decided by the head-to-head", () => {
+  // победы: 1→2 (над 3 и 4), 2→2 (над 1 и 3), 3→1, 4→1
+  const c = circle([2, 1, 1, 2, 4, 3]);
+  assert.deepEqual(rankTeams([1, 2, 3, 4], c), [2, 1, 3, 4]);
+});
+
+test("rankTeams: the head-to-head beats a better total round difference", () => {
+  // команда 2 выиграла личную встречу с 1, хотя у 1 общая разница раундов больше (1–3 выиграно 13:0)
   const c = circle([2, 1, 1, 2, 4, 3], { 1: { scoreA: 13, scoreB: 0 } });
-  assert.deepEqual(rankTeams([1, 2, 3, 4], c), [1, 2, 4, 3]);
+  assert.deepEqual(rankTeams([1, 2, 3, 4], c), [2, 1, 3, 4]);
 });
 
-test("rankTeams: without any round difference advantage nothing else beats wins", () => {
-  const c = circle([1, 1, 1, 2, 2, 3]);
-  assert.deepEqual(rankTeams([1, 2, 3, 4], c), [1, 2, 3, 4]);
-});
-
-test("rankTeams: a three-way cycle is decided by the total round difference", () => {
+test("rankTeams: a three-way cycle is decided by round difference inside the group", () => {
   // 1 бьёт 2, 2 бьёт 3, 3 бьёт 1; все трое бьют 4
   const c = circle([1, 3, 1, 2, 2, 3], {
     0: { scoreA: 13, scoreB: 10 }, // 1 побеждает 2: +3 / -3
@@ -55,7 +55,7 @@ test("rankTeams: a three-way cycle is decided by the total round difference", ()
   assert.deepEqual(rankTeams([1, 2, 3, 4], c), [1, 2, 3, 4]);
 });
 
-test("rankTeams: equal total round difference is decided by team K/D, then by captain number", () => {
+test("rankTeams: equal round difference is decided by team K/D, then by captain number", () => {
   const equalScores = { scoreA: 13, scoreB: 10 };
   const c = circle([1, 3, 1, 2, 2, 3], {
     0: { ...equalScores },
@@ -168,4 +168,56 @@ test("a rematch played before the circle ended is not taken for the final", () =
   assert.equal(v.final.lobbyId, 8);
   assert.equal(v.final.winner, 2);
   assert.deepEqual(v.unattributed, [{ lobbyId: 2, reason: "Повторный матч пары до окончания круга" }]);
+});
+
+// --- пометки о тай-брейке ---
+
+test("a two-team tie is explained by the head-to-head with the score", () => {
+  const v = view(circle([2, 1, 1, 2, 4, 3]));
+  assert.equal(v.ties.length, 2);
+  const first = v.ties[0];
+  assert.deepEqual(first.teams, [2, 1]);
+  assert.match(first.text, /★ Игрок 6 и ★ Игрок 1/);
+  assert.match(first.text, /по 2 победы/);
+  assert.match(first.text, /выше ★ Игрок 6, он выиграл личную встречу \(13:5\)/);
+  assert.deepEqual(v.ties[1].teams, [3, 4]);
+});
+
+test("tied teams carry the footnote number, others do not", () => {
+  const v = view(circle([2, 1, 1, 2, 4, 3]));
+  const mark = Object.fromEntries(v.teams.map((t) => [t.number, t.tie]));
+  assert.deepEqual(mark, { 1: 1, 2: 1, 3: 2, 4: 2 });
+});
+
+test("a three-way cycle is explained by the round difference inside the group", () => {
+  const c = circle([1, 3, 1, 2, 2, 3], {
+    0: { scoreA: 13, scoreB: 10 },
+    1: { scoreA: 12, scoreB: 13 },
+    3: { scoreA: 13, scoreB: 9 },
+  });
+  const [tie] = view(c).ties;
+  assert.deepEqual(tie.teams, [1, 2, 3]);
+  assert.match(tie.text, /личные встречи не разделили/);
+  assert.match(tie.text, /разнице раундов в играх между ними/);
+});
+
+test("a tie settled by K/D says so", () => {
+  const c = circle([1, 3, 1, 2, 2, 3], { 0: { scoreA: 13, scoreB: 10 }, 1: { scoreA: 10, scoreB: 13 }, 3: { scoreA: 13, scoreB: 10 } });
+  for (const m of c) {
+    if (m.a === 3) m.kd[3] = { k: 80, d: 40 };
+    if (m.b === 3) m.kd[3] = { k: 80, d: 40 };
+  }
+  const [tie] = view(c).ties;
+  assert.match(tie.text, /среднему K\/D/);
+});
+
+test("no tie, no note", () => {
+  const v = view(circle([1, 1, 1, 2, 2, 3]));
+  assert.deepEqual(v.ties, []);
+  assert.ok(v.teams.every((t) => t.tie === null));
+});
+
+test("an unfinished circle shows no tie notes yet", () => {
+  const v = view(circle([2, 1, 1, 2, 4, 3]).slice(0, 5));
+  assert.deepEqual(v.ties, []);
 });

@@ -35,11 +35,10 @@ function teamKd(teamNumber, circle) {
   return d === 0 ? k : k / d;
 }
 
-// Номера команд от лучшей к худшей. Победы; при равенстве побед — общая разница
-// раундов за весь круг; при равенстве и её — средний K/D команды по кругу; в
-// крайнем случае номер команды (капитана). Личные встречи не учитываются
-// (решение пользователя 2026-10-27).
-export function rankTeams(teams, circle) {
+// Группы команд с одинаковым числом побед (по убыванию побед). Внутри группы
+// порядок по ключам: победы в матчах между командами группы (личные встречи),
+// разница раундов в этих же матчах, средний K/D по всему кругу, номер команды.
+function tieGroups(teams, circle) {
   const wins = new Map(teams.map((t) => [t, 0]));
   for (const m of circle) wins.set(m.winner, (wins.get(m.winner) ?? 0) + 1);
 
@@ -49,25 +48,70 @@ export function rankTeams(teams, circle) {
     groups.set(w, [...(groups.get(w) ?? []), t]);
   }
 
-  const ordered = [];
-  for (const w of [...groups.keys()].sort((x, y) => y - x)) {
-    const group = groups.get(w);
-    if (group.length === 1) {
-      ordered.push(group[0]);
-      continue;
-    }
-    const key = (t) => ({
-      diff: circle.filter((m) => m.a === t || m.b === t).reduce((s, m) => s + scoreFor(m, t), 0),
-      kd: teamKd(t, circle) ?? 0,
+  return [...groups.keys()]
+    .sort((x, y) => y - x)
+    .map((w) => {
+      const group = groups.get(w);
+      const inside = circle.filter((m) => group.includes(m.a) && group.includes(m.b));
+      const rows = group
+        .map((t) => ({
+          team: t,
+          h2h: inside.filter((m) => m.winner === t).length,
+          diff: inside.filter((m) => m.a === t || m.b === t).reduce((sum, m) => sum + scoreFor(m, t), 0),
+          kd: teamKd(t, circle) ?? 0,
+        }))
+        .sort((x, y) => y.h2h - x.h2h || y.diff - x.diff || y.kd - x.kd || x.team - y.team);
+      return { wins: w, rows };
     });
-    ordered.push(
-      ...group
-        .map((t) => ({ t, ...key(t) }))
-        .sort((x, y) => y.diff - x.diff || y.kd - x.kd || x.t - y.t)
-        .map((x) => x.t)
-    );
-  }
-  return ordered;
+}
+
+// Номера команд от лучшей к худшей. Победы; при равенстве — личные встречи
+// между равными командами, затем разница раундов в этих играх, затем средний
+// K/D команды по кругу, затем номер команды (капитана).
+export function rankTeams(teams, circle) {
+  return tieGroups(teams, circle).flatMap((g) => g.rows.map((r) => r.team));
+}
+
+// Какой показатель развёл команды группы: первый, значения которого не одинаковы у всех.
+function decidingReason(rows) {
+  const differs = (f) => rows.some((r) => Math.abs(f(r) - f(rows[0])) > 1e-9);
+  if (differs((r) => r.h2h)) return "h2h";
+  if (differs((r) => r.diff)) return "diff";
+  if (differs((r) => r.kd)) return "kd";
+  return "number";
+}
+
+function winsWord(n) {
+  return n === 1 ? "победе" : n >= 2 && n <= 4 ? "победы" : "побед";
+}
+const signed = (v) => (v > 0 ? "+" + v : v < 0 ? "−" + Math.abs(v) : "0");
+
+// Пояснения к равенству побед для подписи под таблицей.
+function explainTies(tournament, teams, circle) {
+  const label = (n) => `★ ${tournament.teams.find((t) => t.number === n)?.players.find((p) => p.captain)?.name ?? n}`;
+  return tieGroups(teams, circle)
+    .filter((g) => g.rows.length > 1)
+    .map((g, i) => {
+      const names = g.rows.map((r) => label(r.team));
+      const list = names.length === 2 ? `${names[0]} и ${names[1]}` : names.join(", ");
+      const head = `В круге ${list}: по ${g.wins} ${winsWord(g.wins)}`;
+      const reason = decidingReason(g.rows);
+      let text;
+      if (reason === "h2h" && g.rows.length === 2) {
+        const m = circle.find((x) => g.rows.every((r) => r.team === x.a || r.team === x.b));
+        const win = m.winner === m.a ? [m.scoreA, m.scoreB] : [m.scoreB, m.scoreA];
+        text = `${head} — выше ${names[0]}, он выиграл личную встречу (${win[0] ?? "?"}:${win[1] ?? "?"}).`;
+      } else if (reason === "h2h") {
+        text = `${head} — порядок по личным встречам между ними (${g.rows.map((r, k) => `${names[k]} ${r.h2h}`).join(", ")}).`;
+      } else if (reason === "diff") {
+        text = `${head} — личные встречи не разделили, порядок по разнице раундов в играх между ними (${g.rows.map((r, k) => `${names[k]} ${signed(r.diff)}`).join(", ")}).`;
+      } else if (reason === "kd") {
+        text = `${head} — личные встречи и раунды не разделили, порядок по среднему K/D за круг (${g.rows.map((r, k) => `${names[k]} ${r.kd.toFixed(2)}`).join(", ")}).`;
+      } else {
+        text = `${head} — равны по всем показателям, порядок по номеру команды.`;
+      }
+      return { number: i + 1, teams: g.rows.map((r) => r.team), text };
+    });
 }
 
 function slotOf(match) {
@@ -103,6 +147,10 @@ export function buildTournamentView(tournament, attributed) {
   const circleDone = circle.length === CIRCLE_SIZE;
 
   const order = rankTeams(teamNumbers, circle);
+  // Пометки о равенстве побед показываем, только когда круг закончен: до этого
+  // равенство может ещё разрешиться само.
+  const ties = circleDone ? explainTies(tournament, teamNumbers, circle) : [];
+  const tieOf = new Map(ties.flatMap((t) => t.teams.map((n) => [n, t.number])));
 
   let final = null;
   let third = null;
@@ -146,6 +194,7 @@ export function buildTournamentView(tournament, attributed) {
       roundDiff: mine.reduce((s, m) => s + scoreFor(m, team.number), 0),
       kd: teamKd(team.number, circle),
       rank: ranks.get(team.number) ?? null,
+      tie: tieOf.get(team.number) ?? null,
     };
   });
 
@@ -164,6 +213,7 @@ export function buildTournamentView(tournament, attributed) {
     teams,
     rounds,
     order,
+    ties,
     final,
     third,
     unattributed,
