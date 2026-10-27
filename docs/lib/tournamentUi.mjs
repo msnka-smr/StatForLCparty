@@ -15,7 +15,15 @@ const DATE_FORMAT = new Intl.DateTimeFormat("ru-RU", {
 });
 
 const STATUS_LABEL = { circle: "идёт круг", playoff: "плей-офф", finished: "завершён" };
-const MEDAL = { 1: "🥇", 2: "🥈", 3: "🥉" };
+
+// Бейдж места: золото, серебро и бронза — цветные плашки с цифрой, остальные нейтральные.
+function placeBadge(place, small = false) {
+  const cls = place >= 1 && place <= 3 ? "r" + place : "rn";
+  return `<span class="tn-badge ${cls}${small ? " sm" : ""}">${place}</span>`;
+}
+function fmtDiff(v) {
+  return v > 0 ? "+" + v : v < 0 ? "−" + Math.abs(v) : "0";
+}
 
 let selectedId = null;
 
@@ -81,10 +89,9 @@ function standingsHtml(t) {
   const rows = display
     .map((n, i) => {
       const team = t.teams.find((x) => x.number === n);
-      const place = team.rank ? MEDAL[team.rank] ?? team.rank : i + 1;
+      const place = team.rank ?? i + 1;
       const kd = team.kd === null ? "—" : team.kd.toFixed(2);
-      const diff = team.roundDiff > 0 ? "+" + team.roundDiff : String(team.roundDiff);
-      return `<tr><td>${place}</td><td>★ ${esc(team.captain)}</td><td>${team.played}</td><td>${team.wins}</td><td>${diff}</td><td>${kd}</td></tr>`;
+      return `<tr class="${team.rank === 1 ? "tn-first" : ""}"><td>${placeBadge(place, true)}</td><td>★ ${esc(team.captain)}</td><td>${team.played}</td><td>${team.wins}</td><td>${fmtDiff(team.roundDiff)}</td><td>${kd}</td></tr>`;
     })
     .join("");
   return (
@@ -96,11 +103,17 @@ function standingsHtml(t) {
 function placesHtml(t) {
   if (t.status !== "finished") return "";
   const sorted = [...t.teams].sort((x, y) => x.rank - y.rank);
-  return (
-    '<div class="tn-places"><h4>Итоги</h4>' +
-    sorted.map((team) => `<div>${MEDAL[team.rank] ?? team.rank + "."} ★ ${esc(team.captain)}</div>`).join("") +
-    "</div>"
-  );
+  const cards = sorted
+    .map((team) => {
+      const kd = team.kd === null ? "" : `<br>K/D ${team.kd.toFixed(2)}`;
+      return (
+        `<div class="tn-pod p${team.rank}">${placeBadge(team.rank)}` +
+        `<div><div class="tn-pod-name">★ ${esc(team.captain)}</div>` +
+        `<div class="tn-pod-sub">${team.wins} ${team.wins === 1 ? "победа" : "победы"} в круге · раунды ${fmtDiff(team.roundDiff)}${kd}</div></div></div>`
+      );
+    })
+    .join("");
+  return `<h4>Итоги</h4><div class="tn-podium">${cards}</div>`;
 }
 
 function bodyHtml(t) {
