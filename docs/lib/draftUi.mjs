@@ -18,6 +18,9 @@ const RATING_MIN = 1;
 const RATING_MAX = 3000;
 const GUEST_DEFAULT_RATING = 500;
 const TOURNAMENT_TEAMS = 4;
+// Пока ребята играют максимум на 4 команды, больше 4 капитанов выбрать нельзя
+// (сам подбор в teamBalance.mjs умеет до 10).
+const MAX_CAPTAINS = 4;
 
 const esc = (s) =>
   String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -115,6 +118,16 @@ export function mountDraft(host, { getPlayers }) {
     );
   }
 
+  const capsFull = () => captainIds().length >= MAX_CAPTAINS;
+  function capButton(isCaptain) {
+    const blocked = !isCaptain && capsFull();
+    return (
+      `<button type="button" class="draft-cap${isCaptain ? " on" : ""}" data-act="cap"` +
+      (blocked ? ` disabled title="Уже выбрано ${MAX_CAPTAINS} капитана — это максимум"` : ' title="Капитан"') +
+      `>${isCaptain ? "★" : "☆"}</button>`
+    );
+  }
+
   function poolRow(p) {
     const on = st.selected.has(p.steamid64);
     const cap = st.captains.has(p.steamid64);
@@ -127,7 +140,7 @@ export function mountDraft(host, { getPlayers }) {
       avatar +
       `<span class="draft-name">${esc(p.name)}</span>` +
       `<span class="draft-meta">рейтинг ${Math.round(p.rating)} · K/D ${p.kd.toFixed(2)}</span>` +
-      (on ? `<button type="button" class="draft-cap${cap ? " on" : ""}" data-act="cap" title="Капитан">${cap ? "★" : "☆"}</button>` : "") +
+      (on ? capButton(cap) : "") +
       (on ? lockSelect(p.steamid64) : "") +
       "</div>"
     );
@@ -139,7 +152,7 @@ export function mountDraft(host, { getPlayers }) {
       `<div class="draft-guest-row" data-id="${esc(g.id)}">` +
       `<input type="text" data-field="name" maxlength="${GUEST_NAME_MAX}" placeholder="Гость ${i + 1}: имя" value="${esc(g.name)}">` +
       `<input type="number" data-field="rating" class="${guestValid(g) ? "" : "invalid"}" min="${RATING_MIN}" max="${RATING_MAX}" step="1" value="${esc(g.rating)}">` +
-      `<button type="button" class="draft-cap${cap ? " on" : ""}" data-act="cap" title="Капитан">${cap ? "★" : "☆"}</button>` +
+      capButton(cap) +
       lockSelect(g.id) +
       '<button type="button" class="draft-guest-remove" data-act="remove-guest" aria-label="Удалить гостя">×</button>' +
       `<div class="draft-guest-label">Рейтинг на глаз, ${RATING_MIN}–${RATING_MAX} (${GUEST_DEFAULT_RATING} — средний игрок)</div>` +
@@ -150,7 +163,7 @@ export function mountDraft(host, { getPlayers }) {
   function renderAll() {
     host.innerHTML =
       '<div class="draft-section">' +
-      '<p class="draft-hint">Отметьте, кто играет, и назначьте капитанов звёздочкой (от 2 до 10, сколько капитанов — столько команд по ' +
+      '<p class="draft-hint">Отметьте, кто играет, и назначьте капитанов звёздочкой (от 2 до 4, сколько капитанов — столько команд по ' +
       TEAM_SIZE + " человек). Игрока можно заранее закрепить за капитаном списком «в команду…». " +
       "Остальных подберёт сайт по рейтингу, K-D и K/D, так чтобы команды были как можно ровнее. У гостей K-D и K/D оцениваются по рейтингу.</p>" +
       `<div class="draft-list">${pool.map(poolRow).join("")}</div>` +
@@ -387,6 +400,7 @@ export function mountDraft(host, { getPlayers }) {
         st.captains.delete(id);
         delete st.locked[id];
       } else {
+        if (capsFull()) return;
         st.captains.add(id);
         setLock(id, "");
       }
