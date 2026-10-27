@@ -1,0 +1,15 @@
+{
+  "name": "cs2statforlc",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "collect": "node scripts/collect.mjs",
+    "add": "node scripts/update.mjs --add",
+    "build": "node scripts/build.mjs",
+    "update": "node scripts/update.mjs",
+    "test": "node --test"
+  }
+}

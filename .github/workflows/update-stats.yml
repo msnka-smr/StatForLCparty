@@ -1,0 +1,111 @@
+# Кнопка «вставил ссылки → Run workflow» прямо на GitHub (вкладка Actions).
+# Делает то же, что update-stats.bat: скачивает матчи по ссылкам (без ожидания
+# разбора демки — статистика из лобби), пересобирает stats.json, коммитит и пушит.
+name: Обновить статистику
+
+on:
+  workflow_dispatch:
+    inputs:
+      links:
+        description: "Ссылки на матчи cybershoke через пробел"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  pages: write
+
+# два запуска подряд не должны пушить одновременно
+concurrency:
+  group: update-stats
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+
+      # Запуск из очереди стартует с коммита на момент запуска; без pull в счётчик
+      # «добавлено» попали бы матчи предыдущего запуска.
+      - name: Запомнить число матчей до обновления
+        run: |
+          git pull --ff-only
+          echo "MATCHES_BEFORE=$(ls data/matches | wc -l)" >> "$GITHUB_ENV"
+
+      - name: Проверка связи с cybershoke
+        run: |
+          node --input-type=module -e '
+          const res = await fetch("https://cybershoke.net/api/api/v1/custom-matches/lobbys/info", {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({ id_lobby: 12291946, lobby_password: "", players_waiting_all: false }),
+          });
+          const text = await res.text();
+          try {
+            if (!JSON.parse(text).data) throw new Error("пустой data");
+            console.log("cybershoke отвечает, статус", res.status);
+          } catch {
+            console.log("::error::cybershoke не пускает запросы с серверов GitHub (статус " + res.status + "), скорее всего это Cloudflare. Обновляйте статистику ярлыком на компьютере.");
+            console.log(text.slice(0, 500));
+            process.exit(1);
+          }
+          '
+
+      - name: Скачать матчи, пересобрать, закоммитить
+        env:
+          LINKS: ${{ inputs.links }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898333+github-actions[bot]@users.noreply.github.com"
+          printf '%s\n' "$LINKS" > "$RUNNER_TEMP/links.txt"
+          node scripts/update.mjs --add --basic-if-pending --file "$RUNNER_TEMP/links.txt"
+
+      # Коммит, запушенный github-actions[bot] через GITHUB_TOKEN, не запускает
+      # другие workflow, поэтому сборку Pages просим явно. Запускается и без
+      # нового коммита: лишняя пересборка тех же файлов безвредна.
+      - name: Запустить сборку Pages
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          code=$(curl -sS -o "$RUNNER_TEMP/pages.json" -w '%{http_code}' -X POST             -H "Authorization: Bearer $GH_TOKEN"             -H "Accept: application/vnd.github+json"             -H "X-GitHub-Api-Version: 2022-11-28"             "https://api.github.com/repos/$REPO/pages/builds")
+          echo "Pages builds API: HTTP $code"
+          cat "$RUNNER_TEMP/pages.json"; echo
+          if [ "$code" != "201" ]; then
+            echo "::warning::Не удалось запустить сборку Pages (HTTP $code)"
+            echo "PAGES_FAILED=1" >> "$GITHUB_ENV"
+          fi
+
+      - name: Сообщить результат в Telegram
+        if: always()
+        env:
+          TG_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TG_CHAT: ${{ secrets.TELEGRAM_CHAT_ID }}
+          JOB_STATUS: ${{ job.status }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          if [ -z "$TG_TOKEN" ] || [ -z "$TG_CHAT" ]; then
+            echo "Секреты Telegram не заданы — пропускаю оповещение"
+            exit 0
+          fi
+          AFTER=$(ls data/matches | wc -l)
+          ADDED=$((AFTER - ${MATCHES_BEFORE:-$AFTER}))
+          if [ "$JOB_STATUS" = "success" ]; then
+            if [ "$ADDED" -gt 0 ]; then
+              TEXT="Готово: добавлено матчей: $ADDED. Сайт обновится через минуту-две."
+            else
+              TEXT="Готово, но новых матчей не добавлено. Возможно, они уже были учтены, ещё не завершились или в них чужой состав. Подробности: $RUN_URL"
+            fi
+          else
+            TEXT="Ошибка обновления статистики. Лог: $RUN_URL"
+          fi
+          if [ "$JOB_STATUS" = "success" ] && [ "${PAGES_FAILED:-0}" = "1" ]; then
+            TEXT="$TEXT Но сборку сайта запустить не удалось, сайт может не обновиться. Лог: $RUN_URL"
+          fi
+          curl -sS -X POST "https://api.telegram.org/bot${TG_TOKEN}/sendMessage"             --data-urlencode "chat_id=${TG_CHAT}"             --data-urlencode "text=${TEXT}"             --data-urlencode "disable_web_page_preview=true" || true

@@ -1,0 +1,142 @@
+{
+  "generatedAt": "2026-10-27T05:48:23.062Z",
+  "totalMapsCollected": 0,
+  "qualification": {
+    "threshold": 5,
+    "maxMaps": 0,
+    "qualifyShare": 0.4,
+    "qualifyMinMaps": 5,
+    "qualificationDrop": null
+  },
+  "allTime": {
+    "players": []
+  },
+  "sessions": [],
+  "ratingHistory": {
+    "sessions": [],
+    "players": {}
+  },
+  "records": [
+    {
+      "id": "most-kills",
+      "group": "personal",
+      "title": "Больше всего убийств за карту",
+      "hint": "личный максимум за одну карту",
+      "top": [],
+      "more": 0
+    },
+    {
+      "id": "best-kd-diff",
+      "group": "personal",
+      "title": "Лучшая разница K-D за карту",
+      "hint": "убийства минус смерти за одну карту",
+      "top": [],
+      "more": 0
+    },
+    {
+      "id": "best-kd",
+      "group": "personal",
+      "title": "Лучший K/D за карту",
+      "hint": "минимум 15 убийств на карте",
+      "top": [],
+      "more": 0
+    },
+    {
+      "id": "carry-in-loss",
+      "group": "personal",
+      "title": "Тащил в проигрыше",
+      "hint": "лучшая разница K-D на проигранной карте",
+      "top": [],
+      "more": 0
+    },
+    {
+      "id": "win-streak",
+      "group": "streaks",
+      "title": "Серия побед подряд",
+      "hint": "карт подряд; пропущенные игроком карты серию не рвут",
+      "top": [],
+      "more": 0
+    },
+    {
+      "id": "kd-streak",
+      "group": "streaks",
+      "title": "Серия карт с K/D не ниже 1.0",
+      "hint": "карт подряд",
+      "top": [],
+      "more": 0
+    },
+    {
+      "id": "attendance-streak",
+      "group": "streaks",
+      "title": "Железная посещаемость",
+      "hint": "сессий подряд",
+      "top": [],
+      "more": 0
+    },
+    {
+      "id": "biggest-win",
+      "group": "matches",
+      "title": "Самый крупный разгром",
+      "hint": "наибольшая разница в счёте",
+      "top": [],
+      "more": 0
+    },
+    {
+      "id": "closest-match",
+      "group": "matches",
+      "title": "Самый упорный матч",
+      "hint": "наименьшая разница в счёте",
+      "top": [],
+      "more": 0
+    },
+    {
+      "id": "longest-map",
+      "group": "matches",
+      "title": "Самая долгая карта",
+      "hint": "больше всего раундов",
+      "top": [],
+      "more": 0
+    },
+    {
+      "id": "shortest-map",
+      "group": "matches",
+      "title": "Самая короткая карта",
+      "hint": "меньше всего раундов",
+      "top": [],
+      "more": 0
+    },
+    {
+      "id": "worst-kd-diff",
+      "group": "oops",
+      "title": "Трудная карта",
+      "hint": "убийства минус смерти за одну карту",
+      "top": [],
+      "more": 0
+    },
+    {
+      "id": "worst-kd",
+      "group": "oops",
+      "title": "Карта не задалась (наименьший K/D)",
+      "hint": "считается минимум от 10 смертей на карте",
+      "top": [],
+      "more": 0
+    },
+    {
+      "id": "most-deaths",
+      "group": "oops",
+      "title": "Горячая точка",
+      "hint": "больше всего смертей за одну карту",
+      "top": [],
+      "more": 0
+    },
+    {
+      "id": "loss-streak",
+      "group": "oops",
+      "title": "Полоса неудач",
+      "hint": "карт подряд",
+      "top": [],
+      "more": 0
+    }
+  ],
+  "maps": []
+}
