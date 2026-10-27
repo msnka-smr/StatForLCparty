@@ -35,9 +35,10 @@ function teamKd(teamNumber, circle) {
   return d === 0 ? k : k / d;
 }
 
-// Номера команд от лучшей к худшей. Победы; внутри группы с равными победами
-// лексикографически: победы в матчах внутри группы, разница раундов внутри
-// группы, K/D команды по всему кругу, номер команды (капитана).
+// Номера команд от лучшей к худшей. Победы; при равенстве побед — общая разница
+// раундов за весь круг; при равенстве и её — средний K/D команды по кругу; в
+// крайнем случае номер команды (капитана). Личные встречи не учитываются
+// (решение пользователя 2026-10-27).
 export function rankTeams(teams, circle) {
   const wins = new Map(teams.map((t) => [t, 0]));
   for (const m of circle) wins.set(m.winner, (wins.get(m.winner) ?? 0) + 1);
@@ -55,16 +56,14 @@ export function rankTeams(teams, circle) {
       ordered.push(group[0]);
       continue;
     }
-    const inside = circle.filter((m) => group.includes(m.a) && group.includes(m.b));
     const key = (t) => ({
-      wins: inside.filter((m) => m.winner === t).length,
-      diff: inside.filter((m) => m.a === t || m.b === t).reduce((s, m) => s + scoreFor(m, t), 0),
+      diff: circle.filter((m) => m.a === t || m.b === t).reduce((s, m) => s + scoreFor(m, t), 0),
       kd: teamKd(t, circle) ?? 0,
     });
     ordered.push(
       ...group
         .map((t) => ({ t, ...key(t) }))
-        .sort((x, y) => y.wins - x.wins || y.diff - x.diff || y.kd - x.kd || x.t - y.t)
+        .sort((x, y) => y.diff - x.diff || y.kd - x.kd || x.t - y.t)
         .map((x) => x.t)
     );
   }

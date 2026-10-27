@@ -33,13 +33,19 @@ test("rankTeams with no matches keeps the team order", () => {
   assert.deepEqual(rankTeams([1, 2, 3, 4], []), [1, 2, 3, 4]);
 });
 
-test("rankTeams: more wins first, equal wins decided by the head-to-head", () => {
-  // победы: 1→2 (над 3 и 4), 2→2 (над 1 и 3), 3→1, 4→1
-  const c = circle([2, 1, 1, 2, 4, 3]);
-  assert.deepEqual(rankTeams([1, 2, 3, 4], c), [2, 1, 3, 4]);
+test("rankTeams: equal wins are decided by round difference over the whole circle, not by the head-to-head", () => {
+  // победы: 1→2 (над 3 и 4), 2→2 (над 1 и 3), 3→1, 4→1; команда 2 выиграла личную встречу с 1,
+  // но у 1 общая разница раундов больше (матч 1–3 выигран 13:0)
+  const c = circle([2, 1, 1, 2, 4, 3], { 1: { scoreA: 13, scoreB: 0 } });
+  assert.deepEqual(rankTeams([1, 2, 3, 4], c), [1, 2, 4, 3]);
 });
 
-test("rankTeams: a three-way cycle is decided by round difference inside the group", () => {
+test("rankTeams: without any round difference advantage nothing else beats wins", () => {
+  const c = circle([1, 1, 1, 2, 2, 3]);
+  assert.deepEqual(rankTeams([1, 2, 3, 4], c), [1, 2, 3, 4]);
+});
+
+test("rankTeams: a three-way cycle is decided by the total round difference", () => {
   // 1 бьёт 2, 2 бьёт 3, 3 бьёт 1; все трое бьют 4
   const c = circle([1, 3, 1, 2, 2, 3], {
     0: { scoreA: 13, scoreB: 10 }, // 1 побеждает 2: +3 / -3
@@ -49,7 +55,7 @@ test("rankTeams: a three-way cycle is decided by round difference inside the gro
   assert.deepEqual(rankTeams([1, 2, 3, 4], c), [1, 2, 3, 4]);
 });
 
-test("rankTeams: equal round difference is decided by team K/D, then by captain number", () => {
+test("rankTeams: equal total round difference is decided by team K/D, then by captain number", () => {
   const equalScores = { scoreA: 13, scoreB: 10 };
   const c = circle([1, 3, 1, 2, 2, 3], {
     0: { ...equalScores },
