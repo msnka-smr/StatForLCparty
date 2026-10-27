@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Live Car · CS2</title>
+<title>ГЕЙмеры · CS2</title>
 <link rel="icon" type="image/png" href="favicon.png" />
 <style>
   :root {
@@ -447,20 +447,6 @@
     font-size: 12px;
   }
 
-  /* Логотип Live Car внизу, на всех вкладках (в отличие от footer не очищается). */
-  .brand-footer {
-    margin-top: 40px;
-    padding-top: 24px;
-    border-top: 1px solid var(--border);
-    text-align: center;
-  }
-  .brand-footer img {
-    display: inline-block;
-    width: 100%;
-    max-width: 300px;
-    height: auto;
-    opacity: 0.9;
-  }
 
   /* На телефоне таблица сворачивается до Игрок (+ строка с Карт/K-D/K-D под
      именем) / Рейтинг — сами колонки Карт/K/D/K-D прячутся, но их значения
@@ -1041,7 +1027,7 @@
 <body>
   <div class="title-row">
     <img src="favicon.png" alt="" />
-    <h1>Live Car · CS2</h1>
+    <h1>ГЕЙмеры · CS2</h1>
   </div>
   <div class="subtitle" id="subtitle">Загрузка…</div>
 
@@ -1053,8 +1039,8 @@
       <div class="tab" data-tab="lastSession">Сессии</div>
       <div class="tab" data-tab="maps">Карты</div>
       <div class="tab" data-tab="draft">Выбор составов</div>
-      <div class="tab" data-tab="records">Рекорды</div>
       <div class="tab" data-tab="tournament">Турнир</div>
+      <div class="tab" data-tab="records">Рекорды</div>
     </div>
     <a class="rating-info-link" href="rating-info.html" target="_blank" rel="noopener">Информация о рейтинге →</a>
   </div>
@@ -1072,9 +1058,6 @@
 
   <footer id="footer"></footer>
 
-  <div class="brand-footer">
-    <img src="livecar-logo.png" alt="Live Car" />
-  </div>
 
 <script>
 (function () {
@@ -2530,7 +2513,7 @@
       ctx.stroke();
     }
 
-    text("Live Car · CS2", P, y + 26, 26, "500", C.faint);
+    text("ГЕЙмеры · CS2", P, y + 26, 26, "500", C.faint);
     y += 52;
     text("Итоги вечера", P, y + 56, 64, "700", C.text);
     y += 86;

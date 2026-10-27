@@ -17,7 +17,6 @@ const GUEST_NAME_MAX = 40;
 const RATING_MIN = 1;
 const RATING_MAX = 1500;
 const GUEST_DEFAULT_RATING = 500;
-const BOT_NAME = "@Cs2_stat_LCparty_bot";
 const TOURNAMENT_TEAMS = 4;
 
 const esc = (s) =>
@@ -258,7 +257,7 @@ export function mountDraft(host, { getPlayers }) {
       )
       .join("");
     const text = st.launchText
-      ? `<div class="draft-hint">Скопируйте этот текст и отправьте боту ${BOT_NAME}. Он создаст турнир.</div>` +
+      ? `<div class="draft-hint">Скопируйте этот текст и передайте администратору — он создаст турнир.</div>` +
         `<textarea class="launch-text" id="dr-launch-text" readonly rows="8">${esc(st.launchText)}</textarea>` +
         '<button type="button" class="wheel-spin-btn" data-act="copy">Копировать</button> <span id="dr-copied" class="draft-variant-note"></span>'
       : "";
@@ -299,6 +298,7 @@ export function mountDraft(host, { getPlayers }) {
         name: players.get(id).name,
         steamid64: players.get(id).guest ? null : id,
         captain: id === c,
+        rating: Math.round(players.get(id).rating),
       })),
     }));
     st.launchText = formatTournamentText({ createdAt: new Date().toISOString(), teams });

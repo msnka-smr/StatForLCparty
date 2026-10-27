@@ -60,7 +60,11 @@ function teamsHtml(t) {
         (team) =>
           `<div class="draft-team"><h4>${team.number}. ★ ${esc(team.captain)}</h4><ul>` +
           team.players
-            .map((p) => `<li><span>${p.captain ? "★ " : ""}${esc(p.name)}${p.steamid64 ? "" : '<span class="draft-guest-tag">гость</span>'}</span></li>`)
+            .map(
+              (p) =>
+                `<li><span>${p.captain ? "★ " : ""}${esc(p.name)}${p.steamid64 ? "" : '<span class="draft-guest-tag">гость</span>'}</span>` +
+                `<span>${p.rating != null ? p.rating : ""}</span></li>`
+            )
             .join("") +
           "</ul></div>"
       )

@@ -127,3 +127,31 @@ test("worst case (20 players, 40-char names) fits a Telegram message", () => {
   }));
   assert.ok(formatTournamentText({ createdAt: CREATED, teams }).length < 4096);
 });
+
+test("ratings survive format and parse, guests included", () => {
+  const teams = makeTeams({ guest: true });
+  teams.forEach((t) => t.players.forEach((p, i) => (p.rating = 480 + i * 11)));
+  const parsed = parseTournamentText(formatTournamentText({ createdAt: CREATED, teams }));
+  assert.equal(parsed.ok, true);
+  assert.deepEqual(parsed.tournament.teams, teams);
+});
+
+test("a fractional rating is rounded to an integer when formatted", () => {
+  const teams = makeTeams();
+  teams[0].players[1].rating = 512.6;
+  const parsed = parseTournamentText(formatTournamentText({ createdAt: CREATED, teams }));
+  assert.equal(parsed.tournament.teams[0].players[1].rating, 513);
+});
+
+test("a player without a rating gets no rating key", () => {
+  const parsed = parseTournamentText(formatTournamentText({ createdAt: CREATED, teams: makeTeams() }));
+  assert.equal("rating" in parsed.tournament.teams[0].players[0], false);
+});
+
+test("a malformed rating is rejected", () => {
+  const text = formatTournamentText({ createdAt: CREATED, teams: makeTeams() }).replace(
+    `=${sid(11)}`,
+    `=${sid(11)}:abc`
+  );
+  assert.deepEqual(parseTournamentText(text), { ok: false, error: "Неверный рейтинг: abc" });
+});
