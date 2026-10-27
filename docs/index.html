@@ -447,6 +447,21 @@
     font-size: 12px;
   }
 
+  /* Логотип Live Car внизу, на всех вкладках (в отличие от footer не очищается). */
+  .brand-footer {
+    margin-top: 40px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+  .brand-footer img {
+    display: inline-block;
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    opacity: 0.9;
+  }
+
   /* На телефоне таблица сворачивается до Игрок (+ строка с Карт/K-D/K-D под
      именем) / Рейтинг — сами колонки Карт/K/D/K-D прячутся, но их значения
      не пропадают, а переезжают во вторую строку под именем игрока. */
@@ -955,6 +970,10 @@
   <div id="draftSection"></div>
 
   <footer id="footer"></footer>
+
+  <div class="brand-footer">
+    <img src="livecar-logo.png" alt="Live Car" />
+  </div>
 
 <script>
 (function () {
