@@ -8,7 +8,6 @@ import { normalizeLobby } from "./lib/normalize.mjs";
 import { applyAliases } from "./lib/aliases.mjs";
 import { assignSessions } from "./lib/session.mjs";
 import { aggregatePlayerMaps } from "./lib/aggregate.mjs";
-import { computeThreshold } from "./lib/qualify.mjs";
 import { sortRows } from "./lib/sort.mjs";
 import { buildSessionsOutput } from "./lib/sessionsOutput.mjs";
 import { computeRatingHistory } from "./lib/ratingHistory.mjs";
@@ -23,7 +22,6 @@ const MATCHES_DIR = path.join(ROOT, "data", "matches");
 const CONFIG_PATH = path.join(ROOT, "data", "config.json");
 const PLAYERS_PATH = path.join(ROOT, "data", "players.json");
 const TOURNAMENTS_DIR = path.join(ROOT, "data", "tournaments");
-const THRESHOLD_STATE_PATH = path.join(ROOT, "data", "threshold-state.json");
 const OUTPUT_PATH = path.join(ROOT, "docs", "data", "stats.json");
 
 const DEFAULT_CONFIG = {
@@ -31,8 +29,6 @@ const DEFAULT_CONFIG = {
   steamAliases: {},
   sessionGapHours: 6,
   sessionTimezone: "Europe/Samara",
-  qualifyShare: 0.3,
-  qualifyMinMaps: 5,
 };
 
 async function readJson(filePath, fallback) {
@@ -110,7 +106,7 @@ function displayName(registry, steamid64) {
   return entry?.displayName ?? entry?.lastSeenName ?? steamid64;
 }
 
-function buildRow(steamid64, registry, mapsForPlayer, threshold, rating) {
+function buildRow(steamid64, registry, mapsForPlayer, rating) {
   const agg = aggregatePlayerMaps(mapsForPlayer);
   const totalRounds = mapsForPlayer.reduce((sum, m) => sum + (m.mapTotalRounds ?? 0), 0);
   return {
@@ -128,7 +124,6 @@ function buildRow(steamid64, registry, mapsForPlayer, threshold, rating) {
     kd: agg.kd,
     kdDiff: agg.k - agg.d,
     rating,
-    isQualified: agg.mapsPlayed >= threshold,
   };
 }
 
@@ -161,12 +156,6 @@ async function main() {
     }
   }
 
-  const threshold = computeThreshold(
-    [...byPlayerAllTime.values()].map((maps) => maps.length),
-    { qualifyShare: config.qualifyShare, qualifyMinMaps: config.qualifyMinMaps }
-  );
-  const maxMaps = Math.max(0, ...[...byPlayerAllTime.values()].map((maps) => maps.length));
-
   // byPlayerAllTime уже хронологический: sortedMaps идёт по playedAt, и мы
   // только добавляем в список каждого игрока по ходу этого же перебора.
   // История для графика "Динамика рейтинга": тот же replay, что и рейтинг выше.
@@ -174,7 +163,7 @@ async function main() {
   const allTimeRows = [...byPlayerAllTime.entries()].map(([steamid64, mapsForPlayer]) => {
     const { rating, history } = computeAllTimeRating(mapsForPlayer);
     ratingHistoryInput[steamid64] = { matches: mapsForPlayer, history };
-    const row = buildRow(steamid64, registry, mapsForPlayer, threshold, Math.round(rating));
+    const row = buildRow(steamid64, registry, mapsForPlayer, Math.round(rating));
     row.ratingDelta = computeRatingDelta(mapsForPlayer, history, lastSession?.id ?? null);
     return row;
   });
@@ -194,7 +183,7 @@ async function main() {
       }
     }
     const players = [...byPlayerOnMap.entries()].map(([steamid64, mapsForPlayer]) =>
-      buildRow(steamid64, registry, mapsForPlayer, 0, null)
+      buildRow(steamid64, registry, mapsForPlayer, null)
     );
     // Сортировка по умолчанию — число карт, при равенстве выше тот, у кого
     // лучше K/D. sortRows сортирует только по одной колонке, поэтому сначала
@@ -213,31 +202,9 @@ async function main() {
     };
   });
 
-  // Порог плавает и нигде не запоминается (пересчитывается каждый build), но если
-  // он вырос настолько, что кто-то выпал из квалификации — молча посереть для
-  // человека выглядит как баг. Единственное, что переживает между запусками —
-  // сам факт "кто был квалифицирован при каком пороге", специально для этого баннера.
-  const prevThresholdState = await readJson(THRESHOLD_STATE_PATH, null);
-  const qualifiedNowIds = allTimeRowsSorted.filter((r) => r.isQualified).map((r) => r.steamid64);
-  let qualificationDrop = null;
-  if (prevThresholdState && threshold > prevThresholdState.threshold) {
-    const droppedIds = prevThresholdState.qualifiedSteamIds.filter(
-      (id) => !qualifiedNowIds.includes(id)
-    );
-    if (droppedIds.length) {
-      qualificationDrop = {
-        previousThreshold: prevThresholdState.threshold,
-        threshold,
-        droppedNames: droppedIds.map((id) => displayName(registry, id)),
-      };
-    }
-  }
-  await writeJson(THRESHOLD_STATE_PATH, { threshold, qualifiedSteamIds: qualifiedNowIds });
-
-  // Все игровые вечера, от новых к старым. Пороги квалификации для строк те же,
-  // что для таблицы "За всё время" (текущие), — как и раньше для последней сессии.
+  // Все игровые вечера, от новых к старым.
   const sessionsOutput = buildSessionsOutput(sessions, (steamid64, mapsForPlayer, rating) =>
-    buildRow(steamid64, registry, mapsForPlayer, threshold, rating)
+    buildRow(steamid64, registry, mapsForPlayer, rating)
   );
 
   // "Итоги вечера": считаем после sessionsOutput и истории рейтинга, обоим нужен один и тот же набор сессий.
@@ -247,13 +214,6 @@ async function main() {
   const output = {
     generatedAt: new Date().toISOString(),
     totalMapsCollected: sortedMaps.length,
-    qualification: {
-      threshold,
-      maxMaps,
-      qualifyShare: config.qualifyShare,
-      qualifyMinMaps: config.qualifyMinMaps,
-      qualificationDrop,
-    },
     allTime: { players: allTimeRowsSorted },
     sessions: sessionsOutput,
     ratingHistory: ratingHistoryOut,
@@ -264,7 +224,7 @@ async function main() {
 
   await writeJson(OUTPUT_PATH, output);
 
-  console.log(`Карт учтено: ${sortedMaps.length}, сессий: ${sessions.length}, порог: ${threshold} карт (максимум ${maxMaps}).`);
+  console.log(`Карт учтено: ${sortedMaps.length}, сессий: ${sessions.length}.`);
   console.log(`Записано в ${path.relative(ROOT, OUTPUT_PATH)}`);
 }
 

@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { computeRecap, TOP_N, START_RATING } from "../scripts/lib/recap.mjs";
 
 const row = (steamid64, kdDiff, extra = {}) => ({
-  steamid64, kdDiff, kd: 1.5, wins: 2, mapsPlayed: 3, isQualified: true, ...extra,
+  steamid64, kdDiff, kd: 1.5, wins: 2, mapsPlayed: 3, ...extra,
 });
 const session = (id, players) => ({ id, players });
 const history = (ids, players) => ({ sessions: ids.map((id) => ({ id })), players });
@@ -31,8 +31,8 @@ test("equal K-D difference: higher K/D first, then steamid64", () => {
   assert.deepEqual(computeRecap(s, undefined).top.map((t) => t.steamid64), ["B", "A", "C"]);
 });
 
-test("an unqualified player can be the MVP", () => {
-  const s = session("S1", [row("Q", 600), row("GUEST", 900, { isQualified: false })]);
+test("any player of the evening can be the MVP, a guest included", () => {
+  const s = session("S1", [row("Q", 600), row("GUEST", 900)]);
   assert.equal(computeRecap(s, undefined).top[0].steamid64, "GUEST");
 });
 

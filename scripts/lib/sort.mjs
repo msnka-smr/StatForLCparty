@@ -1,8 +1,6 @@
-// Сортировка таблицы в два ключа: неквалифицированные всегда внизу,
-// внутри каждой группы — по выбранной колонке.
+// Сортировка строк таблицы по выбранной колонке (порога квалификации больше нет).
 export function sortRows(rows, column, direction = "desc") {
   return [...rows].sort((a, b) => {
-    if (a.isQualified !== b.isQualified) return a.isQualified ? -1 : 1;
     const av = a[column];
     const bv = b[column];
     if (av == null && bv == null) return 0;

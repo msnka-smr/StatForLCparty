@@ -7,7 +7,7 @@ const makeRow = (steamid64, maps, rating) => ({
   steamid64,
   rating,
   kdDiff: maps.reduce((s, m) => s + m.k - m.d, 0),
-  isQualified: true,
+ 
   mapsPlayed: maps.length,
   rounds: maps.map((m) => m.mapTotalRounds),
 });

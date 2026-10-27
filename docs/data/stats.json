@@ -1,13 +1,6 @@
 {
-  "generatedAt": "2026-10-27T11:47:16.494Z",
+  "generatedAt": "2026-10-27T11:58:29.664Z",
   "totalMapsCollected": 0,
-  "qualification": {
-    "threshold": 5,
-    "maxMaps": 0,
-    "qualifyShare": 0.4,
-    "qualifyMinMaps": 5,
-    "qualificationDrop": null
-  },
   "allTime": {
     "players": []
   },

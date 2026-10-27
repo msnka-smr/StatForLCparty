@@ -2,17 +2,17 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { sortRows } from "../scripts/lib/sort.mjs";
 
-test("unqualified rows always sink below qualified ones", () => {
+test("there is no qualification grouping: rows sort by the chosen column only", () => {
   const rows = [
-    { name: "low-rated-qualified", isQualified: true, rating: 0.5 },
-    { name: "high-rated-unqualified", isQualified: false, rating: 3.0 },
+    { name: "low-rated", isQualified: true, rating: 0.5 },
+    { name: "high-rated", isQualified: false, rating: 3.0 },
   ];
   const sorted = sortRows(rows, "rating", "desc");
-  assert.equal(sorted[0].name, "low-rated-qualified");
-  assert.equal(sorted[1].name, "high-rated-unqualified");
+  assert.equal(sorted[0].name, "high-rated");
+  assert.equal(sorted[1].name, "low-rated");
 });
 
-test("within a group, sorts by the chosen column descending", () => {
+test("sorts by the chosen column descending", () => {
   const rows = [
     { name: "a", isQualified: true, rating: 1.1 },
     { name: "b", isQualified: true, rating: 1.5 },
@@ -22,7 +22,7 @@ test("within a group, sorts by the chosen column descending", () => {
   assert.deepEqual(sorted, ["b", "a", "c"]);
 });
 
-test("ascending direction is respected within a group", () => {
+test("ascending direction is respected", () => {
   const rows = [
     { name: "a", isQualified: true, rating: 1.1 },
     { name: "b", isQualified: true, rating: 1.5 },

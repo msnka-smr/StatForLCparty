@@ -124,15 +124,6 @@
   }
   .rating-info-link:hover { color: var(--accent); }
 
-  .banner {
-    background: var(--yellow-bg);
-    border: 1px solid var(--yellow);
-    color: var(--text);
-    padding: 8px 12px;
-    border-radius: 6px;
-    font-size: 13px;
-    margin-bottom: 12px;
-  }
 
   .session-picker { margin-bottom: 8px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
   .recap-btn, .recap-actions button {
@@ -328,8 +319,6 @@
   @media (prefers-reduced-motion: reduce) {
     .map-hero-bg { transition: none; }
   }
-  tbody tr.unqualified { color: var(--text-faint); }
-  tbody tr.unqualified .player-name { color: var(--text-dim); }
 
   .player-cell {
     display: flex;
@@ -410,13 +399,6 @@
 
   .maps-cell small { color: var(--text-faint); font-weight: 400; }
 
-  .qual-divider td {
-    padding: 4px 10px;
-    border-bottom: 1px solid var(--border);
-    color: var(--text-faint);
-    font-size: 11px;
-    background: var(--bg);
-  }
 
   tr.detail-row td {
     background: var(--bg);
@@ -1031,8 +1013,6 @@
   </div>
   <div class="subtitle" id="subtitle">Загрузка…</div>
 
-  <div id="qualBanner"></div>
-
   <div class="toolbar">
     <div class="tabs">
       <div class="tab active" data-tab="allTime">За всё время</div>
@@ -1207,7 +1187,6 @@
   function render() {
     if (!state.data) return;
     renderSubtitle();
-    renderBanner();
     renderSessionHeader();
     renderMapChips();
     renderMobileSort();
@@ -1338,15 +1317,6 @@
       "Карт учтено: " + state.data.totalMapsCollected + " · обновлено " + formatDateTime(state.data.generatedAt);
   }
 
-  function renderBanner() {
-    var el = document.getElementById("qualBanner");
-    var drop = state.data.qualification.qualificationDrop;
-    if (!drop) { el.innerHTML = ""; return; }
-    el.innerHTML =
-      '<div class="banner">Порог квалификации вырос до ' + drop.threshold + " " + pluralRu(drop.threshold, "карты", "карт", "карт") + ' — вне рейтинга: ' +
-      drop.droppedNames.map(escapeHtml).join(", ") + "</div>";
-  }
-
   function renderSessionHeader() {
     var el = document.getElementById("sessionHeader");
     var s = currentSession();
@@ -1419,12 +1389,7 @@
   function renderFooter() {
     var el = document.getElementById("footer");
     if (noTableTab()) { el.textContent = ""; return; }
-    el.textContent =
-      state.tab === "allTime"
-        ? "Порог квалификации: " + mapsCount(state.data.qualification.threshold) + " " +
-          "(" + Math.round(state.data.qualification.qualifyShare * 100) + "% от " +
-          state.data.qualification.maxMaps + " у лидера)"
-        : "Карт учтено всего: " + state.data.totalMapsCollected;
+    el.textContent = "Карт учтено всего: " + state.data.totalMapsCollected;
   }
 
   // Вкладки, на которых нет общей таблицы игроков (у них свой блок).
@@ -1445,14 +1410,10 @@
     var rows = getRows().slice();
     var col = getSortColumn();
     var dir = getSortDirection() === "asc" ? 1 : -1;
-    // Порог квалификации считается по всей истории и не имеет смысла для
-    // одной сессии из 3-7 карт — там сортируем только по колонке.
-    var useQualification = state.tab === "allTime";
     // "Карты", сортировка по числу карт: при равенстве выше тот, у кого
     // лучше K/D на этой карте, а не произвольный порядок.
     var tiebreakKd = state.tab === "maps" && col === "mapsPlayed";
     rows.sort(function (a, b) {
-      if (useQualification && a.isQualified !== b.isQualified) return a.isQualified ? -1 : 1;
       var av = a[col], bv = b[col];
       if (av == null && bv == null) return 0;
       if (av == null) return 1;
@@ -1508,16 +1469,8 @@
     headHtml += "</tr>";
 
     var bodyHtml = "";
-    var thresholdShown = false;
-    var showQualification = state.tab === "allTime";
     rows.forEach(function (row) {
-      if (showQualification && !row.isQualified && !thresholdShown) {
-        thresholdShown = true;
-        bodyHtml += '<tr class="qual-divider"><td colspan="' + columns.length +
-          '">менее ' + Math.round(state.data.qualification.qualifyShare * 100) +
-          '% карт лидера (' + state.data.qualification.threshold + ')</td></tr>';
-      }
-      bodyHtml += isMapsTab ? mapRowHtml(row) : playerRowHtml(row, showQualification);
+      bodyHtml += isMapsTab ? mapRowHtml(row) : playerRowHtml(row);
       bodyHtml += detailRowHtml(row);
     });
 
@@ -1568,12 +1521,9 @@
     return '<td><div class="player-cell">' + inner + "</div></td>";
   }
 
-  function playerRowHtml(row, showQualification) {
-    var isUnqualified = showQualification && !row.isQualified;
-    var cls = "player-row" + (isUnqualified ? " unqualified" : "");
-    var mapsCell = !isUnqualified
-      ? row.mapsPlayed
-      : row.mapsPlayed + ' <small>/ ' + state.data.qualification.threshold + "</small>";
+  function playerRowHtml(row) {
+    var cls = "player-row";
+    var mapsCell = row.mapsPlayed;
 
     var metaText = mapsCount(row.mapsPlayed) + " · K " + row.k + " - D " + row.d + " · K/D " + fmt2(row.kd);
 
@@ -1698,7 +1648,6 @@
     el.style.display = "";
     if (!histState.ready) {
       histState.selected = histPlayers()
-        .filter(function (p) { return p.isQualified; })
         .slice(0, HIST_DEFAULT)
         .map(function (p, i) { return { id: p.steamid64, color: HIST_COLORS[i] }; });
       el.innerHTML =
