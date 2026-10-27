@@ -15,7 +15,7 @@ import { formatTournamentText } from "./tournamentText.mjs";
 
 const GUEST_NAME_MAX = 40;
 const RATING_MIN = 1;
-const RATING_MAX = 1500;
+const RATING_MAX = 3000;
 const GUEST_DEFAULT_RATING = 500;
 const TOURNAMENT_TEAMS = 4;
 
