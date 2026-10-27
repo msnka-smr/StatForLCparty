@@ -167,3 +167,12 @@ test("suggestSwaps returns nothing when the spread is within the threshold", () 
   const result = buildTeamVariants(ctx).variants[0];
   assert.deepEqual(suggestSwaps(result, ctx), []);
 });
+
+test("validateRoster uses the caller's team limit in the message and in the check", () => {
+  assert.equal(validateRoster({ selected: 5, captains: 1, maxTeams: 4 }).message, "Капитанов должно быть от 2 до 4");
+  assert.deepEqual(validateRoster({ selected: 25, captains: 5, maxTeams: 4 }), {
+    ok: false,
+    message: "Капитанов должно быть от 2 до 4",
+  });
+  assert.equal(validateRoster({ selected: 20, captains: 4, maxTeams: 4 }).ok, true);
+});

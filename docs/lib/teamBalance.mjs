@@ -9,9 +9,10 @@ export const MAX_TEAMS = 10;
 
 const SEEDS = 40;
 
-export function validateRoster({ selected, captains }) {
-  if (captains < MIN_TEAMS || captains > MAX_TEAMS) {
-    return { ok: false, message: `Капитанов должно быть от ${MIN_TEAMS} до ${MAX_TEAMS}` };
+// maxTeams — предел, который задаёт вызывающий (интерфейс сейчас даёт максимум 4).
+export function validateRoster({ selected, captains, maxTeams = MAX_TEAMS }) {
+  if (captains < MIN_TEAMS || captains > maxTeams) {
+    return { ok: false, message: `Капитанов должно быть от ${MIN_TEAMS} до ${maxTeams}` };
   }
   const needed = captains * TEAM_SIZE;
   if (selected < needed) {

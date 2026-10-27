@@ -89,7 +89,7 @@ export function mountDraft(host, { getPlayers }) {
     if (st.guests.some((g) => !guestValid(g))) {
       return `Рейтинг гостя — целое число от ${RATING_MIN} до ${RATING_MAX}`;
     }
-    const roster = validateRoster({ selected: players.length, captains: caps.length });
+    const roster = validateRoster({ selected: players.length, captains: caps.length, maxTeams: MAX_CAPTAINS });
     if (!roster.ok) return roster.message;
     const locks = validateLocks({ captainIds: caps, locked: currentLocks() });
     return locks.ok ? "" : humanize(locks.message);
