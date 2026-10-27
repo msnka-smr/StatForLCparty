@@ -2,7 +2,7 @@
 // npm run update            — свои матчи (нужна CYBERSHOKE_COOKIE в .env)
 // npm run add -- <id/ссылки> — ручная дозагрузка, дальше то же самое
 // --tournament-file <путь> — создать турнир из текста бота (см. tournament-add.mjs)
-import { execFileSync } from "node:child_process";
+import { execFileSync, spawnSync } from "node:child_process";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -26,7 +26,9 @@ function main() {
   const tournamentFlag = args.indexOf("--tournament-file");
   if (tournamentFlag !== -1) {
     // новый турнир из текста бота: матчи не качаем, только записываем файл турнира
-    run("node", ["scripts/tournament-add.mjs", args[tournamentFlag + 1]]);
+    // без стека: причину отказа уже напечатал и записал сам tournament-add
+    const added = spawnSync("node", ["scripts/tournament-add.mjs", args[tournamentFlag + 1]], { cwd: ROOT, stdio: "inherit" });
+    if (added.status !== 0) process.exit(added.status ?? 1);
   } else {
     run("node", ["scripts/collect.mjs", ...args]);
     // до проверки изменений в data/: смена аватарки в Steam сама по себе повод пересобрать

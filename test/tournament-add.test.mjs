@@ -49,3 +49,15 @@ test("three teams are refused with the parser's message and nothing is written",
   assert.match(r.stderr, /Нужно 4 команды, получено 3/);
   assert.equal(existsSync(ctx.outDir), false);
 });
+
+test("TOURNAMENT_ERROR_FILE receives only the error message", () => {
+  const t = makeTournament();
+  const ctx = setup(formatTournamentText({ createdAt: t.createdAt, teams: t.teams.slice(0, 3) }));
+  const errorFile = path.join(ctx.dir, "error.txt");
+  const r = spawnSync(process.execPath, [CLI, ctx.file], {
+    encoding: "utf8",
+    env: { ...process.env, TOURNAMENTS_DIR: ctx.outDir, TOURNAMENT_ERROR_FILE: errorFile },
+  });
+  assert.equal(r.status, 1);
+  assert.equal(readFileSync(errorFile, "utf8").trim(), "Нужно 4 команды, получено 3");
+});

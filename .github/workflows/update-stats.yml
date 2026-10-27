@@ -1,4 +1,5 @@
 # Кнопка «вставил ссылки → Run workflow» прямо на GitHub (вкладка Actions).
+# Второй вход — tournament: текст «/турнир …» от бота, создаёт файл турнира.
 # Делает то же, что update-stats.bat: скачивает матчи по ссылкам (без ожидания
 # разбора демки — статистика из лобби), пересобирает stats.json, коммитит и пушит.
 name: Обновить статистику
@@ -8,7 +9,13 @@ on:
     inputs:
       links:
         description: "Ссылки на матчи cybershoke через пробел"
-        required: true
+        required: false
+        default: ""
+        type: string
+      tournament:
+        description: "Текст /турнир … с составами (присылает бот)"
+        required: false
+        default: ""
         type: string
 
 permissions:
@@ -30,6 +37,16 @@ jobs:
         with:
           node-version: 24
 
+      - name: Проверить входы
+        env:
+          LINKS: ${{ inputs.links }}
+          TOURNAMENT: ${{ inputs.tournament }}
+        run: |
+          if [ -z "$LINKS" ] && [ -z "$TOURNAMENT" ]; then
+            echo "::error::Нужны ссылки на матчи или текст турнира"
+            exit 1
+          fi
+
       # Запуск из очереди стартует с коммита на момент запуска; без pull в счётчик
       # «добавлено» попали бы матчи предыдущего запуска.
       - name: Запомнить число матчей до обновления
@@ -38,6 +55,7 @@ jobs:
           echo "MATCHES_BEFORE=$(ls data/matches | wc -l)" >> "$GITHUB_ENV"
 
       - name: Проверка связи с cybershoke
+        if: inputs.links != ''
         run: |
           node --input-type=module -e '
           const res = await fetch("https://cybershoke.net/api/api/v1/custom-matches/lobbys/info", {
@@ -56,7 +74,19 @@ jobs:
           }
           '
 
+      - name: Создать турнир, пересобрать, закоммитить
+        if: inputs.tournament != ''
+        env:
+          TOURNAMENT: ${{ inputs.tournament }}
+          TOURNAMENT_ERROR_FILE: ${{ runner.temp }}/tournament-error.txt
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898333+github-actions[bot]@users.noreply.github.com"
+          printf '%s\n' "$TOURNAMENT" > "$RUNNER_TEMP/tournament.txt"
+          node scripts/update.mjs --tournament-file "$RUNNER_TEMP/tournament.txt"
+
       - name: Скачать матчи, пересобрать, закоммитить
+        if: inputs.links != ''
         env:
           LINKS: ${{ inputs.links }}
         run: |
@@ -88,10 +118,21 @@ jobs:
           TG_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TG_CHAT: ${{ secrets.TELEGRAM_CHAT_ID }}
           JOB_STATUS: ${{ job.status }}
+          IS_TOURNAMENT: ${{ inputs.tournament != '' }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
           if [ -z "$TG_TOKEN" ] || [ -z "$TG_CHAT" ]; then
             echo "Секреты Telegram не заданы — пропускаю оповещение"
+            exit 0
+          fi
+          if [ "$IS_TOURNAMENT" = "true" ]; then
+            if [ "$JOB_STATUS" = "success" ]; then
+              TEXT="Турнир создан. Сайт обновится через минуту-две."
+            else
+              REASON=$(head -c 300 "$RUNNER_TEMP/tournament-error.txt" 2>/dev/null | tr '\n' ' ')
+              TEXT="Не удалось создать турнир: ${REASON:-неизвестная ошибка}. Лог: $RUN_URL"
+            fi
+            curl -sS -X POST "https://api.telegram.org/bot${TG_TOKEN}/sendMessage" --data-urlencode "chat_id=${TG_CHAT}" --data-urlencode "text=${TEXT}" --data-urlencode "disable_web_page_preview=true" || true
             exit 0
           fi
           AFTER=$(ls data/matches | wc -l)
