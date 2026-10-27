@@ -324,8 +324,8 @@ test("the worst K/D record explains what it measures and its threshold", () => {
   assert.equal(r.hint, `минимум ${MIN_DEATHS_FOR_KD} смертей на карте, иначе не считается`);
 });
 
-// Железная посещаемость показывает ВСЕХ, кто делит первое место (решение 2026-10-22):
-// это те, кто ходит с первой сессии и ни разу не пропустил, «и ещё N» тут только путало бы.
+// Железная посещаемость показывает ВСЕХ, кто делит первое место, пока их не больше 5
+// (решение 2026-10-22; при большем числе лидеров — правило 2026-10-27, см. тесты ниже).
 test("attendance streak shows every leader sharing first place, with nobody left in more", () => {
   const ids = ["A", "B", "C", "D", "E"];
   const sessions = sessionsOf(
@@ -346,4 +346,50 @@ test("attendance streak still fills up to three rows when there are fewer leader
   const r = rec(computeRecords(sessions.flatMap((s) => s.maps), sessions), "attendance-streak");
   assert.deepEqual(r.top.map((e) => [e.steamid64, e.value, e.place]), [["A", 3, 1], ["B", 3, 1], ["C", 2, 3]]);
   assert.equal(r.more, 1, "D has the same 2 as C and does not fit, as in every other record");
+});
+
+// Железная посещаемость: до 5 лидеров показываем всех, больше 5 — первые 5 по алфавиту
+// и «и ещё N с таким же результатом» (решение 2026-10-27).
+function attendanceOf(ids, options) {
+  const sessions = sessionsOf(
+    ...[1, 2].map((day) => [mapOf({ day, players: ids.map((id) => p(id, 10, 10, true)) })])
+  );
+  return rec(computeRecords(sessions.flatMap((s) => s.maps), sessions, options), "attendance-streak");
+}
+
+test("attendance streak: more than five leaders show the first five alphabetically and the rest in more", () => {
+  const r = attendanceOf(["F", "B", "E", "A", "D", "C"]);
+  assert.deepEqual(r.top.map((e) => e.steamid64), ["A", "B", "C", "D", "E"]);
+  assert.deepEqual(r.top.map((e) => e.place), [1, 1, 1, 1, 1]);
+  assert.equal(r.more, 1);
+});
+
+test("attendance streak: twenty leaders give five rows and 'more' = 15", () => {
+  const ids = Array.from({ length: 20 }, (_, i) => "P" + String(i).padStart(2, "0"));
+  const r = attendanceOf(ids);
+  assert.equal(r.top.length, 5);
+  assert.equal(r.more, 15);
+});
+
+test("attendance streak: exactly five leaders are all shown and more is 0", () => {
+  const r = attendanceOf(["E", "D", "C", "B", "A"]);
+  assert.equal(r.top.length, 5);
+  assert.equal(r.more, 0);
+});
+
+test("attendance streak: alphabetical order follows the player names, not the steam ids", () => {
+  const names = { 1: "Яна", 2: "Аня", 3: "Борис", 4: "Вера", 5: "Гена", 6: "Дима" };
+  const r = attendanceOf(["1", "2", "3", "4", "5", "6"], { nameOf: (id) => names[id] });
+  assert.deepEqual(r.top.map((e) => e.steamid64), ["2", "3", "4", "5", "6"]);
+  assert.equal(r.more, 1);
+});
+
+test("attendance streak: names come from the maps when no nameOf is given", () => {
+  const ids = ["a", "b", "c", "d", "e", "f"];
+  const nameById = { a: "Ж", b: "Б", c: "В", d: "Г", e: "Д", f: "А" };
+  const sessions = sessionsOf(
+    ...[1, 2].map((day) => [mapOf({ day, players: ids.map((id) => ({ ...p(id, 10, 10, true), name: nameById[id] })) })])
+  );
+  const r = rec(computeRecords(sessions.flatMap((s) => s.maps), sessions), "attendance-streak");
+  assert.deepEqual(r.top.map((e) => e.steamid64), ["f", "b", "c", "d", "e"]);
 });

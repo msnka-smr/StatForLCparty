@@ -214,7 +214,7 @@ async function main() {
     allTime: { players: allTimeRowsSorted },
     sessions: sessionsOutput,
     ratingHistory: ratingHistoryOut,
-    records: computeRecords(sortedMaps, sessions),
+    records: computeRecords(sortedMaps, sessions, { nameOf: (id) => displayName(registry, id) }),
     maps: mapsOutput,
     tournaments: buildTournamentsOutput(await loadTournaments(), sortedMaps),
   };

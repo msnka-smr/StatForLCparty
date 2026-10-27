@@ -3,8 +3,10 @@
 // матчевые — по картам. Равные значения делят место (1, 1, 1 или 1, 2, 2), а
 // игроки с таким же результатом, не поместившиеся в топ-3, считаются в `more`
 // ("и ещё N с таким же результатом"); исключение — «Железная посещаемость»: там
-// показаны все, кто делит 1-е место. Порядок среди равных детерминирован:
-// раньше достигший — выше, затем по mapId/steamid64.
+// показаны все, кто делит 1-е место, если их не больше ATTENDANCE_MAX_LISTED (5);
+// если больше — первые 5 по алфавиту имён и «и ещё N» (решение 2026-10-27).
+// Порядок среди равных детерминирован: раньше достигший — выше, затем по
+// mapId/steamid64.
 //
 // maps и sessions должны идти от старой к новой (так их отдаёт build.mjs):
 // серии строятся по порядку входа, сам модуль не сортирует.
@@ -12,6 +14,7 @@ export const MIN_KILLS_FOR_KD = 15; // иначе 5/0 побеждал бы 30/1
 export const MIN_DEATHS_FOR_KD = 10;
 export const MIN_STREAK = 2;
 export const TOP_N = 3;
+export const ATTENDANCE_MAX_LISTED = 5;
 
 const matchUrl = (lobbyId) => `https://cybershoke.net/match/${lobbyId}`;
 const kdOf = (p) => (p.d > 0 ? p.k / p.d : p.k);
@@ -33,8 +36,12 @@ function pickTop(candidates, dir, { allLeaders = false } = {}) {
     if (i === 0 || c.rank !== sorted[i - 1].rank) place = i + 1;
     c.place = place;
   });
-  // allLeaders: всех, кто делит 1-е место, показываем даже сверх TOP_N
-  const limit = allLeaders ? Math.max(TOP_N, sorted.filter((c) => c.place === 1).length) : TOP_N;
+  // allLeaders: всех, кто делит 1-е место, показываем даже сверх TOP_N — но не
+  // больше ATTENDANCE_MAX_LISTED, остальные уходят в more
+  const leaders = sorted.filter((c) => c.place === 1).length;
+  const limit = allLeaders
+    ? leaders > ATTENDANCE_MAX_LISTED ? ATTENDANCE_MAX_LISTED : Math.max(TOP_N, leaders)
+    : TOP_N;
   const top = sorted.slice(0, limit);
   const lastRank = top.length ? top[top.length - 1].rank : null;
   const more = sorted.slice(limit).filter((c) => c.rank === lastRank).length;
@@ -88,12 +95,25 @@ function longestRun(items, predicate) {
   });
   return best;
 }
-function streakTop(runsByPlayer, options) {
+// alphabetical (nameOf): среди равных порядок по имени (русская сортировка), а не
+// по тому, кто достиг серии раньше.
+function streakTop(runsByPlayer, options = {}) {
+  const { nameOf, ...pickOptions } = options;
   const candidates = [];
   for (const [steamid64, run] of runsByPlayer) {
     if (run) candidates.push({ steamid64, rank: run.len, playedAt: run.to, tie: steamid64, run });
   }
-  const { top, more } = bestPerPlayer(candidates, "desc", options);
+  if (nameOf) {
+    const collator = new Intl.Collator("ru", { sensitivity: "base" });
+    const ordered = [...candidates].sort(
+      (a, b) => collator.compare(nameOf(a.steamid64), nameOf(b.steamid64)) || (a.steamid64 < b.steamid64 ? -1 : 1)
+    );
+    ordered.forEach((c, i) => {
+      c.playedAt = 0;
+      c.tie = String(i).padStart(6, "0");
+    });
+  }
+  const { top, more } = bestPerPlayer(candidates, "desc", pickOptions);
   return {
     top: top.map((c) => ({ steamid64: c.steamid64, value: c.run.len, from: c.run.from, to: c.run.to, place: c.place })),
     more,
@@ -121,8 +141,13 @@ function matchTop(maps, { rankOf, dir }) {
 const isDraw = (m) => m.teams?.length === 2 && m.teams[0].score != null && m.teams[0].score === m.teams[1].score;
 const withoutDraws = (m) => (isDraw(m) ? { ...m, players: m.players.map((p) => ({ ...p, won: null })) } : m);
 
-export function computeRecords(allMaps, sessions) {
+// options.nameOf(steamid64) → имя для алфавитного порядка (build.mjs подставляет
+// имя из players.json); по умолчанию — последнее имя игрока в картах, иначе id.
+export function computeRecords(allMaps, sessions, options = {}) {
   const maps = allMaps.map(withoutDraws);
+  const lastName = new Map();
+  for (const m of maps) for (const pl of m.players) if (pl.name) lastName.set(pl.steamid64, pl.name);
+  const nameOf = options.nameOf ?? ((id) => lastName.get(id) ?? String(id));
 
   // карты каждого игрока в хронологическом порядке
   const byPlayer = new Map();
@@ -171,7 +196,7 @@ export function computeRecords(allMaps, sessions) {
     record("kd-streak", "streaks", "Серия карт с K/D не ниже 1.0", "карт подряд",
       runs((x) => kdOf(x) >= 1, (x) => x.k === 0 && x.d === 0)), // 0/0 — игрок почти не играл, серию не рвёт
     record("attendance-streak", "streaks", "Железная посещаемость", "сессий подряд",
-      streakTop(attendanceRuns, { allLeaders: true })), // решение 2026-10-22: показываем всех лидеров, не режем до топ-3
+      streakTop(attendanceRuns, { allLeaders: true, nameOf })), // до 5 лидеров показываем всех, больше — первые 5 по алфавиту (2026-10-27)
 
     record("biggest-win", "matches", "Самый крупный разгром", "наибольшая разница в счёте",
       matchTop(maps, { rankOf: (x) => x.diff, dir: "desc" })),
