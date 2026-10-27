@@ -182,13 +182,13 @@ export function computeRecords(allMaps, sessions) {
     record("shortest-map", "matches", "Самая короткая карта", "меньше всего раундов",
       matchTop(maps, { rankOf: (x) => x.rounds, dir: "asc" })),
 
-    record("worst-kd-diff", "oops", "Трудная карта", "убийства минус смерти за одну карту",
+    record("worst-kd-diff", "oops", "Позорный минус", "убийства минус смерти за одну карту: глубже всех в минус",
       personalTop(maps, { filter: (p) => diffOf(p) < 0, rankOf: diffOf, dir: "asc" })),
-    record("worst-kd", "oops", "Карта не задалась (наименьший K/D)", `считается минимум от ${MIN_DEATHS_FOR_KD} смертей на карте`,
+    record("worst-kd", "oops", "Самый жалкий K/D", `минимум ${MIN_DEATHS_FOR_KD} смертей на карте, иначе не считается`,
       personalTop(maps, { filter: (p) => p.d >= MIN_DEATHS_FOR_KD, rankOf: kdOf, dir: "asc", value: kdValue })),
-    record("most-deaths", "oops", "Горячая точка", "больше всего смертей за одну карту",
+    record("most-deaths", "oops", "Мясо для врагов", "больше всего смертей за одну карту: кого только не фармили",
       personalTop(maps, { rankOf: (p) => p.d, dir: "desc" })),
-    record("loss-streak", "oops", "Полоса неудач", "карт подряд",
+    record("loss-streak", "oops", "Позорная серия поражений", "карт подряд, и все проиграны",
       runs((x) => x.won === false)),
   ];
 }

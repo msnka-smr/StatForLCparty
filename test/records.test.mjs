@@ -35,8 +35,8 @@ test("returns 15 records in group order with titles and hints", () => {
     ["personal", "streaks", "matches", "oops"]
   );
   assert.ok(all.every((r) => r.title && r.hint && Array.isArray(r.top)));
-  assert.equal(rec(all, "worst-kd-diff").title, "Трудная карта");
-  assert.equal(rec(all, "loss-streak").title, "Полоса неудач");
+  assert.equal(rec(all, "worst-kd-diff").title, "Позорный минус");
+  assert.equal(rec(all, "loss-streak").title, "Позорная серия поражений");
 });
 
 test("empty input gives empty tops", () => {
@@ -320,8 +320,8 @@ test("a real K/D below 1.0 still breaks the streak next to a 0/0 map", () => {
 
 test("the worst K/D record explains what it measures and its threshold", () => {
   const r = rec(computeRecords([], []), "worst-kd");
-  assert.equal(r.title, "Карта не задалась (наименьший K/D)");
-  assert.equal(r.hint, `считается минимум от ${MIN_DEATHS_FOR_KD} смертей на карте`);
+  assert.equal(r.title, "Самый жалкий K/D");
+  assert.equal(r.hint, `минимум ${MIN_DEATHS_FOR_KD} смертей на карте, иначе не считается`);
 });
 
 // Железная посещаемость показывает ВСЕХ, кто делит первое место (решение 2026-10-22):

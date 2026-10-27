@@ -1,18 +1,20 @@
-// "Итоги вечера": данные для карточки выбранной сессии. MVP и топ-3 — по
-// рейтингу сессии среди ВСЕХ игроков вечера (квалификация "за всё время" не
-// важна: гость или новичок с лучшим вечером тоже может стать MVP). Рост и
-// просадка — изменение рейтинга "за всё время" за этот вечер, из ratingHistory.
+// "Итоги вечера": данные для карточки выбранной сессии. Рейтинга сессии больше
+// нет (ребята играют турниры, оценка вечера не нужна). MVP и топ-3 — по разнице
+// K-D за вечер, при равенстве по K/D, среди ВСЕХ игроков вечера (квалификация
+// "за всё время" не важна: гость или новичок с лучшим вечером тоже может стать
+// MVP). Рост и просадка — изменение рейтинга "за всё время" за этот вечер, из
+// ratingHistory.
 export const TOP_N = 3;
 export const START_RATING = 500; // с него начинается рейтинг "за всё время"
 
 const round2 = (v) => Math.round(v * 100) / 100;
 const byId = (a, b) => String(a.steamid64).localeCompare(String(b.steamid64));
 
-// Рейтинг ↓, затем разница K-D ↓, затем steamid64 — детерминированный порядок.
-function byRatingDesc(a, b) {
+// Разница K-D ↓, затем K/D ↓, затем steamid64 — детерминированный порядок.
+function byKdDiffDesc(a, b) {
   return (
-    (b.rating ?? -Infinity) - (a.rating ?? -Infinity) ||
     (b.kdDiff ?? -Infinity) - (a.kdDiff ?? -Infinity) ||
+    (b.kd ?? -Infinity) - (a.kd ?? -Infinity) ||
     byId(a, b)
   );
 }
@@ -22,11 +24,10 @@ function byRatingDesc(a, b) {
 export function computeRecap(session, ratingHistory) {
   const players = session.players ?? [];
   const top = [...players]
-    .sort(byRatingDesc)
+    .sort(byKdDiffDesc)
     .slice(0, TOP_N)
     .map((p) => ({
       steamid64: p.steamid64,
-      rating: p.rating,
       kd: p.kd == null ? null : round2(p.kd),
       kdDiff: p.kdDiff,
       wins: p.wins,

@@ -2,31 +2,31 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { computeRecap, TOP_N, START_RATING } from "../scripts/lib/recap.mjs";
 
-const row = (steamid64, rating, extra = {}) => ({
-  steamid64, rating, kd: 1.5, kdDiff: 10, wins: 2, mapsPlayed: 3, isQualified: true, ...extra,
+const row = (steamid64, kdDiff, extra = {}) => ({
+  steamid64, kdDiff, kd: 1.5, wins: 2, mapsPlayed: 3, isQualified: true, ...extra,
 });
 const session = (id, players) => ({ id, players });
 const history = (ids, players) => ({ sessions: ids.map((id) => ({ id })), players });
 
-test("top lists the best three by session rating, MVP first", () => {
-  const s = session("S1", [row("A", 500), row("B", 800), row("C", 650), row("D", 700)]);
+test("top lists the best three by K-D difference, MVP first", () => {
+  const s = session("S1", [row("A", 5), row("B", 20), row("C", 12), row("D", 15)]);
   const { top } = computeRecap(s, undefined);
   assert.equal(TOP_N, 3);
   assert.deepEqual(top.map((t) => t.steamid64), ["B", "D", "C"]);
 });
 
-test("top entries carry rating, rounded kd, kdDiff, wins and maps", () => {
-  const s = session("S1", [row("A", 700, { kd: 1.23456, kdDiff: 7, wins: 4, mapsPlayed: 5 })]);
+test("top entries carry rounded kd, kdDiff, wins and maps and no session rating", () => {
+  const s = session("S1", [row("A", 7, { kd: 1.23456, wins: 4, mapsPlayed: 5 })]);
   assert.deepEqual(computeRecap(s, undefined).top, [
-    { steamid64: "A", rating: 700, kd: 1.23, kdDiff: 7, wins: 4, maps: 5 },
+    { steamid64: "A", kd: 1.23, kdDiff: 7, wins: 4, maps: 5 },
   ]);
 });
 
-test("equal rating: higher K-D difference first, then steamid64", () => {
+test("equal K-D difference: higher K/D first, then steamid64", () => {
   const s = session("S1", [
-    row("C", 700, { kdDiff: 5 }),
-    row("B", 700, { kdDiff: 9 }),
-    row("A", 700, { kdDiff: 5 }),
+    row("C", 5, { kd: 1.2 }),
+    row("B", 5, { kd: 1.8 }),
+    row("A", 5, { kd: 1.2 }),
   ]);
   assert.deepEqual(computeRecap(s, undefined).top.map((t) => t.steamid64), ["B", "A", "C"]);
 });
@@ -90,13 +90,13 @@ test("no history or an unknown session gives null rise and drop", () => {
   assert.equal(out.drop, null);
 });
 
-test("a missing rating sorts last and does not break the order", () => {
-  const s = session("S1", [row("A", null), row("B", 600), row("C", 700)]);
+test("a missing K-D difference sorts last and does not break the order", () => {
+  const s = session("S1", [row("A", null), row("B", 3), row("C", 7)]);
   assert.deepEqual(computeRecap(s, undefined).top.map((x) => x.steamid64), ["C", "B", "A"]);
 });
 
-test("at equal rating a missing K-D difference ranks below a known one", () => {
-  const s = session("S1", [row("A", 700, { kdDiff: null }), row("B", 700, { kdDiff: -5 })]);
+test("at equal K-D difference a missing K/D ranks below a known one", () => {
+  const s = session("S1", [row("A", 5, { kd: null }), row("B", 5, { kd: 1 })]);
   assert.deepEqual(computeRecap(s, undefined).top.map((x) => x.steamid64), ["B", "A"]);
 });
 

@@ -1071,6 +1071,10 @@
     { id: "kd", label: "K/D", fmt: fmt2, collapseMobile: true },
     { id: "rating", label: "Рейтинг", fmt: fmtRating },
   ];
+  // На вкладке "Сессии" рейтинга нет (ребята играют турниры, оценка вечера не
+  // нужна): вместо него разница K-D за вечер. Рейтинг считается только "за всё время".
+  var SESSION_COLUMNS = REQUIRED_COLUMNS.filter(function (c) { return c.id !== "rating"; })
+    .concat([{ id: "kdDiff", label: "K-D", fmt: fmtDiff }]);
   // На телефоне Карт/K/D/K-D-ratio прячутся как отдельные колонки, но не
   // теряются — переезжают строкой под именем игрока (см. .player-meta).
 
@@ -1130,10 +1134,15 @@
   // ними не сбрасывает сортировку). У "Карты" свой набор колонок (нет
   // "рейтинга"), поэтому своя пара с собственным дефолтом (K/D).
   function currentColumns() {
-    return state.tab === "maps" ? MAP_COLUMNS : REQUIRED_COLUMNS;
+    if (state.tab === "maps") return MAP_COLUMNS;
+    return state.tab === "lastSession" ? SESSION_COLUMNS : REQUIRED_COLUMNS;
   }
   function getSortColumn() {
-    return state.tab === "maps" ? state.mapSortColumn : state.sortColumn;
+    if (state.tab === "maps") return state.mapSortColumn;
+    // сортировка общая для "За всё время" и "Сессии": там нет колонки рейтинга, здесь — K-D
+    if (state.tab === "lastSession" && state.sortColumn === "rating") return "kdDiff";
+    if (state.tab !== "lastSession" && state.sortColumn === "kdDiff") return "rating";
+    return state.sortColumn;
   }
   function getSortDirection() {
     return state.tab === "maps" ? state.mapSortDirection : state.sortDirection;
@@ -1580,7 +1589,11 @@
         '<span class="rating-delta ' + ratingDeltaClass(row.ratingDelta) + '">' + fmtRatingDelta(row.ratingDelta) + "</span>" +
         ratingHtml + "</span>";
     }
-    cells += "<td>" + ratingHtml + "</td>";
+    if (state.tab === "lastSession") {
+      cells += "<td>" + fmtDiff(row.kdDiff) + "</td>";
+    } else {
+      cells += "<td>" + ratingHtml + "</td>";
+    }
 
     return '<tr class="' + cls + '" data-steamid="' + row.steamid64 + '">' + cells + "</tr>";
   }
@@ -1947,7 +1960,7 @@
     { id: "personal", title: "Личные рекорды" },
     { id: "streaks", title: "Серии" },
     { id: "matches", title: "Матчи" },
-    { id: "oops", title: "Бывает с каждым" },
+    { id: "oops", title: "Зал позора" },
   ];
 
   function formatDay(sec) {
@@ -2229,7 +2242,7 @@
     }, 5000);
   }
 
-  // Чисто for fun: "Оправдалка" на вкладке "Сессии" — облако мемных
+  // Чисто for fun: "Генератор отмаз" на вкладке "Сессии" — облако мемных
   // отмазок игроков CS2; кнопка по очереди зажигает 3–5 случайных (с ✅, как в
   // меме), без привязки к конкретному игроку. Облако — 3D-сфера: теги
   // лежат на сфере (спираль Фибоначчи), сама она медленно вращается и
@@ -2347,9 +2360,9 @@
 
     el.innerHTML =
       '<div class="excuse-section">' +
-        '<div class="excuse-title">Оправдалка</div>' +
+        '<div class="excuse-title">Генератор отмаз</div>' +
         '<div class="excuse-controls">' +
-          '<button type="button" class="wheel-spin-btn" id="excuseBtn">Найти оправдание</button>' +
+          '<button type="button" class="wheel-spin-btn" id="excuseBtn">Почему я просрал</button>' +
         "</div>" +
         '<div class="excuse-cloud" id="excuseCloud">' + tagsHtml + "</div>" +
         '<div class="excuse-result" id="excuseResult"></div>' +
@@ -2436,7 +2449,7 @@
       date: sessionDate(s.id),
       sub: mapsCount(s.maps.length) + (hours ? " · ~" + hours + " ч" : ""),
       top: r.top.map(function (e) {
-        return { name: nameOf(e.steamid64), rating: e.rating, kd: e.kd, kdDiff: e.kdDiff, wins: e.wins, maps: e.maps };
+        return { name: nameOf(e.steamid64), kd: e.kd, kdDiff: e.kdDiff, wins: e.wins, maps: e.maps };
       }),
       rise: r.rise ? { name: nameOf(r.rise.steamid64), delta: r.rise.delta } : null,
       drop: r.drop ? { name: nameOf(r.drop.steamid64), delta: r.drop.delta } : null,
@@ -2450,8 +2463,8 @@
   function recapAriaLabel(m) {
     var parts = ["Итоги вечера " + m.date + ". " + m.sub + "."];
     if (m.top.length) {
-      parts.push("MVP вечера: " + m.top[0].name + ", рейтинг " + fmtRating(m.top[0].rating) + ".");
-      parts.push("Топ-3: " + m.top.map(function (t, i) { return (i + 1) + ". " + t.name + " " + fmtRating(t.rating); }).join("; ") + ".");
+      parts.push("MVP вечера: " + m.top[0].name + ", K-D " + fmtDiff(m.top[0].kdDiff) + ".");
+      parts.push("Топ-3: " + m.top.map(function (t, i) { return (i + 1) + ". " + t.name + " " + fmtDiff(t.kdDiff); }).join("; ") + ".");
     }
     if (m.rise) parts.push("Больше всего вырос: " + m.rise.name + " " + fmtRatingDelta(m.rise.delta) + ".");
     if (m.drop) parts.push("Больше всего просел: " + m.drop.name + " " + fmtRatingDelta(m.drop.delta) + ".");
@@ -2525,7 +2538,7 @@
       panel(P, y, inner, 236);
       text("MVP вечера", P + 36, y + 56, 26, "600", C.accent);
       text(mvp.name, P + 36, y + 128, 64, "700", C.text, "left", inner - 72);
-      var stats = "Рейтинг " + fmtRating(mvp.rating) + " · K/D " + fmt2(mvp.kd) + " · K-D " + recapMinus(fmtDiff(mvp.kdDiff));
+      var stats = "K-D " + recapMinus(fmtDiff(mvp.kdDiff)) + " · K/D " + fmt2(mvp.kd);
       if (typeof mvp.wins === "number" && typeof mvp.maps === "number") stats += " · побед " + mvp.wins + " из " + mvp.maps;
       text(stats, P + 36, y + 188, 30, "400", C.dim, "left", inner - 72);
       y += 236 + 32;
@@ -2535,7 +2548,7 @@
       m.top.forEach(function (t, i) {
         text(String(i + 1), P + 8, y + 40, 38, "700", C.accent);
         text(t.name, P + 64, y + 40, 38, "500", C.text, "left", inner - 64 - 330);
-        text(fmtRating(t.rating) + " · K/D " + fmt2(t.kd), W - P, y + 40, 32, "400", C.dim, "right");
+        text("K-D " + recapMinus(fmtDiff(t.kdDiff)) + " · K/D " + fmt2(t.kd), W - P, y + 40, 32, "400", C.dim, "right");
         y += 64;
       });
       y += 24;

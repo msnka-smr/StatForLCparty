@@ -1,10 +1,9 @@
 // Секция "sessions" для stats.json: все игровые вечера, от новых к старым.
-// Для каждой сессии рейтинг игрока — статический (calcSessionRating по картам
-// только этой сессии), та же логика, что раньше считалась только для последней.
-import { calcSessionRating } from "./sessionRating.mjs";
+// Рейтинг сессии не считается (ребята играют турниры): строки игроков идут без
+// него, порядок — по разнице K-D за вечер. Рейтинг есть только «за всё время».
 import { sortRows } from "./sort.mjs";
 
-// makeRow(steamid64, mapsForPlayer, sessionRating) → строка игрока для таблицы.
+// makeRow(steamid64, mapsForPlayer, rating) → строка игрока для таблицы; rating всегда null.
 export function buildSessionOutput(session, makeRow) {
   const byPlayer = new Map();
   for (const map of session.maps) {
@@ -15,7 +14,7 @@ export function buildSessionOutput(session, makeRow) {
     }
   }
   const rows = [...byPlayer.entries()].map(([steamid64, mapsForPlayer]) =>
-    makeRow(steamid64, mapsForPlayer, calcSessionRating(mapsForPlayer))
+    makeRow(steamid64, mapsForPlayer, null)
   );
 
   return {
@@ -30,7 +29,7 @@ export function buildSessionOutput(session, makeRow) {
       teams: m.teams,
       url: `https://cybershoke.net/match/${m.lobbyId}`,
     })),
-    players: sortRows(rows, "rating", "desc"),
+    players: sortRows(rows, "kdDiff", "desc"),
   };
 }
 

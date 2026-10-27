@@ -6,6 +6,7 @@ import { buildSessionOutput, buildSessionsOutput } from "../scripts/lib/sessions
 const makeRow = (steamid64, maps, rating) => ({
   steamid64,
   rating,
+  kdDiff: maps.reduce((s, m) => s + m.k - m.d, 0),
   isQualified: true,
   mapsPlayed: maps.length,
   rounds: maps.map((m) => m.mapTotalRounds),
@@ -65,10 +66,19 @@ test("each session only contains its own maps and players", () => {
   assert.equal(newer.maps[0].lobbyId, 2);
 });
 
-test("players are sorted by session rating descending", () => {
+test("players are sorted by K-D difference descending", () => {
   const out = buildSessionOutput(sessionOf("2026-01-10", [mapOf(1, [weak, strong])]), makeRow);
   assert.deepEqual(out.players.map((p) => p.steamid64), ["A", "B"]);
-  assert.ok(out.players[0].rating > out.players[1].rating);
+  assert.ok(out.players[0].kdDiff > out.players[1].kdDiff);
+});
+
+test("no session rating is calculated: makeRow always gets null", () => {
+  const seen = [];
+  buildSessionOutput(sessionOf("2026-01-10", [mapOf(1, [strong, weak])]), (id, maps, rating) => {
+    seen.push(rating);
+    return makeRow(id, maps, rating);
+  });
+  assert.deepEqual(seen, [null, null]);
 });
 
 test("makeRow receives maps with the per-map round count", () => {
