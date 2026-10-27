@@ -144,3 +144,22 @@ test("a tournament with no matches has empty zero rows", () => {
   assert.equal(v.status, "circle");
   assert.ok(v.teams.every((t) => t.played === 0 && t.wins === 0 && t.kd === null && t.rank === null));
 });
+
+test("a rematch played before the circle ended is not taken for the final", () => {
+  // лобби 1 — игра круга 1–2, лобби 2 — переигровка той же пары до конца круга,
+  // лобби 3–7 — остальные пять игр круга, лобби 8 — настоящий финал 1–2
+  const matches = [
+    match(1, 1, 2, 1),
+    match(2, 1, 2, 2),
+    match(3, 1, 3, 1),
+    match(4, 1, 4, 1),
+    match(5, 2, 3, 2),
+    match(6, 2, 4, 2),
+    match(7, 3, 4, 3),
+    match(8, 1, 2, 2),
+  ];
+  const v = view(matches);
+  assert.equal(v.final.lobbyId, 8);
+  assert.equal(v.final.winner, 2);
+  assert.deepEqual(v.unattributed, [{ lobbyId: 2, reason: "Повторный матч пары до окончания круга" }]);
+});

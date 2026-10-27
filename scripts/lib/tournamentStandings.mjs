@@ -12,6 +12,7 @@ export const ROUND_ROBIN_SCHEDULE = [
 const CIRCLE_SIZE = 6;
 const REPEAT_REASON = "Повторный матч пары, не относящийся к плей-офф";
 const CIRCLE_OPEN_REASON = "Круг ещё не закончен";
+const EARLY_REPEAT_REASON = "Повторный матч пары до окончания круга";
 
 const pairKey = (a, b) => (a < b ? `${a}-${b}` : `${b}-${a}`);
 
@@ -109,9 +110,13 @@ export function buildTournamentView(tournament, attributed) {
   if (circleDone) {
     final = emptySlot(order[0], order[1]);
     third = emptySlot(order[2], order[3]);
+    // Плей-офф идёт только после шестого матча круга: переигровка, сыгранная
+    // раньше, не может стать финалом.
+    const circleEnd = Math.max(...circle.map((m) => m.playedAt));
     for (const m of rest) {
       const key = pairKey(m.a, m.b);
-      if (key === pairKey(final.a, final.b) && final.lobbyId === null) final = slotOf(m);
+      if (m.playedAt <= circleEnd) unattributed.push({ lobbyId: m.lobbyId, reason: EARLY_REPEAT_REASON });
+      else if (key === pairKey(final.a, final.b) && final.lobbyId === null) final = slotOf(m);
       else if (key === pairKey(third.a, third.b) && third.lobbyId === null) third = slotOf(m);
       else unattributed.push({ lobbyId: m.lobbyId, reason: REPEAT_REASON });
     }
