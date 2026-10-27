@@ -1,0 +1,126 @@
+{
+  "id": "2026-10-27-1111",
+  "createdAt": "2026-10-27T11:11:16.980Z",
+  "teams": [
+    {
+      "number": 1,
+      "players": [
+        {
+          "name": "миша",
+          "steamid64": null,
+          "captain": true
+        },
+        {
+          "name": "Гость 10",
+          "steamid64": null,
+          "captain": false
+        },
+        {
+          "name": "Гость 17",
+          "steamid64": null,
+          "captain": false
+        },
+        {
+          "name": "Гость 11",
+          "steamid64": null,
+          "captain": false
+        },
+        {
+          "name": "Гость 6",
+          "steamid64": null,
+          "captain": false
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "players": [
+        {
+          "name": "дима",
+          "steamid64": null,
+          "captain": true
+        },
+        {
+          "name": "Гость 7",
+          "steamid64": null,
+          "captain": false
+        },
+        {
+          "name": "Гость 19",
+          "steamid64": null,
+          "captain": false
+        },
+        {
+          "name": "Гость 14",
+          "steamid64": null,
+          "captain": false
+        },
+        {
+          "name": "Гость 18",
+          "steamid64": null,
+          "captain": false
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "players": [
+        {
+          "name": "саша",
+          "steamid64": null,
+          "captain": true
+        },
+        {
+          "name": "Гость 12",
+          "steamid64": null,
+          "captain": false
+        },
+        {
+          "name": "Гость 9",
+          "steamid64": null,
+          "captain": false
+        },
+        {
+          "name": "Гость 16",
+          "steamid64": null,
+          "captain": false
+        },
+        {
+          "name": "Гость 8",
+          "steamid64": null,
+          "captain": false
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "players": [
+        {
+          "name": "влад",
+          "steamid64": null,
+          "captain": true
+        },
+        {
+          "name": "Гость 13",
+          "steamid64": null,
+          "captain": false
+        },
+        {
+          "name": "Гость 15",
+          "steamid64": null,
+          "captain": false
+        },
+        {
+          "name": "Гость 20",
+          "steamid64": null,
+          "captain": false
+        },
+        {
+          "name": "Гость 5",
+          "steamid64": null,
+          "captain": false
+        }
+      ]
+    }
+  ]
+}

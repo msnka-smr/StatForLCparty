@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-27T05:48:23.062Z",
+  "generatedAt": "2026-10-27T11:11:57.512Z",
   "totalMapsCollected": 0,
   "qualification": {
     "threshold": 5,
@@ -138,5 +138,238 @@
       "more": 0
     }
   ],
-  "maps": []
+  "maps": [],
+  "tournaments": [
+    {
+      "id": "2026-10-27-1111",
+      "createdAt": "2026-10-27T11:11:16.980Z",
+      "status": "circle",
+      "teams": [
+        {
+          "number": 1,
+          "captain": "миша",
+          "players": [
+            {
+              "name": "миша",
+              "steamid64": null,
+              "captain": true
+            },
+            {
+              "name": "Гость 10",
+              "steamid64": null,
+              "captain": false
+            },
+            {
+              "name": "Гость 17",
+              "steamid64": null,
+              "captain": false
+            },
+            {
+              "name": "Гость 11",
+              "steamid64": null,
+              "captain": false
+            },
+            {
+              "name": "Гость 6",
+              "steamid64": null,
+              "captain": false
+            }
+          ],
+          "played": 0,
+          "wins": 0,
+          "roundDiff": 0,
+          "kd": null,
+          "rank": null
+        },
+        {
+          "number": 2,
+          "captain": "дима",
+          "players": [
+            {
+              "name": "дима",
+              "steamid64": null,
+              "captain": true
+            },
+            {
+              "name": "Гость 7",
+              "steamid64": null,
+              "captain": false
+            },
+            {
+              "name": "Гость 19",
+              "steamid64": null,
+              "captain": false
+            },
+            {
+              "name": "Гость 14",
+              "steamid64": null,
+              "captain": false
+            },
+            {
+              "name": "Гость 18",
+              "steamid64": null,
+              "captain": false
+            }
+          ],
+          "played": 0,
+          "wins": 0,
+          "roundDiff": 0,
+          "kd": null,
+          "rank": null
+        },
+        {
+          "number": 3,
+          "captain": "саша",
+          "players": [
+            {
+              "name": "саша",
+              "steamid64": null,
+              "captain": true
+            },
+            {
+              "name": "Гость 12",
+              "steamid64": null,
+              "captain": false
+            },
+            {
+              "name": "Гость 9",
+              "steamid64": null,
+              "captain": false
+            },
+            {
+              "name": "Гость 16",
+              "steamid64": null,
+              "captain": false
+            },
+            {
+              "name": "Гость 8",
+              "steamid64": null,
+              "captain": false
+            }
+          ],
+          "played": 0,
+          "wins": 0,
+          "roundDiff": 0,
+          "kd": null,
+          "rank": null
+        },
+        {
+          "number": 4,
+          "captain": "влад",
+          "players": [
+            {
+              "name": "влад",
+              "steamid64": null,
+              "captain": true
+            },
+            {
+              "name": "Гость 13",
+              "steamid64": null,
+              "captain": false
+            },
+            {
+              "name": "Гость 15",
+              "steamid64": null,
+              "captain": false
+            },
+            {
+              "name": "Гость 20",
+              "steamid64": null,
+              "captain": false
+            },
+            {
+              "name": "Гость 5",
+              "steamid64": null,
+              "captain": false
+            }
+          ],
+          "played": 0,
+          "wins": 0,
+          "roundDiff": 0,
+          "kd": null,
+          "rank": null
+        }
+      ],
+      "rounds": [
+        {
+          "round": 1,
+          "matches": [
+            {
+              "a": 1,
+              "b": 3,
+              "lobbyId": null,
+              "scoreA": null,
+              "scoreB": null,
+              "winner": null,
+              "url": null
+            },
+            {
+              "a": 2,
+              "b": 4,
+              "lobbyId": null,
+              "scoreA": null,
+              "scoreB": null,
+              "winner": null,
+              "url": null
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "matches": [
+            {
+              "a": 1,
+              "b": 2,
+              "lobbyId": null,
+              "scoreA": null,
+              "scoreB": null,
+              "winner": null,
+              "url": null
+            },
+            {
+              "a": 3,
+              "b": 4,
+              "lobbyId": null,
+              "scoreA": null,
+              "scoreB": null,
+              "winner": null,
+              "url": null
+            }
+          ]
+        },
+        {
+          "round": 3,
+          "matches": [
+            {
+              "a": 2,
+              "b": 3,
+              "lobbyId": null,
+              "scoreA": null,
+              "scoreB": null,
+              "winner": null,
+              "url": null
+            },
+            {
+              "a": 1,
+              "b": 4,
+              "lobbyId": null,
+              "scoreA": null,
+              "scoreB": null,
+              "winner": null,
+              "url": null
+            }
+          ]
+        }
+      ],
+      "order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "final": null,
+      "third": null,
+      "unattributed": []
+    }
+  ]
 }
